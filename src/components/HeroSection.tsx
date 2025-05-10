@@ -28,7 +28,7 @@ const HeroSection = () => {
           <h1 className="text-5xl md:text-6xl font-bold">
             <span className="block">Hello, I'm</span> 
             <span className="shimmer-text">
-              Kasif Ali
+              Kasi
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
             </span>
           </h1>
@@ -64,7 +64,7 @@ const HeroSection = () => {
             <div className="absolute w-[110%] h-[110%] rounded-full border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
             
             <img 
-              alt="Kasif Ali" 
+              alt="Kasi" 
               className="w-72 h-72 rounded-full object-cover border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300" 
               src="/lovable-uploads/7ae6d604-a516-4f4a-a0bb-92c21f30ab34.jpg" 
             />
