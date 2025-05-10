@@ -74,7 +74,7 @@
   }
   
   .name-highlight {
-    @apply font-tahoma italic text-[3.5rem] md:text-[4.5rem] font-bold;
+    @apply font-tahoma text-[3.5rem] md:text-[4.5rem] font-bold;
   }
 }
 
