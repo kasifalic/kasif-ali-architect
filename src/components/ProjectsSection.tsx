@@ -7,17 +7,17 @@ const ProjectsSection = () => {
     {
       title: "Hybrid Infra Stack for Genomics Workflows",
       description: "AWS + Proxmox + Synology with ZTNA & automation, reduced costs by 40%",
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/ae7211d6-4c92-4305-92e6-ddfadd908b24.png"
     },
     {
       title: "AI-native IT Agentic System",
       description: "Implemented Make, CrewAI, Freddy AI for automated support & workflows",
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/5acc5096-b806-4e21-bcd1-35bf9b13715f.png"
     },
     {
       title: "Remote-First Infra for Extreme Networks",
       description: "Reduced infra footprint while increasing uptime and support SLAs",
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/f504a97a-fc4e-431e-a158-d1412245dd65.png"
     },
     {
       title: "Global Onboarding Automation System",
