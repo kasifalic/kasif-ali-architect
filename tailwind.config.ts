@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,6 +22,7 @@ export default {
       fontFamily: {
         "space-grotesk": ["Space Grotesk", "sans-serif"],
         "jakarta": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        "tahoma": ["Tahoma", "Geneva", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
