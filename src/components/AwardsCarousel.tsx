@@ -48,7 +48,7 @@ const AwardsCarousel = () => {
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Award Winning</span>
           <h2 className="text-2xl font-bold mt-1 flex items-center gap-2">
             <Trophy className="text-amber-400" size={20} />
-            India's First GenAI Buildathon Achievement
+            <span className="shimmer-text">India's First GenAI Buildathon Achievement</span>
           </h2>
         </div>
         
