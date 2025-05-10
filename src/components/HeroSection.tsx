@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 
 const HeroSection = () => {
   // Animation references
