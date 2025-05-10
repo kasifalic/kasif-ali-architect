@@ -75,10 +75,6 @@ const HeroSection = () => {
             Automation-First IT | GenAI Evangelist
           </h2>
           
-          <p className="text-lg text-muted-foreground max-w-md">
-            Architecting scalable, secure, and AI-native IT systems
-          </p>
-          
           <div className="flex flex-wrap gap-4">
             <Button className="bg-primary hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
               View Portfolio
