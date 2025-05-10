@@ -1,18 +1,14 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Mail, ArrowDown, Linkedin } from "lucide-react";
-
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect"];
   const [displayedRole, setDisplayedRole] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(150);
-
   useEffect(() => {
     const currentRole = roles[roleIndex];
-    
     const typeEffect = () => {
       if (!isDeleting) {
         // Typing
@@ -37,13 +33,10 @@ const HeroSection = () => {
         }
       }
     };
-
     const timer = setTimeout(typeEffect, typingSpeed);
     return () => clearTimeout(timer);
   }, [displayedRole, isDeleting, roleIndex]);
-
-  return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20">
+  return <section id="home" className="relative min-h-screen flex items-center pt-20">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden -z-10">
         <div className="absolute w-72 h-72 rounded-full bg-primary/20 top-1/4 -left-32 blur-3xl animate-pulse-slow"></div>
@@ -71,15 +64,10 @@ const HeroSection = () => {
             </span>
           </h1>
           
-          <h2 className="text-2xl font-medium text-muted-foreground">
-            Automation-First IT | GenAI Evangelist
-          </h2>
+          <h2 className="text-2xl font-medium text-muted-foreground">Automation-First | GenAI Evangelist</h2>
           
           <div className="flex flex-wrap gap-4">
-            <Button 
-              className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2"
-              onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}
-            >
+            <Button className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2" onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}>
               <Linkedin size={18} /> Connect on LinkedIn
             </Button>
             <Button variant="outline" className="flex items-center gap-2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 transition-all">
@@ -100,11 +88,7 @@ const HeroSection = () => {
             <div className="absolute w-full h-full rounded-full border border-primary/20 animate-spin-slow"></div>
             <div className="absolute w-[110%] h-[110%] rounded-full border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
             
-            <img 
-              alt="Kasi" 
-              className="w-72 h-72 rounded-full object-cover border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300" 
-              src="/lovable-uploads/7ae6d604-a516-4f4a-a0bb-92c21f30ab34.jpg" 
-            />
+            <img alt="Kasi" className="w-72 h-72 rounded-full object-cover border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300" src="/lovable-uploads/7ae6d604-a516-4f4a-a0bb-92c21f30ab34.jpg" />
           </div>
           
           <div className="absolute -bottom-4 -right-4 bg-background/50 backdrop-blur-md p-3 rounded-full shadow-lg border border-primary/20 hover:scale-110 transition-transform cursor-pointer">
@@ -114,8 +98,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
