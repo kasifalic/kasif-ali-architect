@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Mail, ArrowDown, Linkedin } from "lucide-react";
 const HeroSection = () => {
-  const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect"];
+  const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect", "Storage Architect", "Infra Architect"];
   const [displayedRole, setDisplayedRole] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
