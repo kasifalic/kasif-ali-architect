@@ -95,25 +95,26 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          <div className="relative w-96 h-96 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-full flex items-center justify-center animate-float shadow-xl shadow-primary/10">
+          {/* Profile image container with new shape */}
+          <div className="relative w-96 h-96 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-2xl flex items-center justify-center animate-float shadow-xl shadow-primary/10 overflow-hidden">
             {/* Orbit decoration */}
-            <div className="absolute w-full h-full rounded-full border border-primary/20 animate-spin-slow"></div>
-            <div className="absolute w-[110%] h-[110%] rounded-full border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
+            <div className="absolute w-full h-full rounded-2xl border border-primary/20 animate-spin-slow"></div>
+            <div className="absolute w-[110%] h-[110%] rounded-2xl border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
             
-            <div className="w-88 h-88 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300">
+            <div className="w-full h-full overflow-hidden border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300 rounded-xl">
               <img 
                 alt="Kasi" 
-                className="w-full h-full object-cover object-center"
-                src="/lovable-uploads/60940221-b9e4-4bad-972c-39be2f8a4e4e.png" 
+                className="w-full h-full object-cover object-center scale-110"
+                src="/lovable-uploads/b967c81e-eb56-4f02-8a3d-cccd800dc2a6.png" 
               />
             </div>
           </div>
           
-          {/* Decorative elements that connect the image and text */}
-          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-            <div className="w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full"></div>
-            <div className="px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 backdrop-blur-sm">
-              <p className="text-sm font-medium text-gradient">10+ Years Experience</p>
+          {/* Enhanced experience badge */}
+          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
+            <div className="w-1.5 h-10 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+            <div className="px-8 py-3 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
+              <p className="text-base md:text-lg font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
             </div>
           </div>
         </div>
