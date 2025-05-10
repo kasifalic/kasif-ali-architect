@@ -48,7 +48,7 @@ const AwardsCarousel = () => {
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Award Winning</span>
           <h2 className="text-2xl font-bold mt-1 flex items-center gap-2">
             <Trophy className="text-amber-400" size={20} />
-            GenAI Buildathon Achievement
+            India's First GenAI Buildathon Achievement
           </h2>
         </div>
         
@@ -92,7 +92,7 @@ const AwardsCarousel = () => {
 
         <div className="flex justify-center mt-2">
           <p className="text-sm italic text-muted-foreground">
-            Won 1st place in 100x Engineers Generative AI Buildathon, selected from 1502 applicants.
+            Won 1st place in India's First 100x Engineers Generative AI Buildathon, selected from 1502 applicants.
           </p>
         </div>
       </div>
