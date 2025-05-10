@@ -1,12 +1,24 @@
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Mail } from "lucide-react";
+import { Download } from "lucide-react";
 
 const HeroSection = () => {
   // Animation references
   const sectionRef = useRef<HTMLElement>(null);
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   
+  // List of roles to cycle through
+  const roles = [
+    "GenAI Architect",
+    "Infra Architect", 
+    "Cloud Architect", 
+    "Security Architect", 
+    "Network Architect", 
+    "Storage Architect"
+  ];
+
   useEffect(() => {
     // Add animation classes on component mount
     const section = sectionRef.current;
@@ -23,23 +35,26 @@ const HeroSection = () => {
       }, 300);
     }
     
-    // Add scroll animation observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-bounce-soft');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    const decorElements = document.querySelectorAll('.bg-decoration');
-    decorElements.forEach(el => observer.observe(el));
+    // Simulate typing completion after 3.5 seconds (matching typing animation duration)
+    const typingTimer = setTimeout(() => {
+      setTypingComplete(true);
+    }, 3500);
     
     return () => {
-      decorElements.forEach(el => observer.unobserve(el));
+      clearTimeout(typingTimer);
     };
   }, []);
+  
+  // Handle role cycling
+  useEffect(() => {
+    if (!typingComplete) return;
+    
+    const roleInterval = setInterval(() => {
+      setCurrentRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
+    }, 4000); // Match this with the fadeIn animation duration
+    
+    return () => clearInterval(roleInterval);
+  }, [typingComplete, roles.length]);
 
   return (
     <section 
@@ -54,27 +69,19 @@ const HeroSection = () => {
       
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
-          <h1 
-            className="text-5xl md:text-6xl font-bold opacity-0" 
-            data-animate
-            style={{animationDelay: "0.2s"}}
-          >
-            Hello, I'm <span className="text-gradient">Kasif Ali</span>
-          </h1>
-          <h2 
-            className="text-2xl font-medium text-muted-foreground opacity-0" 
-            data-animate
-            style={{animationDelay: "0.4s"}}
-          >
-            IT Systems Architect | Automation-First IT | GenAI Evangelist
-          </h2>
-          <p 
-            className="text-lg text-muted-foreground max-w-md opacity-0" 
-            data-animate
-            style={{animationDelay: "0.6s"}}
-          >
-            Architecting scalable, secure, and AI-native IT systems
-          </p>
+          <div className="space-y-2">
+            <h1 className="text-5xl md:text-6xl font-bold">
+              <span className="typing-animation">Hello, I'm </span>
+              <span className="text-gradient">Kasif Ali</span>
+            </h1>
+            
+            {typingComplete && (
+              <h2 className="text-2xl font-medium text-muted-foreground role-animation">
+                <span className="text-gradient">{roles[currentRoleIndex]}</span>
+              </h2>
+            )}
+          </div>
+          
           <div 
             className="flex gap-4 opacity-0" 
             data-animate
