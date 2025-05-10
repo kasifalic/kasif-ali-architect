@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 const HeroSection = () => {
   // Animation references
@@ -35,10 +35,10 @@ const HeroSection = () => {
       }, 300);
     }
     
-    // Simulate typing completion after 3 seconds
+    // Simulate typing completion after 2.5 seconds
     const typingTimer = setTimeout(() => {
       setTypingComplete(true);
-    }, 3000);
+    }, 2500);
     
     return () => {
       clearTimeout(typingTimer);
@@ -69,11 +69,15 @@ const HeroSection = () => {
       
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
-          <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl font-bold whitespace-nowrap">
-              <span className="inline-block typing-container">
-                <span className="typing-text">Hello, I'm Kasif Ali</span>
-              </span>
+          <div className="space-y-4">
+            <div className="text-4xl md:text-5xl font-bold">
+              <h1 className="inline-block typing-container">
+                <span className="typing-text">Hello, I'm</span>
+              </h1>
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient">
+              Kasif Ali
             </h1>
             
             {typingComplete && (
