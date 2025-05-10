@@ -31,7 +31,7 @@ const HeroSection = () => {
         
         <div className="relative">
           <div className="relative w-80 h-80 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-full flex items-center justify-center animate-float">
-            <img alt="Kasif Ali" className="w-72 h-72 rounded-full object-cover border-4 border-primary/50" src="https://ibb.co/gbm3GMk9" />
+            <img alt="Kasif Ali" className="w-72 h-72 rounded-full object-cover border-4 border-primary/50" src="/lovable-uploads/7ae6d604-a516-4f4a-a0bb-92c21f30ab34.jpg" />
           </div>
           <div className="absolute -bottom-4 -right-4 bg-background p-3 rounded-full shadow-lg">
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
