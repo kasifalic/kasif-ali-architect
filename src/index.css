@@ -58,3 +58,10 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
   }
 }
+
+@layer components {
+  .shimmer-text {
+    @apply relative inline-block bg-shimmer bg-clip-text text-transparent bg-shimmer bg-[length:200%_100%] animate-shimmer font-bold;
+  }
+}
+

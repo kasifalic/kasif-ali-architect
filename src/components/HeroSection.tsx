@@ -26,7 +26,8 @@ const HeroSection = () => {
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold">
-            Hello, I'm <span className="text-gradient relative">
+            <span className="block">Hello, I'm</span> 
+            <span className="shimmer-text">
               Kasif Ali
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
             </span>

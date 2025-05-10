@@ -64,9 +64,11 @@ export default {
       },
       backgroundImage: {
         'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
+        'shimmer': "linear-gradient(to right, #8B5CF6, #0EA5E9, #D946EF, #8B5CF6)",
       },
       backgroundSize: {
         'grid-pattern': '20px 20px',
+        'shimmer': '200% 100%',
       },
       keyframes: {
         "accordion-down": {
@@ -89,6 +91,10 @@ export default {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        "shimmer": {
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '100% 50%' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -96,6 +102,7 @@ export default {
         "float": "float 6s ease-in-out infinite",
         "pulse-slow": "pulse-slow 4s ease-in-out infinite",
         "spin-slow": "spin-slow 12s linear infinite",
+        "shimmer": "shimmer 4s ease-in-out infinite",
       },
     },
   },
