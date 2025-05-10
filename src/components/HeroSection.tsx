@@ -35,10 +35,10 @@ const HeroSection = () => {
       }, 300);
     }
     
-    // Simulate typing completion after 3.5 seconds (matching typing animation duration)
+    // Simulate typing completion after 3 seconds
     const typingTimer = setTimeout(() => {
       setTypingComplete(true);
-    }, 3500);
+    }, 3000);
     
     return () => {
       clearTimeout(typingTimer);
@@ -70,13 +70,14 @@ const HeroSection = () => {
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h1 className="text-5xl md:text-6xl font-bold">
-              <span className="typing-animation">Hello, I'm </span>
-              <span className="text-gradient">Kasif Ali</span>
+            <h1 className="text-4xl md:text-5xl font-bold whitespace-nowrap">
+              <span className="inline-block typing-container">
+                <span className="typing-text">Hello, I'm Kasif Ali</span>
+              </span>
             </h1>
             
             {typingComplete && (
-              <h2 className="text-2xl font-medium text-muted-foreground role-animation">
+              <h2 className="text-xl font-medium text-muted-foreground role-animation whitespace-nowrap">
                 <span className="text-gradient">{roles[currentRoleIndex]}</span>
               </h2>
             )}
