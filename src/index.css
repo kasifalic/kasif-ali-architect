@@ -2,7 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -42,8 +42,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    @apply bg-background text-foreground font-jakarta antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space-grotesk font-bold;
   }
 }
 
@@ -72,7 +76,7 @@
 
 @layer components {
   .shimmer-text {
-    @apply relative inline-block bg-shimmer bg-clip-text text-transparent bg-shimmer bg-[length:200%_100%] animate-shimmer font-bold;
+    @apply relative inline-block bg-shimmer bg-clip-text text-transparent bg-shimmer bg-[length:200%_100%] animate-shimmer font-space-grotesk font-bold;
   }
   
   .typewriter-cursor::after {
