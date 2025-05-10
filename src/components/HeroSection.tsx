@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Mail, ArrowDown } from "lucide-react";
+import { Download, Mail, ArrowDown, Linkedin } from "lucide-react";
 
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect"];
@@ -76,8 +76,11 @@ const HeroSection = () => {
           </h2>
           
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-primary hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-              View Portfolio
+            <Button 
+              className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2"
+              onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}
+            >
+              <Linkedin size={18} /> Connect on LinkedIn
             </Button>
             <Button variant="outline" className="flex items-center gap-2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 transition-all">
               <Download size={16} /> Download Resume
