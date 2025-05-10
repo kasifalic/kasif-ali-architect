@@ -74,4 +74,17 @@
   .shimmer-text {
     @apply relative inline-block bg-shimmer bg-clip-text text-transparent bg-shimmer bg-[length:200%_100%] animate-shimmer font-bold;
   }
+  
+  .typewriter-cursor::after {
+    content: '|';
+    display: inline-block;
+    margin-left: 0.1em;
+    animation: blink 1s step-start infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 }

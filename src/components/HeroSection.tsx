@@ -1,9 +1,47 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Mail, ArrowDown } from "lucide-react";
 
 const HeroSection = () => {
+  const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect"];
+  const [displayedRole, setDisplayedRole] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex];
+    
+    const typeEffect = () => {
+      if (!isDeleting) {
+        // Typing
+        if (displayedRole.length < currentRole.length) {
+          setDisplayedRole(currentRole.substring(0, displayedRole.length + 1));
+          setTypingSpeed(150);
+        } else {
+          // Pause at end before deleting
+          setTypingSpeed(1500);
+          setIsDeleting(true);
+        }
+      } else {
+        // Deleting
+        if (displayedRole.length > 0) {
+          setDisplayedRole(displayedRole.substring(0, displayedRole.length - 1));
+          setTypingSpeed(50);
+        } else {
+          // Change to next role
+          setIsDeleting(false);
+          setRoleIndex((roleIndex + 1) % roles.length);
+          setTypingSpeed(150);
+        }
+      }
+    };
+
+    const timer = setTimeout(typeEffect, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayedRole, isDeleting, roleIndex]);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20">
       {/* Animated background elements */}
@@ -22,7 +60,7 @@ const HeroSection = () => {
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6 z-10">
           <div className="inline-block px-3 py-1 bg-secondary/50 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
-            <p className="text-sm font-medium text-foreground/80">IT Systems Architect</p>
+            <p className="text-sm font-medium text-foreground/80">{displayedRole}</p>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold">
