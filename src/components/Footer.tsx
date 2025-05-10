@@ -10,6 +10,7 @@ const Footer = () => {
           <div className="flex gap-8">
             <a href="#home" className="text-sm hover:text-primary transition-colors">Home</a>
             <a href="#about" className="text-sm hover:text-primary transition-colors">About</a>
+            <a href="#skills" className="text-sm hover:text-primary transition-colors">Skills</a>
             <a href="#experience" className="text-sm hover:text-primary transition-colors">Experience</a>
             <a href="#services" className="text-sm hover:text-primary transition-colors">Services</a>
             <a href="#projects" className="text-sm hover:text-primary transition-colors">Projects</a>
