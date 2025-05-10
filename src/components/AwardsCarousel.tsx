@@ -33,6 +33,11 @@ const AwardsCarousel = () => {
       id: 3,
       image: "/lovable-uploads/ae7211d6-4c92-4305-92e6-ddfadd908b24.png",
       caption: "Award ceremony at 100x Engineers GenAI Buildathon"
+    },
+    {
+      id: 4,
+      image: "/lovable-uploads/66a85f01-28e5-4853-a273-d88d884b2d25.png",
+      caption: "Winner's cap - selected from 1502 applicants"
     }
   ];
 
@@ -48,7 +53,7 @@ const AwardsCarousel = () => {
         </div>
         
         <div className="relative">
-          <div className="flex gap-6 pb-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+          <div className="flex gap-6 pb-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide justify-center">
             {awards.map((award, index) => (
               <div 
                 key={index} 
@@ -65,7 +70,7 @@ const AwardsCarousel = () => {
                     opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <CardContent className="p-0 relative">
-                    <div className="h-44 overflow-hidden">
+                    <div className="h-44 overflow-hidden flex items-center justify-center">
                       <img 
                         src={award.image} 
                         alt={award.caption}
@@ -87,7 +92,7 @@ const AwardsCarousel = () => {
 
         <div className="flex justify-center mt-2">
           <p className="text-sm italic text-muted-foreground">
-            Won 1st place in 100x Engineers Generative AI Buildathon, showcasing expertise in creating AI-powered solutions.
+            Won 1st place in 100x Engineers Generative AI Buildathon, selected from 1502 applicants.
           </p>
         </div>
       </div>
@@ -100,11 +105,11 @@ const AwardsCarousel = () => {
             <span className="sr-only">Close</span>
           </DialogClose>
           {currentImage && (
-            <div className="p-2">
+            <div className="p-2 flex justify-center">
               <img 
                 src={currentImage} 
                 alt="GenAI Buildathon Achievement" 
-                className="w-full rounded-md object-contain max-h-[70vh]"
+                className="rounded-md object-contain max-h-[70vh]"
               />
             </div>
           )}
