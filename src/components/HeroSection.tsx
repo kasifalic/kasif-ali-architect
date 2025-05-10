@@ -89,32 +89,32 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <div className="relative z-10">
+        <div className="relative z-10 flex justify-center items-center">
           {/* Decorative element between image and text */}
           <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 z-10">
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Profile image container with new shape */}
-          <div className="relative w-96 h-96 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-2xl flex items-center justify-center animate-float shadow-xl shadow-primary/10 overflow-hidden">
+          {/* Profile image container - enlarged with no border */}
+          <div className="relative w-[420px] h-[500px] mx-auto flex items-center justify-center animate-float">
             {/* Orbit decoration */}
-            <div className="absolute w-full h-full rounded-2xl border border-primary/20 animate-spin-slow"></div>
-            <div className="absolute w-[110%] h-[110%] rounded-2xl border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
+            <div className="absolute w-full h-full rounded-2xl border border-primary/10 animate-spin-slow"></div>
+            <div className="absolute w-[110%] h-[110%] rounded-2xl border border-accent/10 animate-spin-slow animation-delay-2000 opacity-50"></div>
             
-            <div className="w-full h-full overflow-hidden border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300 rounded-xl">
+            <div className="w-full h-full overflow-hidden hover:scale-105 transition-transform duration-300">
               <img 
                 alt="Kasi" 
-                className="w-full h-full object-cover object-center scale-110"
-                src="/lovable-uploads/b967c81e-eb56-4f02-8a3d-cccd800dc2a6.png" 
+                className="w-full h-full object-contain object-center"
+                src="/lovable-uploads/f6b42f59-5f18-4d9a-bfb7-d2d571e00de3.png" 
               />
             </div>
           </div>
           
           {/* Enhanced experience badge */}
-          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
-            <div className="w-1.5 h-10 bg-gradient-to-b from-primary to-accent rounded-full"></div>
-            <div className="px-8 py-3 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
-              <p className="text-base md:text-lg font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
+          <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
+            <div className="w-2 h-12 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+            <div className="px-10 py-4 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
+              <p className="text-xl md:text-2xl font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
             </div>
           </div>
         </div>
