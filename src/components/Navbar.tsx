@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Mail, Twitter } from "lucide-react";
+import { Mail, Twitter, Instagram } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -17,6 +17,11 @@ const Navbar = () => {
           <li><a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a></li>
         </ul>
         <div className="flex items-center gap-4">
+          {/* Instagram Icon */}
+          <a href="https://instagram.com/kasifal" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+            <Instagram className="w-5 h-5" />
+          </a>
+          
           {/* Medium Icon */}
           <a href="https://medium.com/@kasifaliwdr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -40,4 +45,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
