@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Mail, Twitter } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -16,10 +16,28 @@ const Navbar = () => {
           <li><a href="#projects" className="text-sm hover:text-primary transition-colors">Projects</a></li>
           <li><a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a></li>
         </ul>
-        <Button className="bg-primary hover:bg-primary/90">Contact Me</Button>
+        <div className="flex items-center gap-4">
+          {/* Medium Icon */}
+          <a href="https://medium.com/@kasifaliwdr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+              <path d="M4.37,7.46h0a.49.49,0,0,0-.17-.4L2.33,4.75V4.5h5.2l4,8.85,3.53-8.85h5v.25L18.32,6.7a.29.29,0,0,0-.11.29v10a.29.29,0,0,0,.11.28l1.69,1.95v.25h-8.5v-.25L13.29,17a.58.58,0,0,0-.17-.29V8.39L9,19.21H8.43L3.87,8.39v7.22a.83.83,0,0,0,.22.6L6,19.15v.25H0v-.25L1.89,16.2a.81.81,0,0,0,.21-.6V7.46Z"/>
+            </svg>
+          </a>
+          
+          {/* Twitter Icon */}
+          <a href="https://twitter.com/kasifmuthu" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+            <Twitter className="w-5 h-5" />
+          </a>
+          
+          {/* Mail Icon */}
+          <a href="mailto:kasifaliwdr@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+            <Mail className="w-5 h-5" />
+          </a>
+        </div>
       </nav>
     </header>
   );
 };
 
 export default Navbar;
+
