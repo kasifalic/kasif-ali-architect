@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -70,7 +69,7 @@ export default {
       },
       backgroundSize: {
         'grid-pattern': '20px 20px',
-        'shimmer': '200% 100%',
+        'shimmer': '300% 100%',
       },
       keyframes: {
         "accordion-down": {
@@ -95,7 +94,8 @@ export default {
         },
         "shimmer": {
           '0%': { backgroundPosition: '0% 50%' },
-          '100%': { backgroundPosition: '100% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         },
         "fade-in": {
           "0%": { 
@@ -114,7 +114,7 @@ export default {
         "float": "float 6s ease-in-out infinite",
         "pulse-slow": "pulse-slow 4s ease-in-out infinite",
         "spin-slow": "spin-slow 12s linear infinite",
-        "shimmer": "shimmer 4s ease-in-out infinite",
+        "shimmer": "shimmer 3s ease-in-out infinite",
         "fade-in": "fade-in 0.7s ease-out forwards",
       },
     },
