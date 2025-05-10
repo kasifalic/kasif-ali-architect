@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Mail, ArrowDown, Linkedin } from "lucide-react";
+import { Download, ArrowDown, Linkedin } from "lucide-react";
 
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect", "Storage Architect", "Infra Architect"];
@@ -90,17 +90,30 @@ const HeroSection = () => {
         </div>
         
         <div className="relative z-10">
+          {/* Decorative element between image and text */}
+          <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 z-10">
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
+          </div>
+          
           <div className="relative w-96 h-96 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-full flex items-center justify-center animate-float shadow-xl shadow-primary/10">
             {/* Orbit decoration */}
             <div className="absolute w-full h-full rounded-full border border-primary/20 animate-spin-slow"></div>
             <div className="absolute w-[110%] h-[110%] rounded-full border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
             
-            <img alt="Kasi" className="w-88 h-88 rounded-full object-cover border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300" src="/lovable-uploads/7ae6d604-a516-4f4a-a0bb-92c21f30ab34.jpg" />
+            <div className="w-88 h-88 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300">
+              <img 
+                alt="Kasi" 
+                className="w-full h-full object-cover object-center"
+                src="/lovable-uploads/60940221-b9e4-4bad-972c-39be2f8a4e4e.png" 
+              />
+            </div>
           </div>
           
-          <div className="absolute -bottom-4 -right-4 bg-background/50 backdrop-blur-md p-4 rounded-full shadow-lg border border-primary/20 hover:scale-110 transition-transform cursor-pointer">
-            <div className="w-16 h-16 bg-gradient-to-tr from-primary to-accent rounded-full flex items-center justify-center">
-              <Mail size={24} className="text-white" />
+          {/* Decorative elements that connect the image and text */}
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
+            <div className="w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+            <div className="px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 backdrop-blur-sm">
+              <p className="text-sm font-medium text-gradient">10+ Years Experience</p>
             </div>
           </div>
         </div>
