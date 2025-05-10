@@ -13,7 +13,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-12">
+    <section id="about" className="py-8">
       <div className="container mx-auto">
         <div className="flex flex-col items-center mb-12">
           <span className="text-primary text-sm font-medium uppercase tracking-wider">About Me</span>

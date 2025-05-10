@@ -36,7 +36,7 @@ const HeroSection = () => {
     const timer = setTimeout(typeEffect, typingSpeed);
     return () => clearTimeout(timer);
   }, [displayedRole, isDeleting, roleIndex]);
-  return <section id="home" className="relative min-h-screen flex items-center pt-20">
+  return <section id="home" className="relative min-h-[80vh] flex items-center pt-16 pb-8">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden -z-10">
         <div className="absolute w-72 h-72 rounded-full bg-primary/20 top-1/4 -left-32 blur-3xl animate-pulse-slow"></div>
@@ -75,7 +75,7 @@ const HeroSection = () => {
             </Button>
           </div>
           
-          <div className="pt-6 hidden md:block">
+          <div className="pt-4 hidden md:block">
             <a href="#about" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
               Scroll down to learn more <ArrowDown size={14} className="animate-bounce" />
             </a>
