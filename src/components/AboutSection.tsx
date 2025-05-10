@@ -2,7 +2,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import AwardsCarousel from "./AwardsCarousel";
 
 const AboutSection = () => {
   const strengths = [
@@ -29,8 +28,6 @@ const AboutSection = () => {
               and implementing scalable, secure, and automation-first environments in SaaS and hybrid 
               operational models.
             </p>
-            
-            <AwardsCarousel />
             
             <div>
               <h3 className="text-xl font-medium mb-3">Education</h3>

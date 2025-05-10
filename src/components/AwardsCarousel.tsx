@@ -8,11 +8,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy } from "lucide-react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Trophy, X } from "lucide-react";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogClose 
+} from "@/components/ui/dialog";
 
 const AwardsCarousel = () => {
-  const [expandedView, setExpandedView] = useState(false);
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
   
   const awards = [
     {
@@ -32,89 +36,81 @@ const AwardsCarousel = () => {
     }
   ];
 
-  const toggleExpand = () => setExpandedView(!expandedView);
-
-  if (expandedView) {
-    return (
-      <div className="space-y-4">
-        <div 
-          className="flex items-center gap-2 cursor-pointer" 
-          onClick={toggleExpand}
-        >
-          <Trophy className="text-amber-400" size={20} />
-          <h3 className="text-xl font-medium">Award Winning Achievement</h3>
-        </div>
-        
-        <Card className="border border-primary/20 bg-secondary/30 backdrop-blur-sm overflow-hidden">
-          <CardContent className="p-0">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {awards.map((award) => (
-                  <CarouselItem key={award.id}>
-                    <div className="p-1">
-                      <div className="overflow-hidden rounded-md">
-                        <img 
-                          src={award.image} 
-                          alt={`GenAI Buildathon Award ${award.id}`}
-                          className="w-full aspect-[4/3] object-cover"
-                        />
-                        <div className="p-3 bg-black/60 backdrop-blur-sm">
-                          <p className="text-sm text-center text-white">{award.caption}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center gap-2 absolute bottom-2 right-2 z-10">
-                <CarouselPrevious className="h-7 w-7 static" />
-                <CarouselNext className="h-7 w-7 static" />
-              </div>
-            </Carousel>
-          </CardContent>
-        </Card>
-        
-        <p className="text-sm italic text-muted-foreground">
-          Won 1st place in 100x Engineers Generative AI Buildathon, showcasing expertise in creating AI-powered solutions.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div className="my-4">
-      <div 
-        onClick={toggleExpand}
-        className="inline-flex items-center gap-3 py-2 px-4 bg-secondary/30 backdrop-blur-sm rounded-full 
-          cursor-pointer transition-all hover:scale-105 relative overflow-hidden group"
-      >
-        <div className="absolute -inset-px bg-gradient-to-r from-primary via-accent to-primary rounded-full 
-          animate-shimmer bg-[length:200%_100%] z-0"></div>
-        <div className="bg-background/80 backdrop-blur-sm rounded-full p-2 z-10 relative">
-          <Trophy className="text-amber-400" size={18} />
+    <section className="py-8">
+      <div className="container mx-auto">
+        <div className="flex flex-col items-center mb-6">
+          <span className="text-primary text-sm font-medium uppercase tracking-wider">Award Winning</span>
+          <h2 className="text-2xl font-bold mt-1 flex items-center gap-2">
+            <Trophy className="text-amber-400" size={20} />
+            GenAI Buildathon Achievement
+          </h2>
         </div>
-        <span className="font-medium text-sm z-10 relative">GenAI Buildathon Winner</span>
-      </div>
-      
-      {/* Hover preview */}
-      <HoverCard>
-        <HoverCardTrigger asChild>
-          <span className="text-xs text-primary/60 ml-4 cursor-help">View achievement</span>
-        </HoverCardTrigger>
-        <HoverCardContent className="w-80">
-          <div className="flex flex-col space-y-2">
-            <img 
-              src="/lovable-uploads/f504a97a-fc4e-431e-a158-d1412245dd65.png" 
-              alt="GenAI Buildathon Award"
-              className="rounded-md aspect-[4/3] object-cover"
-            />
-            <p className="text-sm text-center">
-              Won 1st place in 100x Engineers Generative AI Buildathon
-            </p>
+        
+        <div className="relative">
+          <div className="flex gap-6 pb-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+            {awards.map((award, index) => (
+              <div 
+                key={index} 
+                className="snap-center"
+                style={{ flex: '0 0 280px' }}
+              >
+                <Card 
+                  className="overflow-hidden border border-primary/10 backdrop-blur-sm transition-all duration-300 
+                    hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 hover:border-primary/30
+                    cursor-pointer group relative"
+                  onClick={() => setCurrentImage(award.image)}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <CardContent className="p-0 relative">
+                    <div className="h-44 overflow-hidden">
+                      <img 
+                        src={award.image} 
+                        alt={award.caption}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-3 bg-background/80 backdrop-blur-sm">
+                      <p className="text-sm text-center">{award.caption}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
           </div>
-        </HoverCardContent>
-      </HoverCard>
-    </div>
+          
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
+        </div>
+
+        <div className="flex justify-center mt-2">
+          <p className="text-sm italic text-muted-foreground">
+            Won 1st place in 100x Engineers Generative AI Buildathon, showcasing expertise in creating AI-powered solutions.
+          </p>
+        </div>
+      </div>
+
+      {/* Modal for enlarged image */}
+      <Dialog open={!!currentImage} onOpenChange={() => setCurrentImage(null)}>
+        <DialogContent className="sm:max-w-3xl border-primary/20 bg-secondary/50 backdrop-blur-sm">
+          <DialogClose className="absolute right-4 top-4 rounded-full bg-primary/10 hover:bg-primary/20 p-2 transition-colors">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          {currentImage && (
+            <div className="p-2">
+              <img 
+                src={currentImage} 
+                alt="GenAI Buildathon Achievement" 
+                className="w-full rounded-md object-contain max-h-[70vh]"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </section>
   );
 };
 
