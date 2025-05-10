@@ -80,6 +80,7 @@
     display: inline-block;
     margin-left: 0.1em;
     animation: blink 1s step-start infinite;
+    color: hsl(var(--accent));
   }
   
   @keyframes blink {

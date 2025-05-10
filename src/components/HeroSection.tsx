@@ -59,8 +59,8 @@ const HeroSection = () => {
       
       <div className="container mx-auto grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6 z-10">
-          <div className="inline-block px-3 py-1 bg-secondary/50 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
-            <p className="text-sm font-medium text-foreground/80">{displayedRole}</p>
+          <div className="inline-block px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
+            <p className="text-xl font-medium typewriter-cursor text-gradient">{displayedRole}</p>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold">
@@ -72,7 +72,7 @@ const HeroSection = () => {
           </h1>
           
           <h2 className="text-2xl font-medium text-muted-foreground">
-            IT Systems Architect | Automation-First IT | GenAI Evangelist
+            Automation-First IT | GenAI Evangelist
           </h2>
           
           <p className="text-lg text-muted-foreground max-w-md">
