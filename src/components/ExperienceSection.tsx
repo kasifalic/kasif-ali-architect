@@ -11,9 +11,9 @@ const ExperienceSection = () => {
       period: "2021–2025",
       achievements: [
         "Architected hybrid infra across AWS, Proxmox, Hetzner",
-        "Reduced infra spend by 40%",
-        "Built end-to-end automated onboarding via Freshservice, JumpCloud",
-        "Enabled AI-native IT workflows (LLMs, Freddy AI, Kubiya)"
+        "Reduced infra spend by 40% with cloud optimization",
+        "Built end-to-end automated onboarding systems",
+        "Enabled AI-native IT workflows with LLMs and automation"
       ]
     },
     {
@@ -22,8 +22,9 @@ const ExperienceSection = () => {
       period: "2020–2021",
       achievements: [
         "Transitioned infra from 7 offices to 2 hubs",
-        "Designed secure remote work infra",
-        "Decommissioned assets and designed DR readiness"
+        "Designed secure remote work infrastructure",
+        "Implemented disaster recovery protocols",
+        "Decommissioned legacy assets across locations"
       ]
     },
     {
@@ -33,7 +34,8 @@ const ExperienceSection = () => {
       achievements: [
         "Built IT from scratch for hypergrowth SaaS",
         "Implemented Freshservice, AWS, Azure hybrid cloud",
-        "Enabled SSO, DLP for SOC 2 readiness"
+        "Enabled SSO, DLP for SOC 2 readiness",
+        "Designed scalable network infrastructure"
       ]
     },
     {
@@ -41,8 +43,10 @@ const ExperienceSection = () => {
       position: "System Administrator",
       period: "2014–2016",
       achievements: [
-        "Managed asset fleet, deployed SCCM/Jamf automation",
-        "Administered Exchange, Lync, and testbed virtual labs"
+        "Managed asset fleet of 2000+ devices",
+        "Deployed SCCM/Jamf automation workflows",
+        "Administered Exchange, Lync server environments",
+        "Maintained testbed virtual labs for R&D"
       ]
     }
   ];
