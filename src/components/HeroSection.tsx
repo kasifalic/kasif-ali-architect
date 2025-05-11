@@ -97,15 +97,15 @@ const HeroSection = () => {
           
           {/* Profile image container with shimmering border */}
           <div className="relative w-full h-full flex items-center justify-center">
-            <div className="relative rounded-full p-1 overflow-hidden">
+            <div className="relative rounded-full overflow-hidden">
               {/* Shimmering border effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%] rounded-full"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%]"></div>
               
-              {/* Image container with mask to create circular image */}
-              <div className="relative z-10 rounded-full overflow-hidden">
+              {/* Image container with no gap */}
+              <div className="relative z-10 rounded-full overflow-hidden" style={{ transform: 'scale(0.97)' }}>
                 <img 
                   alt="Kasi" 
-                  className="w-full h-auto max-w-[400px] object-contain"
+                  className="w-full h-auto max-w-[400px] object-cover"
                   src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
                 />
               </div>
