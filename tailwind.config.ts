@@ -22,6 +22,7 @@ export default {
         "space-grotesk": ["Space Grotesk", "sans-serif"],
         "jakarta": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
         "tahoma": ["Tahoma", "Geneva", "sans-serif"],
+        "calibri": ["Calibri", "Arial", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

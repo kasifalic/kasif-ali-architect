@@ -71,7 +71,7 @@ const HeroSection = () => {
             </span>
           </h1>
           
-          <h2 className="text-3xl font-medium text-muted-foreground">Automation-First | GenAI Evangelist</h2>
+          <h2 className="text-3xl font-medium text-muted-foreground font-calibri">Automation-First | GenAI Evangelist</h2>
           
           <div className="flex flex-wrap gap-5 pt-4">
             <Button className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2 text-lg px-6 py-6" onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}>
