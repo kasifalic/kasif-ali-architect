@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { Code, Cloud, Database, Server, Shield, Users, Briefcase, ChartBar, FileText, Globe } from "lucide-react";
 
 interface SkillCategory {
@@ -58,73 +58,62 @@ const SkillsSection = () => {
       skills: [
         "IT Service Delivery & Global Support Ops",
         "Vendor Strategy & Cost Optimization (30%+ YoY Savings)",
-        "IT Budgeting, FinOps & SaaS Consolidation"
+        "IT Budgeting, FinOps & SaaS Consolidation",
+        "Stakeholder Management & Cross-functional Coordination"
       ]
     }
   ];
 
   return (
-    <section id="skills" className="py-12 bg-secondary/5 overflow-hidden">
+    <section id="skills" className="py-20 bg-secondary/10 overflow-hidden relative">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute w-96 h-96 rounded-full bg-primary/10 top-1/4 -left-32 blur-3xl animate-pulse-slow"></div>
+        <div className="absolute w-96 h-96 rounded-full bg-accent/10 bottom-1/4 -right-32 blur-3xl animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      </div>
+      
       <div className="container mx-auto">
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mb-12">
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Professional Skills</span>
-          <h2 className="text-3xl font-bold mt-1">Areas of Expertise</h2>
+          <h2 className="text-3xl font-tahoma font-bold mt-1">Areas of Expertise</h2>
         </div>
 
-        <div className="relative">
-          <div className="flex gap-6 pb-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-            {skillCategories.map((category, index) => (
-              <div 
-                key={index} 
-                className="snap-center"
-                style={{ flex: '0 0 300px' }}
-              >
-                <Card 
-                  className="overflow-hidden border border-primary/10 backdrop-blur-sm transition-all duration-300 
-                  hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 hover:border-primary/30
-                  animate-fade-in"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <CardContent className="p-6 h-full">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                        <category.icon className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-semibold text-lg">{category.title}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {skillCategories.map((category, index) => (
+            <Card 
+              key={index} 
+              className="bg-background/60 backdrop-blur-sm border-primary/10 hover:border-primary/30 overflow-hidden shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 
+                animate-fade-in"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <CardContent className="p-6">
+                <div className="relative mb-8">
+                  {/* Accent background element */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full z-0"></div>
+                  
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      <category.icon className="w-6 h-6" />
                     </div>
-                    
-                    <Separator className="mb-4 bg-border/30" />
-                    
-                    <ul className="space-y-2">
-                      {category.skills.map((skill, skillIndex) => (
-                        <li 
-                          key={skillIndex} 
-                          className="flex items-start gap-2 transition-all duration-200 hover:translate-x-1"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                          <span className="text-muted-foreground text-sm">{skill}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-          
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
-        </div>
-
-        <div className="flex justify-center mt-6">
-          <div className="flex space-x-2">
-            {skillCategories.map((_, i) => (
-              <div 
-                key={i} 
-                className="w-2 h-2 rounded-full bg-primary/30"
-              ></div>
-            ))}
-          </div>
+                    <h3 className="font-tahoma font-bold text-xl">{category.title}</h3>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div 
+                      key={skillIndex} 
+                      className="flex items-start gap-3 transition-all duration-200 hover:translate-x-1.5 p-2 rounded-lg hover:bg-primary/5"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="font-calibri text-sm">{skill}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
