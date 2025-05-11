@@ -16,6 +16,23 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- CSS to hide the Lovable button -->
+    <style>
+      /* Hide the Edit with Lovable button */
+      #lovable-edit-button,
+      .lovable-button,
+      [id*="lovable"],
+      [class*="lovable"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        pointer-events: none !important;
+      }
+    </style>
   </head>
 
   <body>
