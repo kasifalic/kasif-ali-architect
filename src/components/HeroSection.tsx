@@ -42,6 +42,16 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, [displayedRole, isDeleting, roleIndex]);
 
+  const handleDownloadResume = () => {
+    // Create a link to the resume file and trigger download
+    const link = document.createElement('a');
+    link.href = '/resume-kasi.pdf'; // Path to the resume file
+    link.download = 'Kasi-Resume.pdf'; // Name for the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-12">
       {/* Animated background elements */}
@@ -83,6 +93,7 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               className="rounded-full flex items-center gap-2 backdrop-blur-sm border border-gray-600 hover:border-primary hover:bg-background/50 transition-all text-base px-8 py-6 font-medium"
+              onClick={handleDownloadResume}
             >
               <Download size={18} /> Download Resume
             </Button>
