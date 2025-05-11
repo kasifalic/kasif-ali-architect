@@ -83,6 +83,11 @@
     @apply relative inline-block bg-shimmer bg-clip-text text-transparent bg-[length:300%_100%] animate-shimmer font-space-grotesk font-bold;
   }
   
+  /* Enhanced shimmer effect for company names */
+  .shimmer-text {
+    @apply relative inline-block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:300%_100%] animate-shimmer font-calibri font-bold;
+  }
+  
   .typewriter-cursor::after {
     content: '|';
     display: inline-block;

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Briefcase, Award, GraduationCap } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const ExperienceSection = () => {
   const experiences = [
@@ -48,7 +48,7 @@ const ExperienceSection = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-secondary/30 overflow-hidden relative">
+    <section id="experience" className="py-20 bg-secondary/10 overflow-hidden relative">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden -z-10">
         <div className="absolute w-96 h-96 rounded-full bg-primary/10 top-1/4 -left-32 blur-3xl animate-pulse-slow"></div>
@@ -59,49 +59,38 @@ const ExperienceSection = () => {
       <div className="container mx-auto">
         <div className="flex flex-col items-center mb-16">
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Experience</span>
-          <h2 className="text-3xl font-bold mt-1">Professional Journey</h2>
+          <h2 className="text-3xl font-tahoma font-bold mt-1">Professional Journey</h2>
         </div>
         
-        {/* Timeline with modern design */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Timeline center line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20"></div>
-          
+        <div className="grid grid-cols-1 gap-12 max-w-5xl mx-auto">
           {experiences.map((exp, index) => (
-            <div key={index} className={`mb-16 flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}>
-              {/* Date badge - centered between timeline items */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-                <div className="w-14 h-14 rounded-full bg-background border-2 border-primary flex items-center justify-center shadow-lg shadow-primary/10 backdrop-blur-sm">
-                  <span className="text-sm font-bold">{exp.period.split('–')[0]}</span>
-                </div>
+            <Card key={index} className={`bg-background/60 backdrop-blur-sm border-primary/10 hover:border-primary/30 overflow-hidden shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 ${index % 2 === 0 ? 'animate-fade-in' : 'animate-fade-in animation-delay-2000'}`}>
+              <div className="relative">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-full z-0"></div>
+                <Badge variant="outline" className="absolute top-4 right-4 bg-primary/10 font-tahoma px-3 py-1 rounded-full z-10">
+                  {exp.period}
+                </Badge>
               </div>
               
-              {/* Content card - alternating sides */}
-              <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}></div>
-              
-              <Card className={`w-full md:w-5/12 border border-primary/10 bg-secondary/50 backdrop-blur-sm overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/10 animate-fade-in ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-medium text-gradient">{exp.position}</h3>
-                        <span className="text-sm text-primary font-medium">{exp.period}</span>
+              <CardContent className="p-8 relative">
+                <div className="space-y-6">
+                  {/* Position as main heading with Tahoma font */}
+                  <h3 className="text-2xl font-tahoma font-bold text-foreground mb-1">{exp.position}</h3>
+                  
+                  {/* Company name with shimmer effect and Calibri font */}
+                  <div className="shimmer-text font-calibri text-xl mb-6">{exp.company}</div>
+                  
+                  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {exp.achievements.map((achievement, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>
+                        <span className="text-muted-foreground font-calibri">{achievement}</span>
                       </div>
-                      <p className="text-muted-foreground">{exp.company}</p>
-                    </div>
-                    
-                    <div className="space-y-3 pt-2">
-                      {exp.achievements.map((achievement, i) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0"></div>
-                          <span className="text-muted-foreground">{achievement}</span>
-                        </div>
-                      ))}
-                    </div>
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
