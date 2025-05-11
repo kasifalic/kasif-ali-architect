@@ -15,7 +15,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-20 overflow-x-hidden">
         <HeroSection />
         <AboutSection />
         <AwardsCarousel />

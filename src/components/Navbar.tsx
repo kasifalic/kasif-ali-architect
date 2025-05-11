@@ -1,20 +1,42 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Twitter, Instagram } from "lucide-react";
 
 const Navbar = () => {
+  const [activeSection, setActiveSection] = useState("home");
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section[id]');
+      let currentSection = "home";
+      
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+          currentSection = section.getAttribute('id') || "home";
+        }
+      });
+      
+      setActiveSection(currentSection);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center">
       <nav className="max-w-5xl w-full mx-6 px-6 py-3 rounded-full bg-background/90 backdrop-blur-md border border-muted/20 shadow-sm flex items-center justify-between">
         <div className="text-xl font-bold font-space-grotesk">Portfolio</div>
-        <ul className="hidden md:flex items-center gap-6">
-          <li><a href="#home" className="text-sm hover:text-primary transition-colors">Home</a></li>
-          <li><a href="#about" className="text-sm hover:text-primary transition-colors">About</a></li>
-          <li><a href="#skills" className="text-sm hover:text-primary transition-colors">Skills</a></li>
-          <li><a href="#experience" className="text-sm hover:text-primary transition-colors">Experience</a></li>
-          <li><a href="#services" className="text-sm hover:text-primary transition-colors">Services</a></li>
-          <li><a href="#certifications" className="text-sm hover:text-primary transition-colors">Certifications</a></li>
-          <li><a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a></li>
+        <ul className="hidden md:flex items-center gap-6 overflow-x-auto scrollbar-hide">
+          <li><a href="#home" className={`text-sm transition-colors ${activeSection === "home" ? "text-primary" : "hover:text-primary"}`}>Home</a></li>
+          <li><a href="#about" className={`text-sm transition-colors ${activeSection === "about" ? "text-primary" : "hover:text-primary"}`}>About</a></li>
+          <li><a href="#skills" className={`text-sm transition-colors ${activeSection === "skills" ? "text-primary" : "hover:text-primary"}`}>Skills</a></li>
+          <li><a href="#experience" className={`text-sm transition-colors ${activeSection === "experience" ? "text-primary" : "hover:text-primary"}`}>Experience</a></li>
+          <li><a href="#services" className={`text-sm transition-colors ${activeSection === "services" ? "text-primary" : "hover:text-primary"}`}>Services</a></li>
+          <li><a href="#certifications" className={`text-sm transition-colors ${activeSection === "certifications" ? "text-primary" : "hover:text-primary"}`}>Certifications</a></li>
+          <li><a href="#contact" className={`text-sm transition-colors ${activeSection === "contact" ? "text-primary" : "hover:text-primary"}`}>Contact</a></li>
         </ul>
         <div className="flex items-center gap-4">
           {/* Instagram Icon */}
