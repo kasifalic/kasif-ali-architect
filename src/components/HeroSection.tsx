@@ -79,7 +79,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       </div>
       
-      <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center px-4 md:px-8">
+      <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-16 lg:gap-24 xl:gap-32 items-center px-4 md:px-8">
         <div className="space-y-8 z-10">
           <div className="inline-block px-6 py-3 bg-secondary/50 backdrop-blur-sm rounded-full mb-4 border border-primary/20">
             <p className="text-2xl font-medium typewriter-cursor text-gradient">{displayedRole}</p>
@@ -161,8 +161,8 @@ const HeroSection = () => {
         </div>
         
         <div className="relative z-10 flex justify-center md:justify-end">
-          {/* Decorative element between image and text */}
-          <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 z-10">
+          {/* Decorative element between image and text - fixed positioning for consistent spacing */}
+          <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-12 -translate-y-1/2 z-10">
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
