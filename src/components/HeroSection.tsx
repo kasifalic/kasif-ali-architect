@@ -57,7 +57,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       </div>
       
-      <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center px-4 md:px-8">
         <div className="space-y-8 z-10">
           <div className="inline-block px-6 py-3 bg-secondary/50 backdrop-blur-sm rounded-full mb-4 border border-primary/20">
             <p className="text-2xl font-medium typewriter-cursor text-gradient">{displayedRole}</p>
@@ -89,7 +89,7 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <div className="relative z-10">
+        <div className="relative z-10 flex justify-center md:justify-end">
           {/* Decorative element between image and text */}
           <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 z-10">
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
@@ -107,7 +107,7 @@ const HeroSection = () => {
           </div>
           
           {/* Profile image container with shimmering border */}
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full max-w-[400px] flex items-center">
             <div className="relative rounded-full overflow-hidden">
               {/* Shimmering border effect - make it thicker */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%]"></div>
@@ -116,7 +116,7 @@ const HeroSection = () => {
               <div className="relative z-10 rounded-full overflow-hidden" style={{ transform: 'scale(1)' }}>
                 <img 
                   alt="Kasi" 
-                  className="w-full h-auto max-w-[400px] object-cover"
+                  className="w-full h-auto object-cover"
                   src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
                 />
               </div>
