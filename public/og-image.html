@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OG Image Generator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      width: 90%;
+      height: 80%;
+      z-index: 10;
+    }
+    .left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 2rem;
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 64px;
+      margin: 0 0 16px 0;
+      background: linear-gradient(to right, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    .title {
+      font-size: 32px;
+      margin: 0 0 24px 0;
+      color: #e2e8f0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #3b82f6;
+      margin-bottom: 24px;
+    }
+    .badge svg {
+      margin-right: 8px;
+    }
+    .profile-image {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 70%);
+      z-index: 1;
+    }
+    .glow-1 {
+      top: -200px;
+      left: -200px;
+    }
+    .glow-2 {
+      bottom: -200px;
+      right: -200px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+    }
+  </style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  
+  <div class="container">
+    <div class="left">
+      <div class="badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15.414 5a1 1 0 01-1.414 1.414L13 5.414V8a1 1 0 01-2 0V5.414L9.707 6.707a1 1 0 01-1.414-1.414L10 3.586l.707-.707A1 1 0 0112 2z" clip-rule="evenodd" />
+          <path d="M8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+        </svg>
+        10+ Years Experience
+      </div>
+      <h1>Kasif Ali</h1>
+      <div class="title">IT Systems Architect & GenAI Evangelist</div>
+    </div>
+    <div class="right">
+      <img src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" alt="Kasif Ali" class="profile-image">
+    </div>
+  </div>
+</body>
+</html>
