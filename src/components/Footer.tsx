@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="bg-secondary/70 py-8">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="text-xl font-bold font-space-grotesk text-gradient mb-4 md:mb-0">Portfolio</div>
+          <div className="text-xl font-bold font-space-grotesk text-gradient mb-4 md:mb-0">Kasif Ali</div>
           <div className="hidden md:flex gap-8">
             <a href="#home" className="text-sm hover:text-primary transition-colors">Home</a>
             <a href="#about" className="text-sm hover:text-primary transition-colors">About</a>

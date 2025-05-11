@@ -89,7 +89,7 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
           >
             <a href="#home" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              Portfolio
+              Kasif Ali
             </a>
           </motion.div>
 
