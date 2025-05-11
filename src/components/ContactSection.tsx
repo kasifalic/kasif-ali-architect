@@ -40,17 +40,24 @@ const ContactSection = () => {
 
   const onSubmit = async (data: z.infer<typeof contactSchema>) => {
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([
-          { 
-            name: data.name, 
-            email: data.email, 
-            message: data.message 
-          }
-        ]);
+      // Using the REST API approach as a workaround since the table may not be in the types yet
+      const response = await fetch('https://uaevviwgjhqsojwvxdvz.supabase.co/rest/v1/contact_messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhZXZ2aXdnamhxc29qd3Z4ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5Mjc4OTMsImV4cCI6MjA2MjUwMzg5M30.yG4C-NcT-rjGV4_YACLJS6BLDA9bvtfS4KmhNXN-E5A',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message
+        })
+      });
       
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error('Failed to submit the form');
+      }
       
       toast.success("Message sent successfully!");
       form.reset();
