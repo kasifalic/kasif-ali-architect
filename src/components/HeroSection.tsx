@@ -153,7 +153,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="pt-6 hidden md:block">
+          <div className="pt-6 hidden md:block lg:hidden">
             <a href="#about" className="flex items-center gap-2 text-base text-muted-foreground hover:text-primary transition-colors">
               Scroll down to learn more <ArrowDown size={16} className="animate-bounce" />
             </a>
@@ -200,6 +200,14 @@ const HeroSection = () => {
         </div>
       </div>
 
+      {/* Scroll indicator for larger screens */}
+      <div className="hidden lg:flex absolute bottom-32 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-30">
+        <span className="text-xs text-muted-foreground/70">Scroll</span>
+        <div className="w-6 h-10 border border-primary/30 rounded-full flex items-center justify-center">
+          <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div>
+        </div>
+      </div>
+      
       {/* Center label for brands - positioned lower to avoid overlap with profile image */}
       <div className="absolute bottom-20 sm:bottom-28 left-0 right-0 flex justify-center">
         <span className="px-4 py-1 bg-background/50 backdrop-blur-md rounded-full text-xs text-muted-foreground/70 border border-primary/10">
