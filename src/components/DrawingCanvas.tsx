@@ -2,16 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as fabric from "fabric";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { 
-  Paintbrush, 
-  Eraser, 
-  Circle, 
-  Square, 
-  Download,
-  Trash2,
-  PencilLine
-} from "lucide-react";
+import ColorPicker from "./drawing/ColorPicker";
+import Toolbar from "./drawing/Toolbar";
 
 interface DrawingCanvasProps {
   width?: number;
@@ -111,10 +103,6 @@ const DrawingCanvas = ({ width = 800, height = 500 }: DrawingCanvasProps) => {
     link.click();
   };
 
-  const handleToolChange = (tool: "brush" | "pencil" | "eraser") => {
-    setActiveTool(tool);
-  };
-
   return (
     <div className="flex flex-col gap-6 w-full">
       <div className="bg-secondary/30 backdrop-blur-sm p-5 rounded-lg border border-primary/20">
@@ -129,74 +117,22 @@ const DrawingCanvas = ({ width = 800, height = 500 }: DrawingCanvasProps) => {
         </div>
 
         {/* Controls section */}
-        <div className="flex flex-wrap gap-4 justify-between items-center">
-          {/* Brush tools */}
-          <div className="flex gap-2">
-            <Button
-              size="icon"
-              variant={activeTool === "brush" ? "default" : "outline"}
-              onClick={() => handleToolChange("brush")}
-              className="w-10 h-10"
-            >
-              <Paintbrush size={20} />
-            </Button>
-            <Button
-              size="icon"
-              variant={activeTool === "pencil" ? "default" : "outline"}
-              onClick={() => handleToolChange("pencil")}
-              className="w-10 h-10"
-            >
-              <PencilLine size={20} />
-            </Button>
-            <Button
-              size="icon"
-              variant={activeTool === "eraser" ? "default" : "outline"}
-              onClick={() => handleToolChange("eraser")}
-              className="w-10 h-10"
-            >
-              <Eraser size={20} />
-            </Button>
-          </div>
-
-          {/* Color picker */}
-          <div className="flex gap-2">
-            {colors.map((color) => (
-              <button
-                key={color}
-                className={`w-8 h-8 rounded-full ${
-                  brushColor === color
-                    ? "ring-2 ring-offset-2 ring-white"
-                    : ""
-                }`}
-                style={{ backgroundColor: color }}
-                onClick={() => setBrushColor(color)}
-              />
-            ))}
-          </div>
-
-          {/* Size slider */}
-          <div className="flex items-center gap-3">
-            <Circle size={10} />
-            <Slider 
-              value={[brushSize]} 
-              onValueChange={(values) => setBrushSize(values[0])} 
-              min={1} 
-              max={30}
-              step={1}
-              className="w-32"
-            />
-            <Circle size={20} />
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleClear}>
-              <Trash2 size={16} className="mr-2" /> Clear
-            </Button>
-            <Button size="sm" onClick={handleDownload}>
-              <Download size={16} className="mr-2" /> Download
-            </Button>
-          </div>
+        <Toolbar 
+          activeTool={activeTool}
+          brushSize={brushSize}
+          onToolChange={setActiveTool}
+          onBrushSizeChange={setBrushSize}
+          onClear={handleClear}
+          onDownload={handleDownload}
+        />
+        
+        {/* Color picker */}
+        <div className="mt-4 flex justify-center">
+          <ColorPicker 
+            colors={colors} 
+            selectedColor={brushColor} 
+            onColorChange={setBrushColor} 
+          />
         </div>
       </div>
     </div>
