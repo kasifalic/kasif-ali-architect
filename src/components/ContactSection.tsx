@@ -91,12 +91,12 @@ const ContactSection = () => {
           <h2 className="text-3xl font-tahoma font-bold mt-1">Let's Work Together</h2>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="border border-primary/10 bg-secondary/50 backdrop-blur-sm">
+        <div className="grid md:grid-cols-2 gap-8 w-full max-w-full overflow-hidden">
+          <Card className="border border-primary/10 bg-secondary/50 backdrop-blur-sm w-full max-w-full">
             <CardContent className="p-6">
               <h3 className="text-xl font-medium mb-6">Get In Touch</h3>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
                   <FormField
                     control={form.control}
                     name="name"
@@ -154,8 +154,9 @@ const ContactSection = () => {
                   
                   <Button 
                     type="submit" 
-                    className="bg-primary hover:bg-primary/90 w-full rounded-full"
+                    className="bg-primary hover:bg-primary/90 w-full rounded-full py-6 text-base font-medium"
                     disabled={isSubmitting}
+                    style={{ maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
