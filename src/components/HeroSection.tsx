@@ -158,7 +158,12 @@ const HeroSection = () => {
         
         <div className="relative z-10 flex justify-center md:justify-end">
           {/* Decorative element between image and text - fixed positioning for consistent spacing */}
-          <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-12 -translate-y-1/2 z-10">
+          <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-12 -translate-y-1/2 z-10 lg:hidden">
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
+          </div>
+          
+          {/* Decorative element specifically for larger screens like iPad and Vivo X Fold */}
+          <div className="hidden lg:flex absolute left-0 top-1/2 transform -translate-x-24 -translate-y-1/2 z-10">
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
