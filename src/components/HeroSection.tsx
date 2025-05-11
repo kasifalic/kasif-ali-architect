@@ -159,8 +159,8 @@ const HeroSection = () => {
         <div className="relative z-10 flex justify-center md:justify-end">
           {/* Decorative line removed as requested */}
           
-          {/* Experience badge - positioned with better alignment on mobile */}
-          <div className="absolute -top-16 sm:-top-14 left-0 right-0 flex justify-center z-20">
+          {/* Experience badge - positioned with better alignment on mobile - fixed spacing from Download Resume button */}
+          <div className="absolute -top-20 sm:-top-14 left-0 right-0 flex justify-center z-20">
             <div 
               className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-secondary/80 border border-primary/40 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-1.5 md:gap-2"
               aria-label="10+ Years Experience badge"
@@ -201,8 +201,8 @@ const HeroSection = () => {
         </span>
       </div>
       
-      {/* Brands marquee at the bottom of hero section - positioned lower to avoid overlap with profile image */}
-      <div className="absolute -bottom-16 sm:bottom-0 left-0 right-0 py-6 bg-secondary/10 backdrop-blur-sm overflow-hidden w-[100vw] -translate-x-[calc((100vw-100%)/2)]">
+      {/* Brands marquee at the bottom of hero section - positioned with proper spacing below the image */}
+      <div className="absolute -bottom-24 sm:bottom-0 left-0 right-0 py-6 bg-secondary/10 backdrop-blur-sm overflow-hidden w-[100vw] -translate-x-[calc((100vw-100%)/2)]">
         <div className="hero-brands-marquee">
           <div className="hero-brands-track">
             {/* All brands in a single line */}
