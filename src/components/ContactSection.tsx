@@ -32,7 +32,7 @@ const ContactSection = () => {
                   <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">Message</label>
                   <Textarea id="message" placeholder="How can I help you?" className="bg-secondary border-primary/20 min-h-32" />
                 </div>
-                <Button type="submit" className="bg-primary hover:bg-primary/90 w-full">Send Message</Button>
+                <Button type="submit" className="bg-primary hover:bg-primary/90 w-full rounded-full">Send Message</Button>
               </form>
             </CardContent>
           </Card>

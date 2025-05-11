@@ -74,10 +74,16 @@ const HeroSection = () => {
           <h2 className="text-3xl font-medium text-muted-foreground font-calibri">Automation-First | GenAI Evangelist</h2>
           
           <div className="flex flex-wrap gap-5 pt-4">
-            <Button className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2 text-lg px-6 py-6" onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}>
+            <Button 
+              className="rounded-full bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2 text-base px-8 py-6 font-medium" 
+              onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}
+            >
               <Linkedin size={20} /> Connect on LinkedIn
             </Button>
-            <Button variant="outline" className="flex items-center gap-2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 transition-all text-lg px-6 py-6">
+            <Button 
+              variant="outline" 
+              className="rounded-full flex items-center gap-2 backdrop-blur-sm border border-gray-600 hover:border-primary hover:bg-background/50 transition-all text-base px-8 py-6 font-medium"
+            >
               <Download size={18} /> Download Resume
             </Button>
           </div>
