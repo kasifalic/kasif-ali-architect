@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowDown, Linkedin, Paintbrush } from "lucide-react";
+import { Download, ArrowDown, Linkedin } from "lucide-react";
 
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect", "Storage Architect", "Infra Architect"];
@@ -80,9 +80,6 @@ const HeroSection = () => {
             <Button variant="outline" className="flex items-center gap-2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 transition-all text-lg px-6 py-6">
               <Download size={18} /> Download Resume
             </Button>
-            <Button variant="secondary" className="flex items-center gap-2 backdrop-blur-sm shadow-lg shadow-primary/10 text-lg px-6 py-6" onClick={() => window.location.href = "/draw"}>
-              <Paintbrush size={18} /> Try Drawing
-            </Button>
           </div>
           
           <div className="pt-6 hidden md:block">
@@ -104,8 +101,8 @@ const HeroSection = () => {
               {/* Shimmering border effect - make it thicker */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%]"></div>
               
-              {/* Image container with no gap - increase scale to fill border completely */}
-              <div className="relative z-10 rounded-full overflow-hidden" style={{ transform: 'scale(0.99)' }}>
+              {/* Image container with no gap - adjust scale to completely fill border */}
+              <div className="relative z-10 rounded-full overflow-hidden" style={{ transform: 'scale(1)' }}>
                 <img 
                   alt="Kasi" 
                   className="w-full h-auto max-w-[400px] object-cover"
