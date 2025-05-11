@@ -159,23 +159,25 @@ const HeroSection = () => {
         <div className="relative z-10 flex justify-center md:justify-end">
           {/* Decorative line removed as requested */}
           
-          {/* Experience badge - positioned with better alignment on mobile - fixed spacing from Download Resume button */}
-          <div className="absolute -top-20 sm:-top-14 left-0 right-0 flex justify-center z-20">
-            <div 
-              className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-secondary/80 border border-primary/40 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-1.5 md:gap-2"
-              aria-label="10+ Years Experience badge"
-              role="text"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15.414 5a1 1 0 01-1.414 1.414L13 5.414V8a1 1 0 01-2 0V5.414L9.707 6.707a1 1 0 01-1.414-1.414L10 3.586l.707-.707A1 1 0 0112 2z" clipRule="evenodd" />
-                <path d="M8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-              </svg>
-              <p className="text-xs md:text-lg font-extrabold text-gradient animate-pulse-slow tracking-wide">10+ Years Experience</p>
-            </div>
-          </div>
+          {/* Experience badge removed from this position */}
           
           {/* Profile image container with shimmering border */}
           <div className="relative w-full max-w-[400px] flex items-center">
+            {/* Experience badge positioned to overlay the top of the profile image */}
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-30 flex justify-center">
+              <div 
+                className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-secondary/80 border border-primary/40 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-1.5 md:gap-2"
+                aria-label="10+ Years Experience badge"
+                role="text"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15.414 5a1 1 0 01-1.414 1.414L13 5.414V8a1 1 0 01-2 0V5.414L9.707 6.707a1 1 0 01-1.414-1.414L10 3.586l.707-.707A1 1 0 0112 2z" clipRule="evenodd" />
+                  <path d="M8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                </svg>
+                <p className="text-xs md:text-lg font-extrabold text-gradient animate-pulse-slow tracking-wide">10+ Years Experience</p>
+              </div>
+            </div>
+            
             <div className="relative rounded-full overflow-hidden">
               {/* Shimmering border effect - make it thicker */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%]"></div>
