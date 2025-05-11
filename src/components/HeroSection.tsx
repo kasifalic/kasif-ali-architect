@@ -89,32 +89,30 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <div className="relative z-10 flex justify-center items-center">
+        <div className="relative z-10 flex justify-center items-start">
           {/* Decorative element between image and text */}
           <div className="hidden md:flex absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 z-10">
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Profile image container - enlarged with no border */}
-          <div className="relative w-[420px] h-[500px] mx-auto flex items-center justify-center animate-float">
-            {/* Orbit decoration */}
-            <div className="absolute w-full h-full rounded-2xl border border-primary/10 animate-spin-slow"></div>
-            <div className="absolute w-[110%] h-[110%] rounded-2xl border border-accent/10 animate-spin-slow animation-delay-2000 opacity-50"></div>
+          {/* Profile image container - significantly enlarged and positioned higher */}
+          <div className="relative w-[550px] h-[650px] mx-auto flex items-center justify-center animate-float -mt-32">
+            {/* Removed orbit decoration for cleaner look */}
             
             <div className="w-full h-full overflow-hidden hover:scale-105 transition-transform duration-300">
               <img 
                 alt="Kasi" 
-                className="w-full h-full object-contain object-center"
+                className="w-full h-full object-contain object-top"
                 src="/lovable-uploads/f6b42f59-5f18-4d9a-bfb7-d2d571e00de3.png" 
               />
             </div>
           </div>
           
-          {/* Enhanced experience badge */}
-          <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
+          {/* Enhanced experience badge - adjusted position */}
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
             <div className="w-2 h-12 bg-gradient-to-b from-primary to-accent rounded-full"></div>
-            <div className="px-10 py-4 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
-              <p className="text-xl md:text-2xl font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
+            <div className="px-14 py-5 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
+              <p className="text-2xl md:text-3xl font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
             </div>
           </div>
         </div>
