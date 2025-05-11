@@ -97,15 +97,15 @@ const HeroSection = () => {
           
           {/* Profile image container with shimmering border */}
           <div className="relative w-full h-full flex items-center justify-center">
-            <div className="relative rounded-full overflow-hidden">
-              {/* Shimmering border effect - make it thicker */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%]"></div>
+            <div className="relative rounded-full overflow-hidden p-1">
+              {/* Shimmering border effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%] rounded-full"></div>
               
-              {/* Image container with no gap - adjust scale to completely fill border */}
-              <div className="relative z-10 rounded-full overflow-hidden" style={{ transform: 'scale(1)' }}>
+              {/* Image container with padding to prevent top cropping */}
+              <div className="relative z-10 rounded-full overflow-hidden bg-background p-0.5">
                 <img 
                   alt="Kasi" 
-                  className="w-full h-auto max-w-[400px] object-cover"
+                  className="w-full h-auto max-w-[400px] object-cover rounded-full"
                   src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
                 />
               </div>
