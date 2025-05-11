@@ -95,8 +95,8 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Experience badge - moved to top */}
-          <div className="absolute -top-10 right-0 md:right-10 z-20">
+          {/* Experience badge - repositioned for better alignment */}
+          <div className="absolute -top-10 md:-top-14 left-1/2 md:left-auto md:right-10 transform -translate-x-1/2 md:translate-x-0 z-20">
             <div className="px-4 py-2 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15.414 5a1 1 0 01-1.414 1.414L13 5.414V8a1 1 0 01-2 0V5.414L9.707 6.707a1 1 0 01-1.414-1.414L10 3.586l.707-.707A1 1 0 0112 2z" clipRule="evenodd" />
