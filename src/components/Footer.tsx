@@ -14,7 +14,7 @@ const Footer = () => {
             <a href="#skills" className="text-sm hover:text-primary transition-colors">Skills</a>
             <a href="#experience" className="text-sm hover:text-primary transition-colors">Experience</a>
             <a href="#services" className="text-sm hover:text-primary transition-colors">Services</a>
-            <a href="#projects" className="text-sm hover:text-primary transition-colors">Projects</a>
+            <a href="#certifications" className="text-sm hover:text-primary transition-colors">Certifications</a>
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a>
           </div>
         </div>
