@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowDown, Linkedin } from "lucide-react";
+import { Download, ArrowDown, Linkedin, Paintbrush } from "lucide-react";
 
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect", "Storage Architect", "Infra Architect"];
@@ -79,6 +79,9 @@ const HeroSection = () => {
             </Button>
             <Button variant="outline" className="flex items-center gap-2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 transition-all text-lg px-6 py-6">
               <Download size={18} /> Download Resume
+            </Button>
+            <Button variant="secondary" className="flex items-center gap-2 backdrop-blur-sm shadow-lg shadow-primary/10 text-lg px-6 py-6" onClick={() => window.location.href = "/draw"}>
+              <Paintbrush size={18} /> Try Drawing
             </Button>
           </div>
           
