@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Cloud, Database, Server, Shield, Users, Briefcase, ChartBar, FileText, Globe } from "lucide-react";
+import { Code, Cloud, Database, Server, Shield, Users, Briefcase, ChartBar, FileText, Globe, Router, Network, Wifi } from "lucide-react";
 
 interface SkillCategory {
   title: string;
@@ -60,6 +60,16 @@ const SkillsSection = () => {
         "Vendor Strategy & Cost Optimization (30%+ YoY Savings)",
         "IT Budgeting, FinOps & SaaS Consolidation",
         "Stakeholder Management & Cross-functional Coordination"
+      ]
+    },
+    {
+      title: "Networking",
+      icon: Router,
+      skills: [
+        "Network Architecture & Implementation (LAN/WAN/SD-WAN)",
+        "Secure Remote Access Solutions & VPN Management",
+        "Mesh Networks & Multi-site Connectivity Design",
+        "Network Monitoring & Performance Optimization"
       ]
     }
   ];
