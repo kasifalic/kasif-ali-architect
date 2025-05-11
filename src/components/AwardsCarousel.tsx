@@ -8,12 +8,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, X } from "lucide-react";
+import { Trophy, X, ExternalLink } from "lucide-react";
 import { 
   Dialog, 
   DialogContent, 
   DialogClose 
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const AwardsCarousel = () => {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
@@ -91,10 +92,28 @@ const AwardsCarousel = () => {
             <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
           </div>
 
-          <div className="flex justify-center mt-2">
+          <div className="flex flex-col items-center mt-6 gap-4">
             <p className="text-sm italic text-muted-foreground">
               Won 1st place in India's First 100x Engineers Generative AI Buildathon, selected from 1502 applicants.
             </p>
+            
+            <div className="flex justify-center w-full mt-4">
+              <a 
+                href="https://investoaitest.netlify.app/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full sm:w-auto"
+              >
+                <Button 
+                  variant="default" 
+                  size="lg"
+                  className="font-bold text-lg w-full sm:w-auto px-10 py-6 bg-gradient-to-r from-violet-500 to-purple-700 hover:from-violet-600 hover:to-purple-800 shadow-lg hover:shadow-purple-500/30 transition-all duration-300 rounded-xl flex items-center gap-2 h-auto"
+                >
+                  <span className="mr-2">Try Investo MVP</span>
+                  <ExternalLink size={20} className="animate-pulse" />
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

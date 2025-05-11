@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "@/components/ui/sonner";
 import { 
@@ -15,46 +15,10 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
-
-// List of common country codes
-const countryCodes = [
-  { value: "+1", label: "United States (+1)" },
-  { value: "+44", label: "United Kingdom (+44)" },
-  { value: "+91", label: "India (+91)" },
-  { value: "+61", label: "Australia (+61)" },
-  { value: "+86", label: "China (+86)" },
-  { value: "+49", label: "Germany (+49)" },
-  { value: "+33", label: "France (+33)" },
-  { value: "+81", label: "Japan (+81)" },
-  { value: "+7", label: "Russia (+7)" },
-  { value: "+55", label: "Brazil (+55)" },
-  { value: "+27", label: "South Africa (+27)" },
-  { value: "+971", label: "United Arab Emirates (+971)" },
-  { value: "+39", label: "Italy (+39)" },
-  { value: "+34", label: "Spain (+34)" },
-  { value: "+82", label: "South Korea (+82)" },
-  { value: "+52", label: "Mexico (+52)" },
-  { value: "+60", label: "Malaysia (+60)" },
-  { value: "+65", label: "Singapore (+65)" },
-  { value: "+31", label: "Netherlands (+31)" },
-  { value: "+46", label: "Sweden (+46)" },
-  { value: "+47", label: "Norway (+47)" },
-  { value: "+64", label: "New Zealand (+64)" },
-  { value: "+966", label: "Saudi Arabia (+966)" },
-  { value: "+358", label: "Finland (+358)" },
-  { value: "+420", label: "Czech Republic (+420)" },
-];
 
 const ContactSection = () => {
   const isMobile = useIsMobile();
@@ -63,10 +27,6 @@ const ContactSection = () => {
   const contactSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
     email: z.string().email({ message: "Please enter a valid email address" }),
-    countryCode: z.string({ required_error: "Please select a country code" }),
-    phoneNumber: z.string()
-      .min(5, { message: "Phone number must be at least 5 digits" })
-      .regex(/^\d+$/, { message: "Phone number must contain only digits" }),
     message: z.string().min(10, { message: "Message must be at least 10 characters long" }),
   });
 
@@ -75,8 +35,6 @@ const ContactSection = () => {
     defaultValues: {
       name: "",
       email: "",
-      countryCode: "+1",
-      phoneNumber: "",
       message: "",
     },
   });
@@ -86,15 +44,12 @@ const ContactSection = () => {
       setIsSubmitting(true);
       console.log("Submitting form data:", data);
       
-      const fullPhoneNumber = `${data.countryCode} ${data.phoneNumber}`;
-      
       const { error, data: insertedData } = await supabase
         .from('contact_messages')
         .insert([
           { 
             name: data.name, 
             email: data.email,
-            phone_number: fullPhoneNumber,
             message: data.message 
           }
         ])
@@ -179,51 +134,6 @@ const ContactSection = () => {
                     )}
                   />
                   
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-                    <FormField
-                      control={form.control}
-                      name="countryCode"
-                      render={({ field }) => (
-                        <FormItem className="md:col-span-4">
-                          <FormLabel className="text-sm font-medium text-muted-foreground">Country</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger className="bg-secondary border-primary/20">
-                                <SelectValue placeholder="Select" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="max-h-[300px]">
-                              {countryCodes.map((code) => (
-                                <SelectItem key={code.value} value={code.value}>
-                                  {code.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="phoneNumber"
-                      render={({ field }) => (
-                        <FormItem className="md:col-span-8">
-                          <FormLabel className="text-sm font-medium text-muted-foreground">Phone Number</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="Phone Number" 
-                              className="bg-secondary border-primary/20" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  
                   <FormField
                     control={form.control}
                     name="message"
@@ -273,14 +183,6 @@ const ContactSection = () => {
                   </div>
                   <span>Click to copy email address</span>
                 </button>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Phone size={18} className="text-primary" />
-                  </div>
-                  <a href="tel:+11234567890" className="hover:text-primary transition-colors">
-                    +1 (123) 456-7890
-                  </a>
-                </div>
               </div>
             </div>
           </div>
