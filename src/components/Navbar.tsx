@@ -4,10 +4,10 @@ import { Mail, Twitter, Instagram } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md">
-      <nav className="container mx-auto flex items-center justify-between py-4">
+    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center">
+      <nav className="max-w-5xl w-full mx-6 px-6 py-3 rounded-full bg-background/90 backdrop-blur-md border border-muted/20 shadow-sm flex items-center justify-between">
         <div className="text-xl font-bold font-space-grotesk">Portfolio</div>
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-6">
           <li><a href="#home" className="text-sm hover:text-primary transition-colors">Home</a></li>
           <li><a href="#about" className="text-sm hover:text-primary transition-colors">About</a></li>
           <li><a href="#skills" className="text-sm hover:text-primary transition-colors">Skills</a></li>
