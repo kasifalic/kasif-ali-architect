@@ -95,8 +95,8 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Profile image container - significantly enlarged and positioned higher */}
-          <div className="relative w-[550px] h-[650px] mx-auto flex items-center justify-center animate-float -mt-32">
+          {/* Profile image container - significantly enlarged (3x larger) */}
+          <div className="relative w-[1650px] h-[1950px] mx-auto flex items-center justify-center animate-float -mt-32">
             {/* Removed orbit decoration for cleaner look */}
             
             <div className="w-full h-full overflow-hidden hover:scale-105 transition-transform duration-300">
@@ -108,11 +108,11 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Enhanced experience badge - adjusted position */}
+          {/* Reduced size experience badge */}
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
             <div className="w-2 h-12 bg-gradient-to-b from-primary to-accent rounded-full"></div>
-            <div className="px-14 py-5 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
-              <p className="text-2xl md:text-3xl font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
+            <div className="px-8 py-3 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
+              <p className="text-lg md:text-xl font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
             </div>
           </div>
         </div>
