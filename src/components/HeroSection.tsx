@@ -95,19 +95,13 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Profile image container with new shape */}
-          <div className="relative w-96 h-96 mx-auto bg-gradient-to-r from-primary/30 to-accent/30 rounded-2xl flex items-center justify-center animate-float shadow-xl shadow-primary/10 overflow-hidden">
-            {/* Orbit decoration */}
-            <div className="absolute w-full h-full rounded-2xl border border-primary/20 animate-spin-slow"></div>
-            <div className="absolute w-[110%] h-[110%] rounded-2xl border border-accent/20 animate-spin-slow animation-delay-2000 opacity-70"></div>
-            
-            <div className="w-full h-full overflow-hidden border-4 border-primary/50 shadow-lg hover:scale-105 transition-transform duration-300 rounded-xl">
-              <img 
-                alt="Kasi" 
-                className="w-full h-full object-cover object-center scale-110"
-                src="/lovable-uploads/b967c81e-eb56-4f02-8a3d-cccd800dc2a6.png" 
-              />
-            </div>
+          {/* Profile image container - with new image, removed borders and box */}
+          <div className="relative w-full h-full flex items-center justify-center">
+            <img 
+              alt="Kasi" 
+              className="w-full h-auto max-w-[600px] object-contain"
+              src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
+            />
           </div>
           
           {/* Enhanced experience badge */}
