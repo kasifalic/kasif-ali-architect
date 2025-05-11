@@ -102,6 +102,7 @@ const DrawingCanvas = ({ width = 800, height = 500 }: DrawingCanvasProps) => {
     const dataURL = fabricCanvasRef.current.toDataURL({
       format: "png",
       quality: 1.0,
+      multiplier: 1.0 // Adding the required multiplier property
     });
     
     const link = document.createElement("a");
