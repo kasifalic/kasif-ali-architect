@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowDown, Linkedin } from "lucide-react";
@@ -43,13 +42,8 @@ const HeroSection = () => {
   }, [displayedRole, isDeleting, roleIndex]);
 
   const handleDownloadResume = () => {
-    // Create a link to the resume file and trigger download
-    const link = document.createElement('a');
-    link.href = '/resume-kasi.pdf'; // Path to the resume file
-    link.download = 'Kasi-Resume.pdf'; // Name for the downloaded file
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Directly open the Google Drive resume link
+    window.open("https://drive.google.com/file/d/1vwn6GV7cExB_LPBhDO56BgyXHnr_x9gA/view?usp=sharing", "_blank");
   };
 
   return (
