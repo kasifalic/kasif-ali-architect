@@ -7,7 +7,7 @@ const Navbar = () => {
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center">
       <div className="relative">
         {/* Subtle shimmer border effect - reduced blur and thickness */}
-        <div className="absolute -inset-[2px] rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%] blur-[0.5px]"></div>
+        <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%] opacity-70 blur-[0.3px]"></div>
         
         {/* Main navigation */}
         <nav className="relative z-10 max-w-5xl w-full mx-6 px-6 py-3 rounded-full bg-background/90 backdrop-blur-md shadow-sm flex items-center justify-between">
