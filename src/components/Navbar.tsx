@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center">
       <div className="relative">
-        {/* Shimmer border effect */}
+        {/* Subtle shimmer border effect - reduced blur and thickness */}
         <div className="absolute -inset-[2px] rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:400%_100%] blur-[0.5px]"></div>
         
         {/* Main navigation */}
