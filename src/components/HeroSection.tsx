@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowDown, Linkedin } from "lucide-react";
+import { Download, ArrowDown, Linkedin, Award } from "lucide-react";
 
 const HeroSection = () => {
   const roles = ["IT Architect", "Cloud Architect", "Network Architect", "GenAI Architect", "Storage Architect", "Infra Architect"];
@@ -71,7 +71,13 @@ const HeroSection = () => {
             </span>
           </h1>
           
-          <h2 className="text-3xl font-medium text-muted-foreground">Automation-First | GenAI Evangelist</h2>
+          <h2 className="text-3xl font-medium text-muted-foreground">
+            Automation-First | GenAI Evangelist
+            <span className="ml-3 inline-flex items-center gap-1 text-sm bg-primary/10 px-3 py-1 rounded-full text-primary">
+              <Award size={14} className="animate-pulse-slow" />
+              10+ Years Experience
+            </span>
+          </h2>
           
           <div className="flex flex-wrap gap-5 pt-4">
             <Button className="bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2 text-lg px-6 py-6" onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}>
@@ -102,14 +108,6 @@ const HeroSection = () => {
               className="w-full h-auto max-w-[450px] object-contain"
               src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
             />
-          </div>
-          
-          {/* Enhanced experience badge */}
-          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
-            <div className="w-1.5 h-10 bg-gradient-to-b from-primary to-accent rounded-full"></div>
-            <div className="px-8 py-3 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300">
-              <p className="text-base md:text-lg font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
-            </div>
           </div>
         </div>
       </div>
