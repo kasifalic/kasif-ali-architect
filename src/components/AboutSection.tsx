@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, BookOpen, Cloud, Server, Network, Database, Database2 } from "lucide-react";
+import { ArrowRight, BookOpen, Cloud, Server, Network, Database, Layers } from "lucide-react";
 
 const AboutSection = () => {
   const strengths = [
@@ -32,7 +32,7 @@ const AboutSection = () => {
       case "Storage":
         return <Database className="w-6 h-6" />;
       case "SaaS":
-        return <Database2 className="w-6 h-6" />;
+        return <Layers className="w-6 h-6" />;
       default:
         return <Cloud className="w-6 h-6" />;
     }
