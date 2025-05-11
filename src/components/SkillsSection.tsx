@@ -1,7 +1,8 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Users, Code, Server, Briefcase } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Code, Cloud, Database, Server, Shield, Users, Briefcase, ChartBar, FileText, Globe } from "lucide-react";
 
 interface SkillCategory {
   title: string;
@@ -78,30 +79,35 @@ const SkillsSection = () => {
           <h2 className="text-3xl font-tahoma font-bold mt-1">Areas of Expertise</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {skillCategories.map((category, index) => (
             <Card 
               key={index} 
-              className="bg-secondary/80 backdrop-blur-sm border border-primary/10 overflow-hidden shadow-lg shadow-primary/5 
-                animate-fade-in relative"
+              className="bg-background/60 backdrop-blur-sm border-primary/10 hover:border-primary/30 overflow-hidden shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 
+                animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-6 justify-center">
-                  <div className="p-3 rounded-lg bg-primary/20 text-primary">
-                    <category.icon className="w-6 h-6" />
+                <div className="relative mb-8">
+                  {/* Accent background element */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full z-0"></div>
+                  
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      <category.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-tahoma font-bold text-xl">{category.title}</h3>
                   </div>
-                  <h3 className="font-tahoma font-bold text-xl text-foreground">{category.title}</h3>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {category.skills.map((skill, skillIndex) => (
                     <div 
                       key={skillIndex} 
-                      className="flex items-center gap-3 transition-all duration-200"
+                      className="flex items-start gap-3 transition-all duration-200 hover:translate-x-1.5 p-2 rounded-lg hover:bg-primary/5"
                     >
-                      <div className="w-2 h-2 rounded-full bg-primary mt-1 flex-shrink-0"></div>
-                      <span className="font-calibri text-sm text-foreground/90">{skill}</span>
+                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                      <span className="font-calibri text-sm">{skill}</span>
                     </div>
                   ))}
                 </div>
