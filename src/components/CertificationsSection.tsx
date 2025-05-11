@@ -1,14 +1,20 @@
 
 import React from "react";
-import { Microsoft, Cisco, Aws, Cloud, JumpCloud } from "lucide-react";
+import { 
+  Windows, 
+  Network, 
+  CloudCog, 
+  Cloud, 
+  KeyRound 
+} from "lucide-react";
 
 const CertificationsSection = () => {
   const certifications = [
-    { name: "Microsoft", Icon: Microsoft },
-    { name: "Cisco", Icon: Cisco },
-    { name: "AWS", Icon: Aws },
-    { name: "Azure", Icon: Cloud }, // Using Cloud for Azure as there's no specific Azure icon
-    { name: "JumpCloud", Icon: JumpCloud }
+    { name: "Microsoft", Icon: Windows },
+    { name: "Cisco", Icon: Network },
+    { name: "AWS", Icon: CloudCog },
+    { name: "Azure", Icon: Cloud },
+    { name: "JumpCloud", Icon: KeyRound }
   ];
 
   return (
