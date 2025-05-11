@@ -36,3 +36,6 @@ const CertificationsSection = () => {
 };
 
 export default CertificationsSection;
+
+
+

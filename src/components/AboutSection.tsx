@@ -79,7 +79,7 @@ const AboutSection = () => {
           </div>
           
           {/* Education Section - Moved below the summary */}
-          <div className="mb-16">
+          <div>
             <Card className="bg-background/60 backdrop-blur-sm border-primary/20 overflow-hidden shadow-lg relative max-w-xl mx-auto">
               <CardContent className="p-6 relative">
                 {/* Decorative corner accent */}
@@ -94,40 +94,22 @@ const AboutSection = () => {
                 
                 <div className="pl-4 border-l-2 border-primary/30">
                   <div className="shimmer-text text-xl mb-2">M.Sc. Computer Science</div>
-                  <p className="text-muted-foreground font-calibri text-lg">Alagappa University, 2016</p>
+                  <p className="text-muted-foreground font-calibri text-lg">
+                    <a 
+                      href="https://www.alagappauniversity.ac.in/homepage" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors underline decoration-dotted underline-offset-4"
+                    >
+                      Alagappa University
+                    </a>, 2016
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </div>
           
-          {/* Brands Experience Section */}
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-tahoma font-bold text-center mb-10">Experience With Leading Brands</h3>
-            
-            <div className="space-y-10">
-              {Object.entries(brands).map(([category, brandList]) => (
-                <div key={category} className="animate-fade-in">
-                  <div className="flex items-center gap-3 mb-4 justify-center">
-                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                      {getBrandIcon(category)}
-                    </div>
-                    <h4 className="text-xl font-tahoma font-semibold">{category}</h4>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 justify-center">
-                    {brandList.map((brand, index) => (
-                      <div 
-                        key={index} 
-                        className="bg-secondary/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/10 hover:border-primary/30 transition-all hover:-translate-y-1 hover:shadow-md duration-300"
-                      >
-                        <span className="font-calibri">{brand}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Removed Brands Experience Section */}
         </div>
       </div>
     </section>

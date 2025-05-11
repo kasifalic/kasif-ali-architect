@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-muted/20 mt-6 pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Portfolio. All rights reserved.
+          © {new Date().getFullYear()} Kasif Ali. All rights reserved.
         </div>
       </div>
     </footer>
@@ -53,3 +53,6 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
+

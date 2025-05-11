@@ -6,23 +6,30 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ServicesSection from "@/components/ServicesSection";
-import CertificationsSection from "@/components/CertificationsSection";
+import ArticlesSection from "@/components/ArticlesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AwardsCarousel from "@/components/AwardsCarousel";
+import BackgroundAnimation from "@/components/BackgroundAnimation";
+import AwardBanner from "@/components/AwardBanner";
+
+// Import custom animations
+import "@/styles/animations.css";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <BackgroundAnimation />
       <Navbar />
-      <main className="pt-20 overflow-x-hidden">
+      <AwardBanner />
+      <main className="pt-16 overflow-x-hidden relative z-10">
         <HeroSection />
         <AwardsCarousel />
         <AboutSection />
         <SkillsSection />
         <ExperienceSection />
         <ServicesSection />
-        <CertificationsSection />
+        <ArticlesSection />
         <ContactSection />
       </main>
       <Footer />

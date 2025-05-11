@@ -11,6 +11,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
+    let timer: NodeJS.Timeout;
     
     const typeEffect = () => {
       if (!isDeleting) {
@@ -37,9 +38,15 @@ const HeroSection = () => {
       }
     };
 
-    const timer = setTimeout(typeEffect, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [displayedRole, isDeleting, roleIndex]);
+    timer = setTimeout(typeEffect, typingSpeed);
+    
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [displayedRole, isDeleting, roleIndex, roles]);
 
   const resumeUrl = "https://drive.google.com/file/d/1vwn6GV7cExB_LPBhDO56BgyXHnr_x9gA/view?usp=sharing";
 
@@ -47,6 +54,15 @@ const HeroSection = () => {
     // Fallback in case the a tag doesn't work
     window.open(resumeUrl, "_blank");
   };
+
+  // Brands for the marquee
+  const heroBrands = [
+    "AWS", "Azure", "GCP", "Cisco", "Datadog", "Dell", "HPE", "Lenovo", "Nutanix", 
+    "Prometheus", "Proxmox", "VMware", "Zabbix", "Aruba", "Cyberhaven", "Fortinet", 
+    "Juniper", "Meraki", "Netgear", "Ruckus", "Sophos", "Twingate", "Ubiquiti", 
+    "Ceph", "Hitachi", "NetApp", "Synology", "TrueNAS", "Intune", "Jamf", "Jira", 
+    "Jumpcloud", "Manage Engine", "Okta", "Zoho"
+  ];
 
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center pt-24 pb-12">
@@ -77,29 +93,64 @@ const HeroSection = () => {
             </span>
           </h1>
           
-          <h2 className="text-3xl font-medium text-muted-foreground font-calibri">Automation-First | GenAI Evangelist</h2>
+          <div className="relative overflow-hidden my-2">
+            <h2 className="text-3xl font-medium font-calibri flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="relative group">
+                <span className="bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">Automation-First</span>
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-blue-400 to-violet-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </span>
+              
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs">|</span>
+              
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-violet-500 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">GenAI Evangelist</span>
+                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-violet-500 to-purple-600 transform origin-left animate-shimmer bg-[length:400%_100%]"></span>
+              </span>
+            </h2>
+          </div>
           
-          <div className="flex flex-wrap gap-5 pt-4">
-            <Button 
-              className="rounded-full bg-[#0077B5] hover:bg-[#0077B5]/90 transition-all shadow-lg shadow-[#0077B5]/20 flex items-center gap-2 text-base px-8 py-6 font-medium" 
-              onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}
-            >
-              <Linkedin size={20} /> Connect on LinkedIn
-            </Button>
-            <a 
-              href={resumeUrl}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block"
-            >
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 pt-6">
+            {/* LinkedIn Button with modern design */}
+            <div className="group relative w-full sm:w-auto overflow-hidden">
+              {/* Button glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 opacity-70 blur-xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse-slow"></div>
+              
               <Button 
-                variant="outline" 
-                className="rounded-full flex items-center gap-2 backdrop-blur-sm border border-gray-600 hover:border-primary hover:bg-background/50 transition-all text-base px-8 py-6 font-medium"
+                className="relative w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 border-0 rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base px-7 py-6 font-medium z-10 transition-all duration-300 shadow-xl group-hover:shadow-blue-500/30"
+                onClick={() => window.open("https://www.linkedin.com/in/kasif-ali/", "_blank")}
+              >
+                <span className="relative">
+                  <Linkedin size={18} className="absolute left-0 top-1/2 -translate-y-1/2 opacity-100 group-hover:opacity-0 group-hover:-translate-x-2 transition-all duration-300" />
+                  <Linkedin size={18} className="opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300" />
+                </span>
+                <span className="ml-6">Connect on LinkedIn</span>
+              </Button>
+            </div>
+            
+            {/* Resume Button with modern design */}
+            <div className="group relative w-full sm:w-auto overflow-hidden">
+              {/* Button subtle glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600/30 via-violet-400/30 to-violet-600/30 opacity-0 blur-xl group-hover:opacity-70 transition-opacity duration-500"></div>
+              
+              <a 
+                href={resumeUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block w-full"
                 onClick={handleDownloadResume}
               >
-                <Download size={18} /> Download Resume
-              </Button>
-            </a>
+                <Button 
+                  variant="outline" 
+                  className="relative w-full bg-background/30 backdrop-blur-md border border-violet-500/30 hover:border-violet-500 hover:bg-violet-500/10 rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base px-7 py-6 font-medium z-10 transition-all duration-300 shadow-lg group-hover:shadow-violet-500/20"
+                >
+                  <span className="relative">
+                    <Download size={18} className="absolute left-0 top-1/2 -translate-y-1/2 opacity-100 group-hover:opacity-0 transition-all duration-300" />
+                    <Download size={18} className="opacity-0 group-hover:opacity-100 group-hover:translate-y-[2px] transition-all duration-300" />
+                  </span>
+                  <span className="ml-6">Download Resume</span>
+                </Button>
+              </a>
+            </div>
           </div>
           
           <div className="pt-6 hidden md:block">
@@ -115,14 +166,18 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Experience badge - repositioned for better alignment */}
-          <div className="absolute -top-10 md:-top-14 left-1/2 md:left-auto md:right-10 transform -translate-x-1/2 md:translate-x-0 z-20">
-            <div className="px-4 py-2 rounded-full bg-secondary/70 border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+          {/* Experience badge - positioned above the profile image with improved accessibility */}
+          <div className="absolute -top-10 sm:-top-14 left-0 right-0 flex justify-center z-20">
+            <div 
+              className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-secondary/80 border border-primary/40 backdrop-blur-md shadow-lg shadow-primary/10 hover:scale-105 transition-transform duration-300 flex items-center gap-1.5 md:gap-2"
+              aria-label="10+ Years Experience badge"
+              role="text"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.707.293l.707.707L15.414 5a1 1 0 01-1.414 1.414L13 5.414V8a1 1 0 01-2 0V5.414L9.707 6.707a1 1 0 01-1.414-1.414L10 3.586l.707-.707A1 1 0 0112 2z" clipRule="evenodd" />
                 <path d="M8 9a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
               </svg>
-              <p className="text-base font-semibold text-gradient animate-pulse-slow">10+ Years Experience</p>
+              <p className="text-xs md:text-lg font-extrabold text-gradient animate-pulse-slow tracking-wide">10+ Years Experience</p>
             </div>
           </div>
           
@@ -144,8 +199,120 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Center label for brands */}
+      <div className="absolute bottom-28 left-0 right-0 flex justify-center">
+        <span className="px-4 py-1 bg-background/50 backdrop-blur-md rounded-full text-xs text-muted-foreground/70 border border-primary/10">
+          Brands I Worked On
+        </span>
+      </div>
+      
+      {/* Brands marquee at the bottom of hero section - truly edge to edge */}
+      <div className="absolute bottom-0 left-0 right-0 py-6 bg-secondary/10 backdrop-blur-sm overflow-hidden w-[100vw] -translate-x-[calc((100vw-100%)/2)]">
+        <div className="hero-brands-marquee">
+          <div className="hero-brands-track">
+            {/* All brands in a single line */}
+            {[...heroBrands, ...heroBrands].map((brand, index) => (
+              <span key={`hero-brand-${index}`} className="hero-brand-tag">{brand}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Scoped CSS for hero brands with performance optimizations and browser compatibility */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .hero-brands-marquee {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+          }
+          
+          .hero-brands-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: hero-brands-scroll 60s linear infinite;
+            will-change: transform;
+            transform: translateZ(0);
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            .hero-brands-track {
+              animation-duration: 120s;
+            }
+          }
+          
+          .hero-brand-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 8px;
+            border-radius: 8px;
+            background: linear-gradient(to right, rgba(252, 165, 241, 0.1), rgba(191, 245, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: rgba(255, 255, 255, 0.9);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-size: 300% 100%;
+            background-image: linear-gradient(to right, #a78bfa, #93c5fd, #67e8f9, #93c5fd, #a78bfa);
+            animation: hero-brand-shimmer 8s linear infinite;
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            font-weight: 700;
+            text-rendering: optimizeLegibility;
+          }
+          
+          /* Fallback for browsers that don't support background-clip: text */
+          @supports not (background-clip: text) {
+            .hero-brand-tag {
+              color: rgba(255, 255, 255, 0.9);
+              background: rgba(100, 100, 255, 0.2);
+              text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+          }
+          
+          .hero-brand-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg, 
+              transparent, 
+              rgba(255, 255, 255, 0.2), 
+              transparent
+            );
+            animation: hero-brand-shine 3s infinite;
+          }
+          
+          @keyframes hero-brands-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          
+          @keyframes hero-brand-shine {
+            100% { left: 100%; }
+          }
+          
+          @keyframes hero-brand-shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            .hero-brand-tag {
+              animation-duration: 16s;
+            }
+            .hero-brand-tag::before {
+              animation-duration: 6s;
+            }
+          }
+        `}} />
+      </div>
     </section>
   );
 };
 
 export default HeroSection;
+
