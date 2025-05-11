@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
-import { fabric } from "fabric";
+import * as fabric from "fabric";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { 
