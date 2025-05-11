@@ -10,7 +10,6 @@ import CertificationsSection from "@/components/CertificationsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AwardsCarousel from "@/components/AwardsCarousel";
-import ProjectsSection from "@/components/ProjectsSection";
 
 const Index = () => {
   return (
@@ -23,7 +22,6 @@ const Index = () => {
         <SkillsSection />
         <ExperienceSection />
         <ServicesSection />
-        <ProjectsSection />
         <CertificationsSection />
         <ContactSection />
       </main>
