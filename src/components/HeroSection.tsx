@@ -41,9 +41,11 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, [displayedRole, isDeleting, roleIndex]);
 
+  const resumeUrl = "https://drive.google.com/file/d/1vwn6GV7cExB_LPBhDO56BgyXHnr_x9gA/view?usp=sharing";
+
   const handleDownloadResume = () => {
-    // Directly open the Google Drive resume link
-    window.open("https://drive.google.com/file/d/1vwn6GV7cExB_LPBhDO56BgyXHnr_x9gA/view?usp=sharing", "_blank");
+    // Fallback in case the a tag doesn't work
+    window.open(resumeUrl, "_blank");
   };
 
   return (
@@ -84,13 +86,20 @@ const HeroSection = () => {
             >
               <Linkedin size={20} /> Connect on LinkedIn
             </Button>
-            <Button 
-              variant="outline" 
-              className="rounded-full flex items-center gap-2 backdrop-blur-sm border border-gray-600 hover:border-primary hover:bg-background/50 transition-all text-base px-8 py-6 font-medium"
-              onClick={handleDownloadResume}
+            <a 
+              href={resumeUrl}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block"
             >
-              <Download size={18} /> Download Resume
-            </Button>
+              <Button 
+                variant="outline" 
+                className="rounded-full flex items-center gap-2 backdrop-blur-sm border border-gray-600 hover:border-primary hover:bg-background/50 transition-all text-base px-8 py-6 font-medium"
+                onClick={handleDownloadResume}
+              >
+                <Download size={18} /> Download Resume
+              </Button>
+            </a>
           </div>
           
           <div className="pt-6 hidden md:block">
