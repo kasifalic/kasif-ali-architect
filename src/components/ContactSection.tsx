@@ -18,6 +18,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const isMobile = useIsMobile();
@@ -38,14 +39,29 @@ const ContactSection = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof contactSchema>) => {
-    // This will be replaced by actual Supabase integration after connecting
-    toast.success("Message sent successfully!");
-    form.reset();
-    console.log("Form data to send to Supabase:", data);
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([
+          { 
+            name: data.name, 
+            email: data.email, 
+            message: data.message 
+          }
+        ]);
+      
+      if (error) throw error;
+      
+      toast.success("Message sent successfully!");
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error("Failed to send message. Please try again later.");
+    }
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText("contact@examplemail.com");
+    navigator.clipboard.writeText("kasifaliwdr@gmail.com");
     toast.success("Email address copied to clipboard!");
   };
 
