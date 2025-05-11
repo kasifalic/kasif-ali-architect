@@ -114,7 +114,7 @@ const SkillsSection = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div 
                       key={skillIndex} 
-                      className="flex items-start gap-3 transition-all duration-200 hover:translate-x-1.5 p-2 rounded-lg hover:bg-primary/5"
+                      className="flex items-start gap-3 transition-all duration-200 hover:translate-x-1.5"
                     >
                       <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
                       <span className="font-calibri text-sm">{skill}</span>
