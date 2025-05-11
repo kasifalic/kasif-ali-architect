@@ -8,9 +8,10 @@ const AboutSection = () => {
   const strengths = [
     "Stakeholder collaboration",
     "Blueprinting",
-    "Cost optimization (40%)",
+    "Cost optimization",
     "Uptime improvement",
-    "GenAI-powered automation"
+    "GenAI-powered automation",
+    "Security framework implementation"
   ];
   
   const brands = {
@@ -64,7 +65,7 @@ const AboutSection = () => {
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                {Object.entries(strengths).map(([index, strength]) => (
+                {strengths.map((strength, index) => (
                   <div 
                     key={index} 
                     className="flex items-center gap-3 bg-secondary/30 backdrop-blur-sm p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-md duration-300"
@@ -75,10 +76,6 @@ const AboutSection = () => {
                 ))}
               </div>
             </div>
-            
-            <Button className="rounded-full bg-primary hover:bg-primary/90 font-calibri group flex items-center gap-2 mt-4">
-              Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
           </div>
           
           {/* Education Section - Moved below the summary */}
