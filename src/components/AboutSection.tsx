@@ -105,20 +105,20 @@ const AboutSection = () => {
           </div>
           
           {/* Brands Experience Section */}
-          <div className="mt-16">
+          <div className="mt-16 text-center">
             <h3 className="text-2xl font-tahoma font-bold text-center mb-10">Experience With Leading Brands</h3>
             
             <div className="space-y-10">
               {Object.entries(brands).map(([category, brandList]) => (
                 <div key={category} className="animate-fade-in">
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-3 mb-4 justify-center">
                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
                       {getBrandIcon(category)}
                     </div>
                     <h4 className="text-xl font-tahoma font-semibold">{category}</h4>
                   </div>
                   
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 justify-center">
                     {brandList.map((brand, index) => (
                       <div 
                         key={index} 
