@@ -95,11 +95,11 @@ const HeroSection = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
           </div>
           
-          {/* Profile image container - with new image, removed borders and box */}
+          {/* Profile image container - smaller size */}
           <div className="relative w-full h-full flex items-center justify-center">
             <img 
               alt="Kasi" 
-              className="w-full h-auto max-w-[600px] object-contain"
+              className="w-full h-auto max-w-[450px] object-contain"
               src="/lovable-uploads/f5664741-af6b-48d6-9aac-4c68ac9ee2b6.png" 
             />
           </div>
