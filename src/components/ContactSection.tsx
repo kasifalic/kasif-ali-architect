@@ -22,6 +22,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const isMobile = useIsMobile();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const contactSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
@@ -40,7 +41,10 @@ const ContactSection = () => {
 
   const onSubmit = async (data: z.infer<typeof contactSchema>) => {
     try {
-      const { error } = await supabase
+      setIsSubmitting(true);
+      console.log("Submitting form data:", data);
+      
+      const { error, data: insertedData } = await supabase
         .from('contact_messages')
         .insert([
           { 
@@ -48,15 +52,22 @@ const ContactSection = () => {
             email: data.email, 
             message: data.message 
           }
-        ]);
+        ])
+        .select();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error submitting to Supabase:', error);
+        throw error;
+      }
       
+      console.log('Success! Inserted data:', insertedData);
       toast.success("Message sent successfully!");
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
       toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -144,8 +155,9 @@ const ContactSection = () => {
                   <Button 
                     type="submit" 
                     className="bg-primary hover:bg-primary/90 w-full rounded-full"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Form>
