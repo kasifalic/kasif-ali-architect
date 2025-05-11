@@ -1,19 +1,14 @@
 
 import React from "react";
-import {
-  Cloud,
-  Network,
-  CloudCog,
-  KeyRound
-} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const CertificationsSection = () => {
   const certifications = [
-    { name: "Microsoft", icon: <Cloud size={28} className="text-primary" /> },
-    { name: "Cisco", icon: <Network size={28} className="text-primary" /> },
-    { name: "AWS", icon: <CloudCog size={28} className="text-primary" /> },
-    { name: "Azure", icon: <Cloud size={28} className="text-primary" /> },
-    { name: "JumpCloud", icon: <KeyRound size={28} className="text-primary" /> },
+    { name: "Microsoft" },
+    { name: "Cisco" },
+    { name: "AWS" },
+    { name: "Azure" },
+    { name: "JumpCloud" },
   ];
 
   return (
@@ -24,14 +19,15 @@ const CertificationsSection = () => {
           <h2 className="text-3xl font-bold mt-1">Industry Certifications</h2>
         </div>
         
-        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
           {certifications.map((cert, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-secondary/60 flex items-center justify-center mb-3">
-                {cert.icon}
-              </div>
-              <span className="text-sm font-medium">{cert.name}</span>
-            </div>
+            <Badge 
+              key={index} 
+              variant="outline" 
+              className="px-5 py-3 text-base font-medium border-2 border-primary hover:bg-primary/10 transition-colors"
+            >
+              {cert.name}
+            </Badge>
           ))}
         </div>
       </div>
