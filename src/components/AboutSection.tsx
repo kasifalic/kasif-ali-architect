@@ -54,54 +54,53 @@ const AboutSection = () => {
         </div>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
-            <div className="space-y-6">
-              <div className="text-muted-foreground font-calibri text-lg leading-relaxed">
-                <p className="mb-6">
-                  IT Systems Architect with 10+ years of experience driving enterprise IT transformations 
-                  across infrastructure, cloud, security, and business systems. Proven expertise in designing 
-                  and implementing scalable, secure, and automation-first environments in SaaS and hybrid 
-                  operational models.
-                </p>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                  {Object.entries(strengths).map(([index, strength]) => (
-                    <div 
-                      key={index} 
-                      className="flex items-center gap-3 bg-secondary/30 backdrop-blur-sm p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-md duration-300"
-                    >
-                      <span className="w-2 h-2 rounded-full bg-primary"></span>
-                      <span className="font-calibri">{strength}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div className="space-y-6 mb-12">
+            <div className="text-muted-foreground font-calibri text-lg leading-relaxed">
+              <p className="mb-6">
+                IT Systems Architect with 10+ years of experience driving enterprise IT transformations 
+                across infrastructure, cloud, security, and business systems. Proven expertise in designing 
+                and implementing scalable, secure, and automation-first environments in SaaS and hybrid 
+                operational models.
+              </p>
               
-              <Button className="rounded-full bg-primary hover:bg-primary/90 font-calibri group flex items-center gap-2 mt-4">
-                Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+                {Object.entries(strengths).map(([index, strength]) => (
+                  <div 
+                    key={index} 
+                    className="flex items-center gap-3 bg-secondary/30 backdrop-blur-sm p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-md duration-300"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-primary"></span>
+                    <span className="font-calibri">{strength}</span>
+                  </div>
+                ))}
+              </div>
             </div>
             
-            <div className="space-y-8">
-              <Card className="bg-background/60 backdrop-blur-sm border-primary/20 overflow-hidden shadow-lg relative">
-                <CardContent className="p-6 relative">
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full z-0"></div>
-                  
-                  <div className="flex items-center gap-3 mb-5 relative z-10">
-                    <div className="p-2 rounded-lg bg-primary/20 text-primary">
-                      <BookOpen className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-2xl font-tahoma font-bold">Education</h3>
+            <Button className="rounded-full bg-primary hover:bg-primary/90 font-calibri group flex items-center gap-2 mt-4">
+              Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+          
+          {/* Education Section - Moved below the summary */}
+          <div className="mb-16">
+            <Card className="bg-background/60 backdrop-blur-sm border-primary/20 overflow-hidden shadow-lg relative max-w-xl mx-auto">
+              <CardContent className="p-6 relative">
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full z-0"></div>
+                
+                <div className="flex items-center gap-3 mb-5 relative z-10">
+                  <div className="p-2 rounded-lg bg-primary/20 text-primary">
+                    <BookOpen className="w-6 h-6" />
                   </div>
-                  
-                  <div className="pl-4 border-l-2 border-primary/30">
-                    <div className="shimmer-text text-xl mb-2">M.Sc. Computer Science</div>
-                    <p className="text-muted-foreground font-calibri text-lg">Alagappa University, 2016</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  <h3 className="text-2xl font-tahoma font-bold">Education</h3>
+                </div>
+                
+                <div className="pl-4 border-l-2 border-primary/30">
+                  <div className="shimmer-text text-xl mb-2">M.Sc. Computer Science</div>
+                  <p className="text-muted-foreground font-calibri text-lg">Alagappa University, 2016</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
           
           {/* Brands Experience Section */}
