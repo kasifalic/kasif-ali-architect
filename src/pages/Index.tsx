@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import AwardsCarousel from "@/components/AwardsCarousel";
 import BackgroundAnimation from "@/components/BackgroundAnimation";
 import AwardBanner from "@/components/AwardBanner";
+import ChatWidget from "@/components/ChatWidget";
 
 // Import custom animations
 import "@/styles/animations.css";
@@ -33,6 +34,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 };
