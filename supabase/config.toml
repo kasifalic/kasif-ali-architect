@@ -1,2 +1,5 @@
 
-project_id = "uaevviwgjhqsojwvxdvz"
+project_id = ""
+
+[functions.chat-response]
+verify_jwt = false
