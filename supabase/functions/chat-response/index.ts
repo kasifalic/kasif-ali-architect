@@ -46,6 +46,18 @@ specific context that's missing, ask for clarification.
       `;
     }
 
+    // Check if API key is available
+    if (!openAIApiKey) {
+      console.error('Missing OpenAI API key');
+      return new Response(JSON.stringify({ 
+        answer: "I'm sorry, there's a configuration issue with the chat assistant. Please contact the site administrator.",
+        error: "Missing API key" 
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -63,6 +75,18 @@ specific context that's missing, ask for clarification.
     });
 
     const data = await response.json();
+    
+    // Validate response structure
+    if (!response.ok) {
+      console.error('OpenAI API error:', data);
+      throw new Error(`OpenAI API error: ${data.error?.message || JSON.stringify(data)}`);
+    }
+    
+    if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+      console.error('Invalid response structure from OpenAI:', data);
+      throw new Error('Invalid response structure from OpenAI');
+    }
+    
     const generatedText = data.choices[0].message.content;
 
     return new Response(JSON.stringify({ 
@@ -73,7 +97,10 @@ specific context that's missing, ask for clarification.
     });
   } catch (error) {
     console.error('Error in chat-response function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ 
+      answer: "I'm sorry, I encountered an error processing your request. Please try again later.",
+      error: error.message 
+    }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

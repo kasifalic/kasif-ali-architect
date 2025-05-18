@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { extractSiteContent } from "@/utils/contentExtractor";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 export interface Message {
   id: number;
@@ -87,13 +88,19 @@ export const useChat = () => {
       });
       
       if (error) {
-        throw new Error(error.message);
+        console.error("Function error:", error);
+        throw new Error(`Error calling chat function: ${error.message}`);
+      }
+      
+      if (!data || !data.answer) {
+        console.error("Invalid response format:", data);
+        throw new Error("Received invalid response format");
       }
       
       // Add bot response to messages
       const botResponse: Message = {
         id: messages.length + 2,
-        content: data.answer || "Sorry, I couldn't process your request.",
+        content: data.answer,
         isUser: false,
         timestamp: new Date(),
       };
@@ -102,10 +109,17 @@ export const useChat = () => {
     } catch (error) {
       console.error("Error getting response:", error);
       
+      // Show toast notification
+      toast({
+        title: "Chat Error",
+        description: "Failed to get response from the chat assistant. Please try again.",
+        variant: "destructive",
+      });
+      
       // Add error message
       const errorMessage: Message = {
         id: messages.length + 2,
-        content: "Sorry, I encountered an error. Please try again later.",
+        content: "Sorry, I encountered an error processing your request. Please try again later.",
         isUser: false,
         timestamp: new Date(),
       };
