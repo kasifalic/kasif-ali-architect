@@ -6,6 +6,19 @@ import { Badge } from "@/components/ui/badge";
 const ExperienceSection = () => {
   const experiences = [
     {
+      company: "Amagi",
+      companyUrl: "https://www.amagi.com/",
+      companyNote: "",
+      position: "Architect - AI & IT Systems",
+      period: "2025 - Present",
+      achievements: [
+        "IT & AI Systems Strategy Leadership",
+        "Intelligent Automation & Infrastructure Modernization",
+        "Cross-Functional Collaboration on AI & Data Initiatives",
+        "Enabling Enterprise AI Readiness"
+      ]
+    },
+    {
       company: "Strand Life Sciences",
       companyUrl: "https://us.strandls.com/",
       companyNote: "(A Reliance Company)",
