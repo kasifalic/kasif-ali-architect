@@ -1,40 +1,42 @@
 
-import React from "react";
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
+import HeroNew from "@/components/HeroNew";
+import ProjectsSection from "@/components/ProjectsSection";
 import AboutSection from "@/components/AboutSection";
-import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
-import ServicesSection from "@/components/ServicesSection";
-import ArticlesSection from "@/components/ArticlesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import AwardsCarousel from "@/components/AwardsCarousel";
-import BackgroundAnimation from "@/components/BackgroundAnimation";
-import AwardBanner from "@/components/AwardBanner";
-import ChatWidget from "@/components/ChatWidget";
 
-// Import custom animations
-import "@/styles/animations.css";
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
+  useEffect(() => {
+    // Smooth scroll behavior
+    document.documentElement.style.scrollBehavior = "smooth";
+
+    // Refresh ScrollTrigger on load
+    ScrollTrigger.refresh();
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background relative">
-      <BackgroundAnimation />
+    <div className="min-h-screen bg-background">
       <Navbar />
-      <AwardBanner />
-      <main className="pt-16 overflow-x-hidden relative z-10">
-        <HeroSection />
-        <AwardsCarousel />
+      <main className="overflow-x-hidden">
+        <HeroNew />
+        <ProjectsSection />
         <AboutSection />
-        <SkillsSection />
         <ExperienceSection />
-        <ServicesSection />
-        <ArticlesSection />
         <ContactSection />
       </main>
       <Footer />
-      <ChatWidget />
     </div>
   );
 };

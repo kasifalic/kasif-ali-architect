@@ -19,10 +19,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        "space-grotesk": ["Space Grotesk", "sans-serif"],
-        "jakarta": ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-        "tahoma": ["Tahoma", "Geneva", "sans-serif"],
-        "calibri": ["Calibri", "Arial", "sans-serif"],
+        "sora": ["Sora", "system-ui", "sans-serif"],
+        "outfit": ["Outfit", "system-ui", "sans-serif"],
+        "mono": ["JetBrains Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -65,11 +64,12 @@ export default {
         sm: "calc(var(--radius) - 4px)"
       },
       backgroundImage: {
-        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
-        'shimmer': "linear-gradient(to right, #8B5CF6, #0EA5E9, #D946EF, #8B5CF6)",
+        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+        'shimmer': "linear-gradient(to right, #F59E0B, #F97316, #FB7185, #F59E0B)",
+        'mesh': "radial-gradient(at 40% 20%, hsla(38, 92%, 50%, 0.15) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(351, 89%, 71%, 0.1) 0px, transparent 50%)",
       },
       backgroundSize: {
-        'grid-pattern': '20px 20px',
+        'grid-pattern': '24px 24px',
         'shimmer': '300% 100%',
       },
       keyframes: {
