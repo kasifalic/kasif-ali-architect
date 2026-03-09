@@ -1346,7 +1346,7 @@ export const projectsData: ProjectArticle[] = [
     icon: PieChart,
     monogram: "SP",
     color: "bg-cyan-500",
-    heroImage: "/projects/spog/hero.png",
+    heroImage: "/projects/spog/hero.jpg",
 
     overview: "SPOG (Single Pane of Glass) is an enterprise financial analytics platform that consolidates Balance Sheet and Cash Flow data from NetSuite into a unified Databricks dashboard. Tracking $500M+ in assets and $50M+ in quarterly cash movements, it replaces manual report compilation with automated PySpark ETL pipelines, Delta Lake storage, and Databricks Genie for natural language financial queries.",
 
