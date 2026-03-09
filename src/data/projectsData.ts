@@ -1192,63 +1192,145 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-pink-500",
     heroImage: "gradient-pink",
 
-    overview: "Calendar Analytics is a Google Meet analytics platform for understanding meeting patterns between teams. It integrates with Google Workspace via GAM and SAP SuccessFactors for HR data, providing insights into cross-departmental collaboration, meeting load, and time allocation.",
+    overview: "Calendar Analytics is a collaboration intelligence platform that analyzes 428,000+ Google Meet meetings across 1,400+ employees and 50 departments. It combines Google Workspace calendar data (via GAM CLI) with SAP SuccessFactors HR data to surface cross-departmental collaboration patterns, meeting load hotspots, and external engagement metrics — with an AI chatbot ('Aria') for natural language queries.",
 
-    challenge: "Leadership had no visibility into meeting patterns—how much time teams spend in meetings, cross-departmental collaboration levels, external vs internal meeting ratios, and manager meeting loads. Manual calendar analysis was impractical at scale with 1,400+ employees.",
+    challenge: "Leadership had zero visibility into meeting culture at scale — how much time teams spend in meetings, which departments collaborate most, external vs internal meeting ratios, and whether managers were drowning in meetings. Manual calendar analysis was impractical across 1,400+ employees and 50 departments. The data existed in Google Workspace but had no analytics layer.",
 
-    solution: "Built a FastAPI backend with Next.js 14 frontend, integrating Google Workspace (GAM CLI) for calendar data and SAP SuccessFactors for HR data (employees, departments, managers). Created an AI chatbot using GPT-4o-mini for natural language queries like 'Which managers have most meetings?' Developed analytics for meeting volume, collaboration heatmaps, and role-based patterns.",
+    solution: "Built a Next.js frontend with a FastAPI backend deployed on AWS. A Python data pipeline pulls calendar events via GAM CLI and correlates them with SAP SuccessFactors HR data (departments, managers, job titles) by employee ID. The dashboard surfaces KPIs, department distribution, cross-departmental collaboration rankings, and Key Insights with AI-generated executive summaries. An AI chatbot ('Aria') powered by GPT-4o-mini answers natural language queries about meeting data.",
 
     features: [
-      "Meeting volume by user/department/time",
-      "Cross-departmental collaboration heatmaps",
-      "External vs internal meeting ratios",
-      "Manager meeting load analysis",
-      "Role-based analytics (by job title)",
-      "AI chatbot for natural language queries",
-      "SAP SuccessFactors HR data integration",
-      "Google Workspace calendar sync via GAM",
-      "Historical trend analysis",
-      "Department-level meeting patterns"
+      "Organization-wide KPIs (total meetings, total hours, external collaboration rate, most active department)",
+      "Department analytics with pie chart distribution and meeting volume views",
+      "Top 10 cross-departmental collaboration rankings with participant counts and weekly frequency",
+      "Collaboration intensity heatmap (Low → High) across 99 department pairings",
+      "Clickable KPI insights modals with meeting distribution, activity level, top contributors, and collaboration scope",
+      "Key Insights cards (weekly meeting load, cross-dept connectivity, external focus) with drill-down",
+      "AI-generated Executive Summary analyzing organizational health from meeting patterns",
+      "AI chatbot 'Aria' for natural language queries ('Which managers have most meetings?')",
+      "External vs internal meeting ratio tracking per department",
+      "SAP SuccessFactors HR data enrichment (department, manager, job title per attendee)",
+      "GAM CLI calendar data pipeline with date-range filtering",
+      "Dark/light theme toggle"
     ],
 
-    architecture: "The platform syncs calendar data via GAM CLI (Google Admin SDK) and HR data via SAP SuccessFactors OData API. Data is correlated by employee ID to enrich meeting records with department, manager, and role information. The AI chatbot translates natural language to analytics queries.",
+    architecture: "A Python data pipeline exports calendar events via GAM CLI (Google Admin SDK) and cleans/normalizes them with Pandas. SAP SuccessFactors OData API provides HR data (employees, departments, managers). The FastAPI backend correlates calendar and HR data by employee ID, caches aggregated analytics, and serves API endpoints. The Next.js frontend renders interactive Recharts visualizations and a Radix UI component system. The AI chatbot translates natural language to analytics queries via GPT-4o-mini.",
 
-    impact: "Leadership gained data-driven insights into meeting culture. Identified managers with excessive meeting loads for intervention. Cross-departmental collaboration patterns informed org structure decisions. External meeting tracking improved customer engagement visibility.",
+    impact: "Leadership gained data-driven insights into meeting culture across 50 departments. Identified that Customer Success had the highest meeting volume (25% of all meetings) while cross-department connectivity was only 8% — highlighting silo risks. The 53-hour average weekly meeting load surfaced potential burnout in key teams. External collaboration tracking (46%) validated customer engagement levels.",
 
     techStack: [
       { name: "Next.js", category: "frontend", icon: "nextdotjs" },
       { name: "TypeScript", category: "frontend", icon: "typescript" },
       { name: "TailwindCSS", category: "frontend", icon: "tailwindcss" },
       { name: "Recharts", category: "frontend" },
+      { name: "Radix UI", category: "frontend" },
+      { name: "Framer Motion", category: "frontend" },
       { name: "FastAPI", category: "backend", icon: "fastapi" },
       { name: "Python", category: "backend", icon: "python" },
+      { name: "Pandas", category: "backend" },
       { name: "Google Workspace", category: "infrastructure", icon: "google" },
       { name: "SAP SuccessFactors", category: "infrastructure" },
+      { name: "AWS Amplify", category: "infrastructure", icon: "awsamplify" },
       { name: "OpenAI GPT-4o-mini", category: "ai", icon: "openai" },
     ],
 
     integrations: [
       {
-        system: "SAP SuccessFactors",
-        type: "OAuth + OData",
-        dataFlow: "HR data (employees, departments, managers)"
-      },
-      {
         system: "Google Workspace",
         type: "GAM CLI",
-        dataFlow: "Calendar data via Google Admin SDK"
+        dataFlow: "Calendar events for all users in configurable date ranges via Google Admin SDK"
+      },
+      {
+        system: "SAP SuccessFactors",
+        type: "OAuth + OData",
+        dataFlow: "Employee data — departments, managers, job titles — correlated by employee ID"
+      },
+      {
+        system: "OpenAI GPT-4o-mini",
+        type: "API",
+        dataFlow: "Natural language meeting queries translated to analytics responses via 'Aria' chatbot"
       }
     ],
 
     metrics: [
+      { label: "Meetings Analyzed", value: "428K+" },
       { label: "Employees", value: "1,400+" },
-      { label: "Data Source", value: "GAM + SAP" },
-      { label: "Analytics", value: "Real-time" },
-      { label: "AI Queries", value: "GPT-4o-mini" },
+      { label: "Departments", value: "50" },
+      { label: "Meeting Hours", value: "496K+" },
+      { label: "Dept Collaborations", value: "99 pairs" },
+      { label: "Data Window", value: "7 months" },
     ],
 
+    screenshots: [
+      {
+        src: "/projects/calendar-analytics/screenshot-1-dashboard.png",
+        alt: "Calendar Analytics Dashboard",
+        caption: "Executive dashboard — KPI cards (428K meetings, 496K hours, 46% external collaboration, most active department), department analytics pie chart with distribution breakdown, and top 10 cross-departmental collaboration rankings"
+      },
+      {
+        src: "/projects/calendar-analytics/screenshot-2-insights.png",
+        alt: "Key Insights and Executive Summary",
+        caption: "Key Insights — Weekly meeting load (53h), cross-department connectivity (8%), external focus (46%), collaboration intensity legend, and AI-generated executive summary analyzing organizational health"
+      },
+      {
+        src: "/projects/calendar-analytics/screenshot-3-kpi-modal.png",
+        alt: "KPI Insights Modal - Total Meetings",
+        caption: "KPI drill-down modal — Total Meetings Analysis showing meeting distribution (322 avg/user), activity level assessment, top contributors (3 power users), collaboration scope (50 departments), and executive summary"
+      },
+      {
+        src: "/projects/calendar-analytics/screenshot-4-chatbot.png",
+        alt: "AI Chatbot - Aria Analytics Partner",
+        caption: "AI chatbot 'Aria' — Analytics partner for natural language queries about meeting data, with suggested prompts for department analysis, collaboration patterns, and meeting efficiency"
+      }
+    ],
+
+    design: {
+      philosophy: "Designed as an executive-facing collaboration intelligence dashboard that transforms raw calendar data into actionable organizational insights. The dark interface reduces eye strain during extended analysis while the card-based layout groups KPIs, department analytics, and collaboration patterns into scannable sections.",
+      principles: [
+        {
+          title: "Executive Scannability",
+          description: "Four prominent KPI cards at the top give leadership a 2-second pulse check on meeting culture — total meetings, hours invested, external engagement rate, and the most active department. Each card is clickable for drill-down analysis.",
+          screenshotIndex: 0,
+          highlight: "KPI cards: 428,276 meetings, 496,723 hours, 46% external, Customer Success"
+        },
+        {
+          title: "Collaboration Intelligence",
+          description: "The Top Department Collaborations panel ranks the most frequent inter-department pairings by meeting count and participant volume. A 5-level intensity scale (Low → High) helps leadership identify strong partnerships and potential silos at a glance.",
+          screenshotIndex: 0,
+          highlight: "Top Department Collaborations list with intensity indicators and participant counts"
+        },
+        {
+          title: "Drill-Down Insights",
+          description: "Clicking any KPI opens a modal with comprehensive breakdown — meeting distribution per user, activity level assessment, top contributors, collaboration scope, and an AI-generated executive summary. Data is presented without leaving the dashboard context.",
+          screenshotIndex: 2,
+          highlight: "Total Meetings Analysis modal with Meeting Distribution, Activity Level, Top Contributors, Collaboration Scope"
+        },
+        {
+          title: "Conversational Analytics",
+          description: "The 'Aria' AI chatbot sits as a floating assistant, allowing leadership to ask natural language questions about meeting data — 'Which department has the most external meetings?' or 'How efficient are our meetings?' — without navigating complex filters.",
+          screenshotIndex: 3,
+          highlight: "Aria chatbot with suggested prompts and natural language interface"
+        }
+      ],
+      colorPalette: [
+        { name: "Background", hex: "#1a1a1a", usage: "Page background — deep dark for extended executive viewing" },
+        { name: "Card Surface", hex: "#262626", usage: "KPI cards, department analytics panel, collaboration list" },
+        { name: "Primary Blue", hex: "#3b82f6", usage: "KPI icons, active states, chart accents" },
+        { name: "Success Green", hex: "#22c55e", usage: "Cross-dept connectivity, positive metrics, top contributors" },
+        { name: "Warning Amber", hex: "#eab308", usage: "Activity level warnings, meeting load alerts" },
+        { name: "Accent Purple", hex: "#8b5cf6", usage: "Department chart segments, collaboration intensity" },
+        { name: "External Pink", hex: "#ec4899", usage: "External focus metrics, external collaboration rate" }
+      ],
+      componentPatterns: [
+        "Clickable KPI cards with icon, value, subtitle, and drill-down modal — each metric is a gateway to deeper analysis",
+        "Department analytics panel with Distribution/Meeting Volume toggle — pie chart + percentage legend for 8 departments",
+        "Ranked collaboration list with numbered entries, meeting counts, participant counts, and weekly frequency",
+        "Key Insights cards with large metric, description, and contextual icon — color-coded by insight type",
+        "Floating AI chatbot ('Aria') with suggested prompts and conversational interface for natural language queries"
+      ]
+    },
+
     userStory: "As an HR Director, I want to understand meeting patterns across departments to optimize collaboration and reduce meeting fatigue.",
-    description: "Google Meet analytics platform with cross-departmental collaboration insights and AI-powered natural language queries.",
+    description: "Collaboration intelligence platform analyzing 428K+ Google Meet meetings across 1,400+ employees with AI chatbot for natural language queries.",
   },
 
   {
