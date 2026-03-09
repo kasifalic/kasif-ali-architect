@@ -1348,65 +1348,113 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-cyan-500",
     heroImage: "gradient-cyan",
 
-    overview: "SPOG (Single Pane of Glass) is an enterprise financial analytics platform consolidating Balance Sheet, Cash Flow, and Revenue data from NetSuite and Salesforce. Built on Databricks with Delta Lake, it processes $300M+ in annual revenue and $500M+ in assets, providing C-suite visibility through real-time dashboards and Databricks Genie for natural language queries.",
+    overview: "SPOG (Single Pane of Glass) is an enterprise financial analytics platform that consolidates Balance Sheet and Cash Flow data from NetSuite into a unified Databricks dashboard. Tracking $500M+ in assets and $50M+ in quarterly cash movements, it replaces manual report compilation with automated PySpark ETL pipelines, Delta Lake storage, and Databricks Genie for natural language financial queries.",
 
-    challenge: "Finance leadership lacked unified visibility into financial health. Data was scattered across NetSuite (ERP) and Salesforce (CRM). Report compilation took hours of manual effort. Non-technical stakeholders couldn't query financial data without analyst support. The company needed a single source of truth for $300M+ revenue and $500M+ assets.",
+    challenge: "Finance leadership lacked unified visibility into financial health. Balance Sheet and Cash Flow data lived in NetSuite as raw CSV exports, requiring hours of manual aggregation across 300+ GL accounts. Non-technical stakeholders couldn't query financial data without analyst support. No historical comparison capability across fiscal years. The company needed a single source of truth for $500M+ in assets with automated daily refreshes.",
 
-    solution: "Architected ETL pipelines using PySpark on Databricks. Built processors for Balance Sheet ($500M+ assets, 300+ GL accounts → 50+ categories), Cash Flow ($50M+ quarterly, 9-line format), and Revenue Analytics ($300M+ annually, 36,000+ transactions). Implemented Delta Lake for ACID compliance and time-travel queries. Integrated Databricks Genie for natural language financial queries.",
+    solution: "Architected end-to-end ETL pipelines using PySpark on Databricks. Built a Balance Sheet processor that maps 300+ GL accounts to 50+ hierarchical categories (GL → Subcategory → Major Category → Total) with configurable JSON mappings. Built a Cash Flow processor with 9-line format covering Operating, Investing, and Financing activities. Data lands in Delta Lake tables with ACID compliance and time-travel. Authored 20+ SQL queries for interactive Databricks dashboards with currency conversion (INR/USD). Configured Databricks Genie with financial domain knowledge for natural language queries.",
 
     features: [
-      "Balance Sheet processing ($500M+ assets)",
-      "300+ GL accounts mapped to 50+ categories",
-      "Cash Flow analytics ($50M+ quarterly)",
-      "Revenue tracking ($300M+ annually)",
-      "36,000+ transactions processed",
-      "850+ enterprise customers analyzed",
-      "27 product lines tracked",
-      "Databricks Genie AI chatbot",
-      "Natural language financial queries",
-      "Real-time C-suite dashboards",
-      "30+ SQL dashboard queries",
-      "Delta Lake ACID compliance"
+      "Balance Sheet processing tracking $500M+ in enterprise assets and liabilities",
+      "300+ GL accounts mapped to 50+ categories via configurable JSON mappings",
+      "Hierarchical aggregation (GL Accounts → Subcategories → Major Categories → Totals)",
+      "Cash Flow analytics monitoring $50M+ quarterly movements across Operating, Investing, Financing",
+      "Net Cash Change calculation with Opening/Closing Cash Balance tracking",
+      "Cumulative QTD (Quarter-to-Date) and YTD (Year-to-Date) calculations",
+      "3 fiscal years of historical data (FY23, FY24, FY25) plus current year monthly snapshots",
+      "Multi-currency support with query-time INR/USD conversion",
+      "20+ parameterized SQL dashboard queries with date and currency filters",
+      "Databricks Genie AI integration for natural language financial queries",
+      "Automated daily refresh job (6 AM IST) with deployment scripts",
+      "Delta Lake time-travel for audit trails and disaster recovery"
     ],
 
-    architecture: "Daily ingestion from NetSuite and Salesforce into DBFS. PySpark ETL pipelines process raw data into Delta Lake tables with Unity Catalog governance. 11 production tables serve 30+ dashboard queries. Databricks Genie enables natural language queries like 'What are total assets for Q3?'",
+    architecture: "NetSuite generates daily Balance Sheet and Cash Flow CSV exports. Files are ingested into Databricks File System (DBFS) via automated upload scripts. PySpark ETL pipelines (balance_sheet_processor, cash_flow_processor) validate, clean, and transform raw data — mapping GL numbers to categories via JSON config, parsing multi-format amounts, and building hierarchical aggregations. Processed data lands in Delta Lake tables under Unity Catalog governance with ACID compliance and versioning. 20+ SQL queries power interactive Databricks dashboards. Databricks Genie is configured with financial domain knowledge to answer natural language queries like 'What are total assets for Q3?' or 'Compare cash position across fiscal years.'",
 
-    impact: "Report compilation time reduced from hours to minutes. C-suite gained real-time financial visibility. Non-technical stakeholders can query financial data using natural language. Single source of truth eliminated data discrepancies between NetSuite and Salesforce.",
+    impact: "Report compilation reduced from hours to minutes with automated daily refresh. C-suite gained real-time financial visibility across Balance Sheet and Cash Flow for the first time. Non-technical stakeholders can now query financial data using natural language via Genie. Delta Lake time-travel provides complete audit trails for regulatory compliance. Eliminated data discrepancies from manual aggregation of 300+ GL accounts.",
+
+    keyDecisions: [
+      {
+        decision: "Delta Lake over traditional data warehouse",
+        rationale: "ACID transactions prevent partial writes during ETL failures. Time-travel enables audit trails and rollback — critical for financial data. Auto-optimization with Z-ordering delivers sub-second query response on dashboards."
+      },
+      {
+        decision: "JSON-based GL mappings over hardcoded logic",
+        rationale: "Finance frequently adds or reclassifies GL accounts. A configurable gl_mappings.json allows non-engineer updates to account-category mappings without code changes or redeployment."
+      },
+      {
+        decision: "Hierarchical aggregation pipeline over flat tables",
+        rationale: "Financial reporting requires drill-down from totals to subcategories to individual GL accounts. Building the hierarchy in the ETL (not the dashboard) ensures consistent totals and enables both summary and detail views from the same data."
+      },
+      {
+        decision: "Databricks Genie over custom chatbot",
+        rationale: "Genie understands the Delta table schema natively and translates natural language to SQL. Building a custom LLM chatbot would require maintaining prompt templates, SQL generation, and validation — Genie provides this out of the box with financial domain tuning."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "Manual CSV export from NetSuite → Excel aggregation → Email to leadership (hours per report)",
+        after: "Automated daily ETL pipeline → Delta Lake → Interactive dashboard refreshed by 6 AM IST (minutes)"
+      },
+      {
+        before: "300+ GL accounts in flat CSV files with no categorization or hierarchy",
+        after: "Hierarchical financial structure: GL → 50+ subcategories → major categories → Balance Sheet totals"
+      },
+      {
+        before: "Finance analysts manually compile QTD/YTD reports with spreadsheet formulas",
+        after: "Cumulative QTD and YTD calculations automated in PySpark with 3 fiscal years of history"
+      },
+      {
+        before: "Leadership asks analyst 'What's our cash position?' and waits hours for a response",
+        after: "CFO asks Genie 'What are total assets for Q3?' and gets an answer in seconds"
+      },
+      {
+        before: "No audit trail — if a number changes between reports, no way to trace why",
+        after: "Delta Lake time-travel provides version history for every data point across all refreshes"
+      }
+    ],
 
     techStack: [
       { name: "Databricks", category: "infrastructure" },
       { name: "Delta Lake", category: "database" },
       { name: "PySpark", category: "backend" },
       { name: "Python", category: "backend", icon: "python" },
+      { name: "Pandas", category: "backend" },
       { name: "SQL", category: "database" },
       { name: "Unity Catalog", category: "infrastructure" },
+      { name: "DBFS", category: "infrastructure" },
       { name: "Databricks Genie", category: "ai" },
+      { name: "NetSuite", category: "infrastructure" },
+      { name: "Bash", category: "backend" },
     ],
 
     integrations: [
       {
         system: "NetSuite",
-        type: "REST API",
-        dataFlow: "GL data, Balance Sheet, Cash Flow, AR/AP"
+        type: "CSV Export + OAuth1 API",
+        dataFlow: "Daily Balance Sheet and Cash Flow CSV exports, GL account data — ingested into DBFS"
       },
       {
-        system: "Salesforce",
-        type: "REST API",
-        dataFlow: "Revenue data, Customer analytics, Opportunities"
+        system: "Databricks Genie",
+        type: "Native Integration",
+        dataFlow: "Natural language financial queries translated to SQL against Delta Lake tables"
       }
     ],
 
     metrics: [
-      { label: "Revenue Processed", value: "$300M+" },
       { label: "Assets Tracked", value: "$500M+" },
       { label: "Cash Flow", value: "$50M+ qtr" },
-      { label: "Transactions", value: "36,000+" },
-      { label: "Customers", value: "850+" },
-      { label: "Delta Tables", value: "11" },
+      { label: "GL Accounts", value: "300+" },
+      { label: "Categories", value: "50+" },
+      { label: "Delta Tables", value: "4" },
+      { label: "Dashboard Queries", value: "20+" },
+      { label: "Daily Refresh", value: "6 AM IST" },
+      { label: "Fiscal Years", value: "3+" },
     ],
 
     userStory: "As a CFO, I want real-time financial dashboards with natural language queries so I can make data-driven decisions without waiting for analyst reports.",
-    description: "Enterprise financial analytics platform processing $300M+ revenue on Databricks with AI-powered natural language queries.",
+    description: "Enterprise financial analytics platform tracking $500M+ in assets on Databricks with automated ETL pipelines and AI-powered natural language queries via Genie.",
   },
 
   {
