@@ -1032,45 +1032,149 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-indigo-500",
     heroImage: "gradient-indigo",
 
-    overview: "Cursor Analytics is a Streamlit-powered dashboard for monitoring Cursor AI usage across the organization. Since Cursor doesn't provide native analytics, this platform tracks user activity, feature usage, model consumption (GPT-4, Claude), and per-user spending insights.",
+    overview: "Cursor Analytics is a Next.js dashboard for monitoring Cursor AI usage across 370+ engineers. Since Cursor's Team Plan provides no admin analytics, this platform pulls data from the Cursor Admin API and CSV usage exports to track per-user activity, model consumption, spending trends, and team productivity scores.",
 
-    challenge: "Amagi's engineering team adopted Cursor AI for development acceleration, but IT admins had no visibility into usage patterns, costs, or ROI. Questions like 'Which AI models do developers prefer?', 'Who are the power users?', and 'What's our monthly AI spend?' were unanswerable. The Cursor Admin API existed but had no dashboard interface.",
+    challenge: "Amagi's engineering team adopted Cursor AI for development acceleration, but the Team Plan provided zero admin analytics. IT had no visibility into who was using it, which AI models developers preferred, what the monthly spend looked like, or whether the investment was delivering ROI. The Cursor Admin API existed but had no dashboard, and detailed cost/model data was only available via CSV exports.",
 
-    solution: "Built a Python-based analytics platform using Streamlit and Plotly for interactive visualizations. Created an async API client to fetch data from Cursor Admin API. Developed dashboards for user activity monitoring, feature usage analysis, premium vs subscription request segregation, individual spending tracking, and model-level analytics (GPT-4, Claude usage patterns and costs).",
+    solution: "Built a Next.js 15 + React 19 dashboard deployed on AWS Amplify. Created a server-side API client to pull member data from the Cursor Admin API, combined with a CSV pre-aggregation pipeline (PapaParse) for detailed cost and model analytics. Developed four tab views: Overview (KPIs + leaderboard), Users (detailed per-user table), Inactive (license recovery), and Analytics (spending trends, model costs, top spenders).",
 
     features: [
-      "User activity monitoring (sessions, requests, engagement)",
-      "Feature usage analysis (popular Cursor features)",
-      "Premium vs Subscription usage segregation",
-      "Per-user cost tracking and token consumption",
-      "Model analytics (GPT-4, Claude usage patterns)",
-      "Cost breakdown by model and feature",
-      "Historical trend analysis",
-      "Export capabilities (CSV/JSON)",
-      "Real-time usage dashboards",
-      "Async API client for Cursor Admin API"
+      "Organization-wide KPI dashboard (members, requests, spend, lines generated, avg cost/user)",
+      "Top Performers leaderboard with productivity scores and retention rates",
+      "Feature adoption tracking (Plan Mode, Ask Mode, Agent usage)",
+      "Per-user detailed table with score, requests, plan/ask/agent breakdown, generated/accepted lines",
+      "Inactive user detection for license optimization",
+      "Spending trend analysis (Sep '25 - Feb '26) with monthly breakdown",
+      "Cost by Model chart (default, Claude 4.5/4.6, GPT-5.3, Composer)",
+      "Top Spenders horizontal bar chart for budget visibility",
+      "Per-user monthly usage trends with bar + line overlays",
+      "Time range filters (7d, 14d, 30d) and CSV/JSON export",
+      "Code generation metrics (lines generated, lines accepted, retention rate)",
+      "Billing breakdown: Free vs Included vs On-Demand per month"
     ],
 
-    architecture: "The platform uses an async Python client to periodically fetch usage data from Cursor Admin API. Data is processed and aggregated for visualization using Plotly charts in a Streamlit interface. Metrics are cached for performance, enabling real-time dashboard loading.",
+    architecture: "Next.js 15 with server-side API routes fetches member and daily usage data from the Cursor Admin API. A pre-aggregation script processes CSV exports (PapaParse) into per-user monthly stats for cost and model analytics. Data is cached server-side for fast dashboard loading. Recharts renders all visualizations with a custom dark theme. TanStack Table powers the sortable, filterable user tables.",
 
-    impact: "IT admins gained full visibility into Cursor AI usage, enabling data-driven decisions on subscription optimization. Power users were identified for best practice sharing. The team discovered that GPT-4 was preferred 3:1 over Claude for code generation, informing future AI tool investments.",
+    impact: "IT admins gained full visibility into Cursor AI usage across 370+ engineers. Identified inactive users for license recovery, saving on unused subscriptions. Model preference data (Claude 4.5 preferred for high-thinking tasks, default model for quick completions) informed AI tool strategy. Monthly spend tracking enabled budget forecasting and cost optimization.",
 
     techStack: [
-      { name: "Streamlit", category: "frontend" },
-      { name: "Plotly", category: "frontend" },
-      { name: "Python", category: "backend", icon: "python" },
+      { name: "Next.js", category: "frontend", icon: "nextdotjs" },
+      { name: "React", category: "frontend", icon: "react" },
+      { name: "TypeScript", category: "frontend", icon: "typescript" },
+      { name: "TailwindCSS", category: "frontend", icon: "tailwindcss" },
+      { name: "Recharts", category: "frontend" },
+      { name: "TanStack Table", category: "frontend" },
+      { name: "Radix UI", category: "frontend" },
+      { name: "PapaParse", category: "backend" },
       { name: "Cursor Admin API", category: "backend" },
+      { name: "AWS Amplify", category: "infrastructure", icon: "awsamplify" },
+      { name: "Lucide Icons", category: "frontend" },
+    ],
+
+    integrations: [
+      {
+        system: "Cursor Admin API",
+        type: "REST API",
+        dataFlow: "Member data, daily usage metrics, request counts, active days"
+      },
+      {
+        system: "Cursor CSV Exports",
+        type: "File Processing",
+        dataFlow: "Per-request cost, model, token counts — pre-aggregated via PapaParse"
+      }
     ],
 
     metrics: [
-      { label: "Models Tracked", value: "4+" },
-      { label: "Metrics", value: "Real-time" },
-      { label: "Export Formats", value: "CSV/JSON" },
-      { label: "Users Monitored", value: "All" },
+      { label: "Engineers Tracked", value: "370+" },
+      { label: "Total Requests", value: "429k+" },
+      { label: "AI Models", value: "8+" },
+      { label: "Lines Generated", value: "23M+" },
+      { label: "Data Period", value: "6 months" },
+      { label: "Status", value: "Production" },
     ],
 
-    userStory: "As an IT Admin, I want to track which AI models our developers use most so I can optimize our Cursor subscription.",
-    description: "Analytics dashboard for monitoring Cursor AI usage across organization since Cursor doesn't provide native analytics.",
+    screenshots: [
+      {
+        src: "/projects/cursor-analytics/screenshot-1-overview.png",
+        alt: "Cursor Analytics Overview Dashboard",
+        caption: "Overview dashboard — KPI cards (members, total requests, spend, lines generated, avg cost/user), top performers leaderboard with productivity scores, feature adoption rates, and code generation metrics"
+      },
+      {
+        src: "/projects/cursor-analytics/screenshot-2-overview-bottom.png",
+        alt: "Overview Bottom - Models & Spending",
+        caption: "Overview continued — Code generation stats (3.9M lines generated, 1.7M accepted, 56% retention), top AI models by user count, and monthly spending summary with trend charts"
+      },
+      {
+        src: "/projects/cursor-analytics/screenshot-3-users.png",
+        alt: "Users Tab - Detailed Per-User Table",
+        caption: "Users tab — Sortable table with productivity score, request counts, Plan/Ask/Agent breakdown, generated/accepted lines, spend, and all-time usage per engineer"
+      },
+      {
+        src: "/projects/cursor-analytics/screenshot-4-analytics.png",
+        alt: "Analytics Tab - Spending Trends",
+        caption: "Analytics tab — Total spend, top spender, total requests KPIs, and 6-month spending trend line chart (Sep '25 - Feb '26) showing cost trajectory"
+      },
+      {
+        src: "/projects/cursor-analytics/screenshot-5-analytics-bottom.png",
+        alt: "Analytics Bottom - Model Costs & Top Spenders",
+        caption: "Analytics deep-dive — Cost by Model (Top 10) horizontal bar chart, monthly billing breakdown (Free/Included/On-Demand), top spenders ranking, and per-user monthly usage with bar + trend overlay"
+      }
+    ],
+
+    design: {
+      philosophy: "Designed as a dark-first analytics dashboard for IT admins monitoring AI tool adoption across hundreds of engineers. The interface prioritizes scannability with prominent KPI cards, a leaderboard that gamifies productivity, and tabbed navigation that separates overview metrics from deep-dive analytics.",
+      principles: [
+        {
+          title: "Gamified Productivity",
+          description: "The Top Performers leaderboard ranks engineers by a composite productivity score combining requests, retention rate, and active days. Numbered rankings and score badges create healthy visibility into AI tool adoption.",
+          screenshotIndex: 0,
+          highlight: "Top Performers list with rank numbers, productivity scores, and retention percentages"
+        },
+        {
+          title: "Multi-Dimensional User Analysis",
+          description: "The Users table exposes every dimension of AI usage — score, requests, Plan/Ask/Agent feature breakdown, code generation, acceptance rates, and spend — enabling IT to identify power users, underutilizers, and cost outliers in one view.",
+          screenshotIndex: 2,
+          highlight: "Sortable user table with Plan/Ask/Agent columns and per-user spend"
+        },
+        {
+          title: "Cost Transparency",
+          description: "The Analytics tab surfaces spending trends, per-model costs, and top spenders. The monthly billing breakdown separates Free, Included, and On-Demand tiers so IT can distinguish base subscription value from overage costs.",
+          screenshotIndex: 4,
+          highlight: "Cost by Model chart, billing breakdown (Free/Included/On-Demand), and Top Spenders bar"
+        },
+        {
+          title: "Temporal Context",
+          description: "Time range filters (7d, 14d, 30d) on KPIs and a 6-month trend line on analytics give both real-time pulse and long-term trajectory. 'Current cycle' spend vs 'last 30d' comparisons surface cost acceleration early.",
+          screenshotIndex: 3,
+          highlight: "7d/14d/30d filters, 'current cycle' labels on KPIs, and Sep '25 - Feb '26 trend line"
+        },
+        {
+          title: "Feature Adoption Visibility",
+          description: "Plan Mode, Ask Mode, and Agent usage are tracked separately with user counts and total requests. This reveals which AI capabilities engineers actually use, informing training priorities and feature rollout decisions.",
+          screenshotIndex: 0,
+          highlight: "Feature Adoption panel with Plan Mode (2.8k), Ask Mode (1.7k), Agent (76.5k)"
+        }
+      ],
+      colorPalette: [
+        { name: "Background", hex: "#101017", usage: "Page background — deep blue-black for extended viewing" },
+        { name: "Surface", hex: "#181820", usage: "Card and panel backgrounds" },
+        { name: "Surface Raised", hex: "#1e1e28", usage: "Table rows, hover states" },
+        { name: "Accent Blue", hex: "#5b7cf7", usage: "Primary accent, KPI icons, active tab indicator" },
+        { name: "Success Green", hex: "#22c55e", usage: "Positive metrics, retention indicators" },
+        { name: "Warning Amber", hex: "#d4a017", usage: "Attention states, mid-range metrics" },
+        { name: "Chart Red", hex: "#ef4444", usage: "Top spenders bar, negative indicators" }
+      ],
+      componentPatterns: [
+        "KPI stat cards with icon, label, large value, and subtext (e.g., 'last 30d' or 'current cycle') — consistent across all tabs",
+        "Tabbed navigation (Overview, Users, Inactive, Analytics) — separates high-level metrics from deep-dive data",
+        "Numbered leaderboard with composite productivity scores — gamifies AI adoption tracking",
+        "Sortable data table with multi-column breakdown (TanStack Table) — enables drill-down into individual users",
+        "Horizontal bar charts for model costs and top spenders — easy visual comparison of ranked values"
+      ]
+    },
+
+    userStory: "As an IT Admin, I want to track which AI models our developers use most and what it costs so I can optimize our Cursor Team Plan subscription.",
+    description: "Next.js analytics dashboard for monitoring Cursor AI usage across 370+ engineers — built because Cursor's Team Plan provides no admin analytics.",
   },
 
   {
