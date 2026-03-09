@@ -1470,65 +1470,128 @@ export const projectsData: ProjectArticle[] = [
     id: 9,
     slug: "identity-lifecycle",
     name: "Identity Lifecycle",
-    tagline: "Automated User Provisioning",
+    tagline: "Automated User Provisioning & Offboarding",
     type: "Automation",
     organization: "Amagi Media",
     category: "Automation",
-    readTime: "8 min read",
+    readTime: "9 min read",
     publishDate: "May 2024",
     icon: Users,
     monogram: "IL",
     color: "bg-lime-500",
     heroImage: "gradient-lime",
 
-    overview: "Identity Lifecycle Automation orchestrates employee onboarding, updates, and offboarding across SAP SuccessFactors, Google Workspace, and OneLogin. Managing 5,800+ accounts for 1,200-1,400 active employees, it features AI-powered name processing, smart email generation, and anomaly detection for secure identity management.",
+    overview: "Identity Lifecycle Automation orchestrates the full employee journey — onboarding, field synchronization, and offboarding — across SAP SuccessFactors, Google Workspace, and OneLogin. Managing 5,800+ accounts for 1,200–1,400 active employees, the system runs on cron-triggered Python scripts with smart email fabrication, inactive-prefix normalization, contractor-to-permanent conversion detection, and 20-worker parallel updates.",
 
-    challenge: "Manual account creation took 2-4 hours per employee. Field updates between SAP and Google Workspace were inconsistent. Offboarding was delayed, creating security risks. Name variations (Jr., III, O'Connor, international formats) caused email generation errors. No anomaly detection for suspicious mass changes.",
+    challenge: "Manual account creation took 2–4 hours per new hire, delaying Day-1 access. Nine critical fields (job title, division, manager, location, employee class, and more) drifted between SAP and Google Workspace with no automated reconciliation. Offboarding was reactive — terminated employees retained active Google accounts for days, creating security exposure. Email generation failed on edge cases: names with suffixes (Jr., III), apostrophes (O'Connor), multi-part last names, and contractor-to-permanent conversions where the old c-prefix email needed to stay as an alias rather than being suspended.",
 
-    solution: "Built Python automation orchestrating SAP SuccessFactors (OAuth + OData), Google Workspace (GAMADV-XTD3 CLI), and OneLogin (REST API). Implemented NLP for intelligent name processing, ML-based email deduplication, and statistical anomaly detection. Automated flows: Onboarding (hourly), Updates (4 hours), Offboarding (2 hours) with 20 parallel workers.",
+    solution: "Built a three-phase Python automation system anchored to SAP SuccessFactors as the HR system of record. Onboarding runs hourly via cron, pulling new hires through an OAuth 2.0 SAML2-bearer flow to the SAP OData API, fabricating unique business emails with inactive-prefix normalization, creating Google Workspace accounts via GAMADV-XTD3 CLI, and writing the created email back to SAP. Updates run every 12 hours, comparing 9 fields between SAP and GWS with 20 parallel ProcessPoolExecutor workers. Offboarding runs every 2 hours, fetching paginated inactive users from SAP, filtering by termination date, detecting contractor conversions, and suspending GWS accounts. All phases send HTML notification emails to IT support.",
 
     features: [
-      "Automated onboarding (hourly sync)",
-      "9-field synchronization (SAP → GWS)",
-      "Intelligent name processing (NLP)",
-      "Smart email generation with deduplication",
-      "Anomaly detection for mass changes",
-      "Automated offboarding (2-hour check)",
-      "OneLogin SSO provisioning",
-      "Auto-generated welcome emails",
-      "20 parallel workers for updates",
-      "Complete audit logging",
-      "Predictive offboarding alerts"
+      "Hourly onboarding sync from SAP SuccessFactors via OData API",
+      "Smart email fabrication with inactive-prefix normalization (db.inactive., inactive. stripped for dedup)",
+      "Country-aware name formatting (US/UK use cleaned last name, others use full display name)",
+      "Bi-directional sync — created GWS email written back to SAP via OData upsert",
+      "9-field comparison engine (jobTitle, division, businessUnit, managerEmail, employeeClass, companyName, country, workLocation, personIdExternal)",
+      "20 parallel workers via ProcessPoolExecutor for batch GWS updates",
+      "Intelligent org-field grouping — if any organization field changes, all are updated together to prevent GWS API overwrites",
+      "Paginated offboarding fetches (handles 1,000+ inactive users across multiple SAP OData pages)",
+      "Contractor-to-permanent conversion detection prevents accidental suspension of alias accounts",
+      "Processed-user tracking via JSON with configurable lookback windows",
+      "HTML welcome emails with credentials via GAMADV-XTD3 notify + template system",
+      "Automated IT notification emails for both onboarding and offboarding events"
     ],
 
-    architecture: "Linux crontab triggers Python scripts at defined intervals. SAP SuccessFactors serves as HR system of record. Changes flow through validation → GWS creation → OneLogin provisioning → credential fetch → welcome email. Anomaly detection flags unusual patterns before execution.",
+    architecture: "Three cron-triggered Python phases run on a dedicated Linux server. Onboarding (hourly): SAP OData pull → new-hire detection (7-day window) → email fabrication with dedup → GAMADV-XTD3 account creation → SAP email writeback → welcome email. Updates (every 12 hours): SAP data pull → GWS data export via GAM → 9-field comparison → parallel GAM updates (20 workers) → CSV summary email. Offboarding (every 2 hours): paginated SAP inactive-user fetch → termination-date filtering → contractor-conversion check → GAM account suspension → IT notification. All phases use OAuth 2.0 SAML2-bearer authentication against SAP SuccessFactors.",
 
-    impact: "Onboarding time reduced from 2-4 hours to minutes. Real-time field sync every 4 hours eliminated data inconsistencies. Offboarding automated within 2 hours, closing security gaps. Zero manual credential distribution with auto-generated welcome emails.",
+    impact: "Onboarding reduced from 2–4 hours of manual provisioning to automated execution within minutes of SAP record creation. Field synchronization runs every 12 hours, eliminating data drift between HR and productivity systems. Offboarding completes within 2 hours of termination in SAP, closing the security window from days to hours. Contractor-to-permanent conversion detection prevents false suspensions. Zero manual credential distribution with auto-generated welcome emails to new hires and IT support.",
+
+    keyDecisions: [
+      {
+        question: "Why GAMADV-XTD3 CLI over the Google Workspace Admin SDK?",
+        answer: "GAMADV-XTD3 provides a single command interface for user creation, field updates, suspension, and email sending — operations that would require multiple Admin SDK endpoints, service account delegation setup, and custom retry logic. GAM also handles duplicate-email suffixing natively with addnumericsuffixonduplicate, and credential logging with logpassword. For a cron-based automation managing 5,800+ accounts, operational simplicity outweighed API-level control."
+      },
+      {
+        question: "Why cron-based scheduling instead of event-driven webhooks?",
+        answer: "SAP SuccessFactors Intelligent Services (webhooks) require additional licensing and configuration that wasn't available. Cron with hourly/2-hour/12-hour intervals provides predictable batch processing, simpler debugging via log files, and no dependency on SAP webhook infrastructure. The trade-off is latency (up to 1 hour for onboarding), which is acceptable since new hires are added days before their start date."
+      },
+      {
+        question: "Why normalize inactive email prefixes instead of excluding terminated users from dedup?",
+        answer: "When an employee is terminated, their email gets prefixed (e.g., db.inactive.rahul.s@amagi.com). If a new hire named Rahul S joins, naive dedup would generate rahul.s@amagi.com — creating a collision when the old account is eventually cleaned up. By stripping inactive prefixes during comparison, the system detects the conflict and appends a numeric suffix, ensuring globally unique emails across the full 5,800+ account history."
+      },
+      {
+        question: "Why write created emails back to SAP instead of using SAP as the email source?",
+        answer: "SAP stores a 'preferred email' field (customString4) from the offer letter, but GAM may modify the actual email (e.g., appending a numeric suffix for duplicates). Writing the GAM-created email back to SAP via OData upsert ensures SAP always reflects the real Google Workspace email, which downstream systems (payroll, benefits, OneLogin SSO) depend on for authentication."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "New Hire Provisioning",
+        before: "IT admin manually creates Google account, types org fields, generates password, emails credentials — 2–4 hours per employee",
+        after: "Cron detects new SAP record hourly, auto-creates GWS account with 15+ fields, sends welcome email with temp password — minutes, zero touch"
+      },
+      {
+        label: "Field Synchronization",
+        before: "Promotions, transfers, and manager changes sat in SAP for weeks before someone manually updated Google Workspace",
+        after: "9 fields compared every 12 hours, drift detected and corrected automatically with 20 parallel workers, CSV summary emailed to IT"
+      },
+      {
+        label: "Offboarding Security",
+        before: "Terminated employees kept active Google accounts for days until IT noticed, creating unauthorized access risk",
+        after: "Every 2 hours, terminated users detected via SAP status + date filter and suspended in Google Workspace automatically"
+      },
+      {
+        label: "Email Uniqueness",
+        before: "Duplicate emails created when new hires shared names with inactive employees, causing account conflicts and SSO failures",
+        after: "Inactive-prefix normalization strips db.inactive./ prefixes during dedup, numeric suffix auto-appended, result written back to SAP"
+      },
+      {
+        label: "Contractor Conversions",
+        before: "When contractors became permanent, their c-prefix email was suspended during offboarding, breaking their now-primary account alias",
+        after: "Conversion detection cross-references c-email against active SAP records, skips suspension if permanent account exists"
+      }
+    ],
 
     techStack: [
       { name: "Python", category: "backend", icon: "python" },
+      { name: "Pandas", category: "backend", icon: "pandas" },
+      { name: "Requests", category: "backend" },
       { name: "SAP SuccessFactors", category: "infrastructure" },
+      { name: "OData API", category: "backend" },
+      { name: "OAuth 2.0 SAML2", category: "infrastructure" },
       { name: "Google Workspace", category: "infrastructure", icon: "google" },
-      { name: "OneLogin", category: "infrastructure" },
       { name: "GAMADV-XTD3", category: "backend" },
-      { name: "Linux Crontab", category: "infrastructure", icon: "linux" },
+      { name: "OneLogin", category: "infrastructure" },
+      { name: "Linux", category: "infrastructure", icon: "linux" },
+      { name: "Cron", category: "infrastructure" },
+      { name: "ProcessPoolExecutor", category: "backend" },
+      { name: "JSON", category: "backend", icon: "json" },
+      { name: "CSV", category: "backend" },
+      { name: "HTML Email Templates", category: "frontend" },
+      { name: "Bash", category: "infrastructure", icon: "gnubash" },
     ],
 
     integrations: [
       {
         system: "SAP SuccessFactors",
-        type: "OAuth + OData",
-        dataFlow: "HR system of record, employee data source"
+        type: "OAuth 2.0 SAML2-bearer + OData v2",
+        dataFlow: "HR system of record — employee records with 14+ nested field expansions, paginated inactive-user queries, email writeback via OData upsert"
       },
       {
         system: "Google Workspace",
         type: "GAMADV-XTD3 CLI",
-        dataFlow: "Account creation, field updates, suspension"
+        dataFlow: "Account creation with 15+ fields, 9-field comparison and update, account suspension, welcome email sending, user data export"
       },
       {
         system: "OneLogin",
         type: "REST API",
-        dataFlow: "SSO provisioning, credential management"
+        dataFlow: "SSO provisioning triggered by GWS account creation, credential fetch for welcome emails"
+      },
+      {
+        system: "SMTP / GAM Email",
+        type: "GAMADV-XTD3 sendemail",
+        dataFlow: "HTML notification emails to IT support for onboarding/offboarding events, CSV summary attachments for field updates"
       }
     ],
 
@@ -1537,12 +1600,22 @@ export const projectsData: ProjectArticle[] = [
       { label: "Active Employees", value: "1,400" },
       { label: "Fields Synced", value: "9" },
       { label: "Parallel Workers", value: "20" },
-      { label: "Systems", value: "3" },
-      { label: "Onboarding", value: "Minutes" },
+      { label: "Systems Integrated", value: "3" },
+      { label: "Onboarding Time", value: "Minutes" },
+      { label: "Offboarding Window", value: "2 Hours" },
+      { label: "Cron Phases", value: "3" },
     ],
 
-    userStory: "As an IT Admin, I want new hire accounts created automatically so employees have Day-1 access without manual provisioning.",
-    description: "AI-powered identity lifecycle automation across SAP, Google Workspace, and OneLogin for 5,800+ accounts.",
+    screenshots: [
+      {
+        src: "/projects/identity-lifecycle/hero-identity-lifecycle.jpg",
+        alt: "Identity Lifecycle Automation — System Flow Visualization",
+        caption: "Conceptual visualization of the three-system identity pipeline: HR badge (SAP SuccessFactors) → Workspace envelope (Google Workspace) → Security shield (OneLogin SSO), with employee silhouettes flowing through the provisioning stream."
+      }
+    ],
+
+    userStory: "As an IT Admin, I want new hire accounts created automatically from SAP records so employees have Day-1 access to Google Workspace and OneLogin without manual provisioning, and terminated employees are suspended within hours.",
+    description: "Production identity lifecycle automation orchestrating SAP SuccessFactors, Google Workspace, and OneLogin for 5,800+ accounts with smart email fabrication, 9-field sync, and automated offboarding.",
   },
 
   {
