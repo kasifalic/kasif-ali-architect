@@ -1780,58 +1780,220 @@ export const projectsData: ProjectArticle[] = [
   {
     id: 11,
     slug: "zapgap-sidekick",
-    name: "ZapGap Sidekick",
+    name: "ZapGap",
     tagline: "AI Agents for Cloud Ops",
     type: "AI Agents",
     organization: "Personal",
     category: "AI & Agents",
-    readTime: "7 min read",
+    readTime: "10 min read",
     publishDate: "September 2024",
     icon: Zap,
     monogram: "ZG",
     color: "bg-rose-500",
     heroImage: "gradient-rose",
 
-    overview: "ZapGap Sidekick is an AI-powered cloud operations platform featuring autonomous agents for SRE auto-remediation, DevOps self-service, and cost optimization. It brings conversational AI to infrastructure management, reducing MTTR to under 1 minute for known issues.",
+    overview: "ZapGap is an AI-powered cloud operations platform that deploys autonomous agents for SRE auto-remediation, DevOps self-service provisioning, cloud cost optimization, and compliance enforcement. The platform features a Central Orchestrator, a Context Graph for infrastructure topology awareness, and deterministic execution paths — no hallucinations. The landing page showcases 4 use cases with interactive problem → solution → impact breakdowns and a simulated terminal demonstrating real-time infrastructure scanning.",
 
-    challenge: "SRE teams were constantly firefighting—late-night alerts for memory leaks, CPU spikes, and service crashes. DevOps teams faced environment provisioning bottlenecks. Leadership struggled with cloud cost sprawl. Manual remediation was slow, inconsistent, and error-prone. Teams needed AI agents that could detect issues, remediate automatically, and provide self-service infrastructure operations.",
+    challenge: "SRE teams were constantly firefighting — late-night alerts for memory leaks, CPU spikes, and service crashes meant manual remediation at 2 AM. DevOps teams faced environment provisioning bottlenecks where spinning up a test environment required an Ops ticket and hours of waiting. Leadership struggled with cloud cost sprawl: idle VMs, forgotten dev machines, and obsolete snapshots bleeding budget. IT compliance teams manually audited encryption, approved images, and regulatory standards. Every team needed AI agents that could detect issues, remediate automatically, and provide self-service operations — without sacrificing safety or auditability.",
 
-    solution: "Built an agentic AI platform with deterministic execution (no hallucinations). Implemented auto-remediation workflows triggered by monitoring alerts (memory leaks → service restart, disk full → log cleanup). Created a self-service portal with AI approval routing for environment provisioning. Developed cost optimization agents that analyze cloud bills and recommend savings. Integrated policy enforcement using Open Policy Agent for compliance.",
+    solution: "Designed and built a complete agentic AI platform with four distinct use-case agents orchestrated by a Central Orchestrator. SRE agents monitor for early warning signs (memory leaks, CPU spikes) and auto-remediate via deterministic code paths — safely restarting services, clearing caches, and notifying Slack within seconds. DevOps agents power a conversational self-service portal where developers request resources in plain English ('Create QA environment for payment service'), ZapGap verifies against policy, provisions standardized environments, and routes production requests for human approval. Cost optimization agents continuously scan for low-hanging fruit — <5% CPU instances, obsolete snapshots, weekend dev machines — and execute cleanup with full logging. Compliance agents enforce policy rules by scanning for deviations (unencrypted S3 buckets, unapproved AMIs) and auto-correcting per configured policy. All agents use 100% code-based execution with Open Policy Agent enforcement and complete audit trails.",
 
     features: [
-      "Auto-remediation agents for common incidents (MTTR <1 min)",
-      "Self-service provisioning with AI approval routing",
-      "AI-powered cost optimization recommendations",
-      "Deterministic execution (100% code-based, no hallucinations)",
-      "Policy enforcement with Open Policy Agent (OPA)",
-      "Complete audit logging for all operations",
-      "Multi-environment support (prod, staging, dev, on-prem)",
-      "Context-aware AI understanding system topology",
-      "RBAC and compliance as code",
-      "40%+ ticket reduction through automation",
-      "Conversational interface for infrastructure operations"
+      "Central Orchestrator that interprets requests, consults the Context Graph, and routes to specialized agents",
+      "Auto-remediation agents for SRE incidents — memory leak detection, service restart, cache cleanup (MTTR <1 min)",
+      "Conversational self-service portal — developers request resources in plain English via Slack, Teams, or web chat",
+      "AI approval routing — standard requests auto-provisioned, production changes routed for human approval",
+      "Cost optimization agents that identify idle VMs, obsolete snapshots, and weekend dev machines for cleanup",
+      "Compliance enforcement agents with continuous scanning and auto-correction (e.g., encrypt unencrypted S3 buckets)",
+      "Context Graph maintaining real-time understanding of infrastructure topology and policies",
+      "Deterministic execution — 100% code-based workflows, no LLM hallucinations in production actions",
+      "Policy enforcement via Open Policy Agent (OPA) before any infrastructure mutation",
+      "Complete audit logging for every agent action with notification to Slack/Teams",
+      "Multi-cloud support with modular connector system for AWS, Azure, GCP",
+      "Interactive terminal simulation on landing page demonstrating infrastructure scanning in real-time"
     ],
 
-    architecture: "The platform uses agentic patterns with human-in-the-loop for sensitive operations. Monitoring alerts trigger agents that follow pre-defined remediation code paths (deterministic). Policy enforcement via OPA ensures compliance before execution. Audit logs capture every action for security reviews.",
+    architecture: "The platform is built around a Central Orchestrator — the AI brain that interprets incoming requests, consults the Context Graph (a real-time map of infrastructure topology and policies), and dispatches work to specialized agents. Each agent follows deterministic execution paths: monitoring alerts trigger SRE agents, chat messages trigger DevOps self-service agents, scheduled scans trigger cost and compliance agents. Before any infrastructure mutation, Open Policy Agent validates the action against configured policies. All actions are logged to an immutable audit trail and notifications are sent via integration connectors (Slack, Teams, PagerDuty). The architecture is multi-cloud by design with a modular connector layer supporting AWS, Azure, and GCP.",
 
-    impact: "SRE teams eliminated 2 AM pages for known issues—agents handle them automatically. DevOps provisioning time dropped from days to minutes. Leadership identified $500K+ in annual cloud cost savings through AI recommendations. Ticket volume decreased 40% as common requests became self-service.",
+    impact: "SRE teams eliminated 2 AM pages for known issues — agents detect and remediate memory leaks within seconds, dropping MTTR from 30 minutes to under 1 minute. DevOps provisioning time dropped from days (Ops ticket queue) to minutes (conversational self-service). Leadership identified 25%+ in cloud cost savings through automated detection of idle resources and obsolete snapshots. Ticket volume decreased 40% as common requests became self-service. Compliance teams achieved near-zero security incidents through continuous policy scanning and auto-correction.",
+
+    keyDecisions: [
+      {
+        question: "Why deterministic code paths instead of letting LLMs execute infrastructure commands?",
+        answer: "LLMs can hallucinate — a hallucinated kubectl delete or terraform destroy could cause catastrophic outages. ZapGap agents follow pre-defined, tested code paths for every remediation action. The LLM interprets intent and routes to the correct workflow, but never generates or executes arbitrary infrastructure commands. This gives teams the convenience of AI with the safety of code-reviewed runbooks."
+      },
+      {
+        question: "Why a Central Orchestrator pattern instead of independent agent swarms?",
+        answer: "Independent agents risk conflicting actions — one agent scaling up while another optimizes costs by scaling down. The Central Orchestrator maintains a unified Context Graph of infrastructure state, prevents conflicting operations, and ensures proper sequencing. It also provides a single audit point for all agent activity, critical for compliance."
+      },
+      {
+        question: "Why Open Policy Agent (OPA) for policy enforcement?",
+        answer: "OPA is the CNCF standard for policy-as-code, already adopted by Kubernetes admission controllers, Terraform, and service meshes. Using OPA means ZapGap policies are portable — the same Rego rules that govern agent actions can be reused in CI/CD pipelines and cluster admission. It also provides declarative policy logic separate from agent code, making policy changes auditable and reviewable."
+      },
+      {
+        question: "Why Space Grotesk font and dark glassmorphism for the landing page?",
+        answer: "The target audience is SRE/DevOps engineers who live in dark terminals and dashboards. Space Grotesk's geometric precision and the dark glassmorphism aesthetic create instant familiarity — the site feels like a tool they'd actually use, not a marketing page selling to them. The terminal simulation on the hero section reinforces this by showing ZapGap in an environment engineers recognize."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "Incident Response",
+        before: "On-call engineer woken at 2 AM by PagerDuty, SSHes into server, diagnoses memory leak, manually restarts service — 30 minutes MTTR",
+        after: "ZapGap agent detects memory anomaly, auto-restarts service, clears caches, notifies Slack — MTTR under 1 minute, engineer sleeps through"
+      },
+      {
+        label: "Environment Provisioning",
+        before: "Developer submits Ops ticket 'Need QA env for payment service', waits hours/days in queue, platform team manually provisions",
+        after: "Developer messages ZapGap: 'Create QA env for payment service' — agent verifies policy, provisions standardized environment in minutes"
+      },
+      {
+        label: "Cloud Cost Management",
+        before: "Finance flags rising AWS bill, engineering manually audits instances looking for waste, one-time cleanup effort that drifts within weeks",
+        after: "Cost agent continuously scans for idle VMs, obsolete snapshots, weekend dev machines — auto-cleans with logging, 25%+ savings sustained"
+      },
+      {
+        label: "Compliance Posture",
+        before: "Quarterly manual audit of encryption, approved images, and security groups — deviations discovered weeks after introduction",
+        after: "Compliance agent continuously scans infrastructure, auto-encrypts unencrypted S3 buckets, flags unapproved AMIs — near-zero incidents"
+      },
+      {
+        label: "Ops Ticket Volume",
+        before: "Platform team drowning in repetitive requests: env setup, access grants, config changes — pulled away from strategic work",
+        after: "Common requests handled by AI self-service portal, 40% ticket reduction, platform team focuses on architecture and reliability"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/zapgap-sidekick/screenshot-1-hero.png",
+        alt: "ZapGap — Hero with Terminal Simulation",
+        caption: "Landing page hero with animated gradient title, rotating use-case text ('AI Agents for Incident Resolution'), and a live terminal simulation showing infrastructure scanning — detecting gaps and generating remediation plans in real-time."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-2-platform.png",
+        alt: "ZapGap — Platform Architecture",
+        caption: "Platform architecture overview showing the Central Orchestrator at the core, connected to six capabilities: Agent-Based Architecture, Context Graph, Multi-Cloud Design, Enterprise Security, Observability, and Continuous Learning."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-3-features.png",
+        alt: "ZapGap — Features with ChatOps Expanded",
+        caption: "Interactive feature accordion with ChatOps expanded — showing Slack/Teams integration for conversational infrastructure management. Each feature card reveals detailed descriptions on click."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-4-usecases.png",
+        alt: "ZapGap — SRE Use Case",
+        caption: "SRE use case breakdown: Problem (2 AM memory leak alerts), ZapGap Solution (auto-remediation workflow), and Impact (MTTR dropped from 30 min to <1 min) — with tabbed navigation between SRE, DevOps, Leadership, and IT personas."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-5-usecases-devops.png",
+        alt: "ZapGap — DevOps Use Case",
+        caption: "DevOps use case: developers request environments via AI self-service portal instead of Ops tickets, with policy verification and automatic approval routing — 40% reduction in ticket workload."
+      }
+    ],
+
+    design: {
+      philosophy: "ZapGap was designed for engineers who live in dark terminals and monitoring dashboards. The dark glassmorphism aesthetic with cyan-to-purple gradients creates instant familiarity — it feels like a tool, not a marketing page. The interactive terminal simulation on the hero section bridges the gap between product pitch and product experience.",
+      principles: [
+        {
+          title: "Terminal-Native Aesthetic",
+          description: "The hero features a simulated terminal with monospace output, green checkmarks, and amber warnings — the same visual language SREs see in their daily tools. This builds immediate credibility with the target audience.",
+          screenshotIndex: 0,
+          highlight: "Terminal simulation with infrastructure scan output and blinking cursor"
+        },
+        {
+          title: "Architecture-First Storytelling",
+          description: "Rather than listing features abstractly, the Platform section shows the actual system architecture — Central Orchestrator connected to six capability modules. Engineers evaluate tools by understanding how they work, not what they claim.",
+          screenshotIndex: 1,
+          highlight: "Central Orchestrator hub with radiating capability cards"
+        },
+        {
+          title: "Progressive Disclosure",
+          description: "Features use collapsible accordion cards — title and icon visible by default, detailed descriptions revealed on click. This prevents information overload while letting curious engineers dive deep.",
+          screenshotIndex: 2,
+          highlight: "ChatOps card expanded showing Slack/Teams integration details"
+        },
+        {
+          title: "Problem → Solution → Impact Framework",
+          description: "Each use case follows a three-column structure with color-coded cards: red (Problem), blue (ZapGap Solution), green (Impact with large metric). This makes the value proposition scannable in seconds.",
+          screenshotIndex: 3,
+          highlight: "Three-column layout with MTTR metric displayed prominently in green"
+        }
+      ],
+      colorPalette: [
+        { name: "Void Black", hex: "#000000", usage: "Primary background — mimics terminal/IDE dark theme" },
+        { name: "Electric Cyan", hex: "#3ABCF7", usage: "Primary accent, gradient start, links, active states" },
+        { name: "Nebula Purple", hex: "#8B2FF8", usage: "Gradient end, secondary accent, brand identity" },
+        { name: "Royal Blue", hex: "#5B7CF7", usage: "Gradient midpoint, button backgrounds, hover states" },
+        { name: "Ghost White", hex: "#F8FAFC", usage: "Primary text on dark surfaces" },
+        { name: "Slate Gray", hex: "#94A3B8", usage: "Secondary text, descriptions, muted content" },
+        { name: "Impact Green", hex: "#22C55E", usage: "Success states, impact metrics, positive outcomes" }
+      ],
+      componentPatterns: [
+        "Glassmorphism cards — semi-transparent backdrop blur with subtle borders, used throughout for platform components and feature cards",
+        "Gradient text effects — bg-clip-text with animated cyan→blue→purple gradients for headings and brand elements",
+        "Interactive tab selector — pill-shaped buttons with gradient fill on active state for use case persona switching",
+        "Animated terminal — monospace output with typewriter effect, status icons (✓, ⚠, ●), and blinking cursor for hero engagement",
+        "Collapsible accordion — chevron rotation on expand, smooth height animation, gradient icon backgrounds per feature",
+        "Neural network background — SVG lines with animated stroke-dasharray and pulsing connection nodes creating subtle depth"
+      ]
+    },
 
     techStack: [
       { name: "React", category: "frontend", icon: "react" },
       { name: "TypeScript", category: "frontend", icon: "typescript" },
+      { name: "Vite", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
       { name: "Framer Motion", category: "frontend" },
-      { name: "AI/LLM", category: "ai" },
+      { name: "shadcn/ui", category: "frontend" },
+      { name: "Radix UI", category: "frontend", icon: "radixui" },
+      { name: "React Router", category: "frontend", icon: "reactrouter" },
+      { name: "React Hook Form", category: "frontend" },
+      { name: "Zod", category: "frontend", icon: "zod" },
+      { name: "Lucide Icons", category: "frontend" },
+      { name: "Recharts", category: "frontend" },
+      { name: "Space Grotesk", category: "frontend", icon: "googlefonts" },
+      { name: "Netlify", category: "infrastructure", icon: "netlify" },
+      { name: "ESLint", category: "infrastructure", icon: "eslint" },
+      { name: "PostCSS", category: "frontend", icon: "postcss" },
+    ],
+
+    integrations: [
+      {
+        system: "Slack / Microsoft Teams",
+        type: "ChatOps Integration",
+        dataFlow: "Conversational interface for infrastructure requests — developers message ZapGap in natural language, agents respond with actions and confirmations"
+      },
+      {
+        system: "AWS / Azure / GCP",
+        type: "Multi-Cloud Connectors",
+        dataFlow: "Modular connector system for infrastructure scanning, resource provisioning, cost analysis, and compliance enforcement across cloud providers"
+      },
+      {
+        system: "Open Policy Agent (OPA)",
+        type: "Policy Engine",
+        dataFlow: "Rego policy rules validated before any infrastructure mutation — portable across CI/CD pipelines, Kubernetes admission, and agent actions"
+      },
+      {
+        system: "PagerDuty / Monitoring",
+        type: "Alert Integration",
+        dataFlow: "Monitoring alerts trigger SRE auto-remediation agents — memory leaks, CPU spikes, and service crashes handled automatically"
+      }
     ],
 
     metrics: [
-      { label: "MTTR", value: "<1min" },
+      { label: "MTTR", value: "<1 min" },
       { label: "Ticket Reduction", value: "40%" },
-      { label: "Use Cases", value: "3" },
+      { label: "Cost Savings", value: "25%" },
+      { label: "Use Cases", value: "4" },
+      { label: "Platform Components", value: "6" },
+      { label: "UI Components", value: "50+" },
+      { label: "Animations", value: "15+" },
       { label: "Status", value: "Prototype" },
     ],
 
-    userStory: "As an SRE, I want AI agents to automatically detect memory leaks and restart services so I don't get woken up at 2 AM.",
-    description: "AI-powered cloud operations platform with autonomous agents for SRE auto-remediation, DevOps self-service, and cost optimization.",
+    userStory: "As an SRE engineer, I want AI agents to automatically detect memory leaks and restart services at 2 AM so I can sleep through the night, while still getting a Slack notification of exactly what happened and why.",
+    description: "AI-powered cloud operations platform with autonomous agents for SRE auto-remediation, DevOps self-service, cloud cost optimization, and compliance enforcement — featuring a dark glassmorphism landing page with interactive terminal simulation.",
   },
 
   {
