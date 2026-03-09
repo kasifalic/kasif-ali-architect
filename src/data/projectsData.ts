@@ -1346,7 +1346,7 @@ export const projectsData: ProjectArticle[] = [
     icon: PieChart,
     monogram: "SP",
     color: "bg-cyan-500",
-    heroImage: "gradient-cyan",
+    heroImage: "/projects/spog/hero.png",
 
     overview: "SPOG (Single Pane of Glass) is an enterprise financial analytics platform that consolidates Balance Sheet and Cash Flow data from NetSuite into a unified Databricks dashboard. Tracking $500M+ in assets and $50M+ in quarterly cash movements, it replaces manual report compilation with automated PySpark ETL pipelines, Delta Lake storage, and Databricks Genie for natural language financial queries.",
 
@@ -1375,41 +1375,50 @@ export const projectsData: ProjectArticle[] = [
 
     keyDecisions: [
       {
-        decision: "Delta Lake over traditional data warehouse",
-        rationale: "ACID transactions prevent partial writes during ETL failures. Time-travel enables audit trails and rollback — critical for financial data. Auto-optimization with Z-ordering delivers sub-second query response on dashboards."
+        question: "Why CSV exports as source of truth instead of raw NetSuite API?",
+        answer: "The finance team makes internal adjustments directly in NetSuite — reclassifications, accruals, corrections — that raw API data doesn't reflect until period close. CSV exports contain post-adjustment 'truth'. We use CSVs first to establish correct values, then reverse-engineer API queries to validate against them. This CSV-first approach ensures data accuracy that direct API pulls cannot guarantee."
       },
       {
-        decision: "JSON-based GL mappings over hardcoded logic",
-        rationale: "Finance frequently adds or reclassifies GL accounts. A configurable gl_mappings.json allows non-engineer updates to account-category mappings without code changes or redeployment."
+        question: "Why Delta Lake over a traditional data warehouse?",
+        answer: "ACID transactions prevent partial writes during ETL failures. Time-travel enables audit trails and rollback — critical for financial data where regulators may ask 'what did this number look like last month?' Auto-optimization with Z-ordering delivers sub-second query response on dashboards."
       },
       {
-        decision: "Hierarchical aggregation pipeline over flat tables",
-        rationale: "Financial reporting requires drill-down from totals to subcategories to individual GL accounts. Building the hierarchy in the ETL (not the dashboard) ensures consistent totals and enables both summary and detail views from the same data."
+        question: "Why JSON-based GL mappings over hardcoded logic?",
+        answer: "Finance frequently adds or reclassifies GL accounts. A configurable gl_mappings.json allows non-engineer updates to account-category mappings without code changes or redeployment. When a new GL account appears, finance updates the JSON — no sprint needed."
       },
       {
-        decision: "Databricks Genie over custom chatbot",
-        rationale: "Genie understands the Delta table schema natively and translates natural language to SQL. Building a custom LLM chatbot would require maintaining prompt templates, SQL generation, and validation — Genie provides this out of the box with financial domain tuning."
+        question: "Why hierarchical aggregation in ETL over dashboard-level rollups?",
+        answer: "Financial reporting requires drill-down from totals to subcategories to individual GL accounts. Building the hierarchy in PySpark (not the dashboard) ensures consistent totals and enables both summary and detail views from the same Delta tables."
+      },
+      {
+        question: "Why Databricks Genie over a custom LLM chatbot?",
+        answer: "Genie understands the Delta table schema natively and translates natural language to SQL. Building a custom chatbot would require maintaining prompt templates, SQL generation, and validation — Genie provides this out of the box with financial domain tuning."
       }
     ],
 
     beforeAfter: [
       {
+        label: "Report Generation",
         before: "Manual CSV export from NetSuite → Excel aggregation → Email to leadership (hours per report)",
         after: "Automated daily ETL pipeline → Delta Lake → Interactive dashboard refreshed by 6 AM IST (minutes)"
       },
       {
+        label: "Data Organization",
         before: "300+ GL accounts in flat CSV files with no categorization or hierarchy",
         after: "Hierarchical financial structure: GL → 50+ subcategories → major categories → Balance Sheet totals"
       },
       {
+        label: "Period Calculations",
         before: "Finance analysts manually compile QTD/YTD reports with spreadsheet formulas",
         after: "Cumulative QTD and YTD calculations automated in PySpark with 3 fiscal years of history"
       },
       {
+        label: "Financial Queries",
         before: "Leadership asks analyst 'What's our cash position?' and waits hours for a response",
         after: "CFO asks Genie 'What are total assets for Q3?' and gets an answer in seconds"
       },
       {
+        label: "Audit Trail",
         before: "No audit trail — if a number changes between reports, no way to trace why",
         after: "Delta Lake time-travel provides version history for every data point across all refreshes"
       }
