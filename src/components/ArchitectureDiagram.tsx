@@ -1077,6 +1077,206 @@ const IdentityLifecycleArchitecture = () => {
 };
 
 // ───────────────────────────────────────────────────
+// Rydoo Sync Architecture Diagram
+// ───────────────────────────────────────────────────
+
+const RydooSyncArchitecture = () => {
+  return (
+    <div className="relative">
+      {/* ── Layer 1: Source System ── */}
+      <LayerLabel label="Expense Platform" delay={0} />
+      <div className="flex justify-center mb-1">
+        <ArchNode
+          icon={Store}
+          title="Rydoo API"
+          subtitle="OAuth 2.0 Client Credentials  |  /v2/expenses/exported  |  Receipt streaming"
+          variant="source"
+          delay={0.05}
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="OAuth 2.0 + Pagination" delay={0.15} />
+      </div>
+
+      {/* ── Layer 2: Trigger & Orchestration ── */}
+      <LayerLabel label="Trigger & Credentials" delay={0.2} />
+      <div className="grid grid-cols-2 gap-3 mb-1">
+        <ArchNode
+          icon={Clock}
+          title="EventBridge"
+          subtitle="Cron: 2:00 AM IST daily"
+          variant="process"
+          delay={0.25}
+        />
+        <ArchNode
+          icon={Key}
+          title="Secrets Manager"
+          subtitle="client_id + client_secret"
+          variant="service"
+          delay={0.3}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow delay={0.35} />
+      </div>
+
+      {/* ── Layer 3: Processing — Two Parallel Paths ── */}
+      <LayerLabel label="Processing (Two Paths)" delay={0.4} />
+      <div className="grid grid-cols-2 gap-3 mb-1">
+        {/* Data Sync Lambda */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.45 }}
+          className="rounded-xl bg-gradient-to-br from-amber-50/50 to-orange-50/50 border border-amber-200/40 p-4"
+        >
+          <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-amber-400 font-mono mb-3">
+            Data Sync Lambda
+          </div>
+          <div className="flex flex-col gap-1.5">
+            {[
+              { label: 'Fetch Expenses', sublabel: 'Paginated API', icon: Database },
+              { label: 'Download Receipts', sublabel: 'S3 dedup', icon: Zap },
+              { label: 'Upload to S3', sublabel: 'Date-partitioned', icon: Boxes },
+            ].map((step, i) => (
+              <motion.div
+                key={step.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.5 + 0.08 * i }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-amber-200/50 shadow-sm"
+              >
+                <step.icon className="w-3.5 h-3.5 text-amber-500" />
+                <div>
+                  <div className="text-[11px] font-semibold text-gray-800 leading-none">{step.label}</div>
+                  <div className="text-[9px] text-gray-400 leading-none mt-0.5">{step.sublabel}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Browser Audit Scraper */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.55 }}
+          className="rounded-xl bg-gradient-to-br from-violet-50/50 to-purple-50/50 border border-violet-200/40 p-4"
+        >
+          <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-400 font-mono mb-3">
+            Browser Audit Scraper (Playwright)
+          </div>
+          <div className="flex flex-col gap-1.5">
+            {[
+              { label: 'Web UI Login', sublabel: 'Auto re-login', icon: Key },
+              { label: 'Scrape Audit Trail', sublabel: '10+ events/expense', icon: Search },
+              { label: 'Checkpoint/Resume', sublabel: 'Atomic writes', icon: RefreshCw },
+            ].map((step, i) => (
+              <motion.div
+                key={step.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.6 + 0.08 * i }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-violet-200/50 shadow-sm"
+              >
+                <step.icon className="w-3.5 h-3.5 text-violet-500" />
+                <div>
+                  <div className="text-[11px] font-semibold text-gray-800 leading-none">{step.label}</div>
+                  <div className="text-[9px] text-gray-400 leading-none mt-0.5">{step.sublabel}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="flex justify-center">
+          <FlowArrow label="Write (partitioned)" delay={0.85} />
+        </div>
+        <div className="flex justify-center">
+          <FlowArrow label="Audit JSON + Screenshots" delay={0.9} />
+        </div>
+      </div>
+
+      {/* ── Layer 4: Storage ── */}
+      <LayerLabel label="S3 Storage (ap-south-1 Mumbai)" delay={0.95} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-1">
+        {[
+          { title: 'Expenses', subtitle: 'year=/month= JSON' },
+          { title: 'Receipts', subtitle: 'PDF/JPG/PNG files' },
+          { title: 'Audit Trails', subtitle: 'Approval history' },
+          { title: 'Sync State', subtitle: 'last_sync.json' },
+        ].map((item, i) => (
+          <ArchNode
+            key={item.title}
+            icon={Database}
+            title={item.title}
+            subtitle={item.subtitle}
+            variant="service"
+            delay={1.0 + 0.05 * i}
+          />
+        ))}
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Search + Presigned URLs" delay={1.2} />
+      </div>
+
+      {/* ── Layer 5: Audit Portal ── */}
+      <LayerLabel label="Audit Portal (API Gateway + Lambda)" delay={1.25} />
+      <div className="flex justify-center mb-1">
+        <ArchNode
+          icon={Layout}
+          title="Expense Audit Portal"
+          subtitle="Search by ID  |  Detail cards  |  Audit timeline  |  Receipt preview"
+          variant="frontend"
+          delay={1.3}
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow delay={1.35} />
+      </div>
+
+      {/* ── Layer 6: Consumers ── */}
+      <LayerLabel label="Consumers" delay={1.4} />
+      <div className="grid grid-cols-3 gap-3">
+        <ArchNode
+          icon={Users}
+          title="Finance Team"
+          subtitle="Expense verification"
+          variant="user"
+          delay={1.45}
+        />
+        <ArchNode
+          icon={Users}
+          title="Auditors"
+          subtitle="Compliance checks"
+          variant="user"
+          delay={1.5}
+        />
+        <ArchNode
+          icon={Users}
+          title="IT Admin"
+          subtitle="Sync monitoring"
+          variant="user"
+          delay={1.55}
+        />
+      </div>
+    </div>
+  );
+};
+
+// ───────────────────────────────────────────────────
 // Main Export: Architecture Diagram wrapper
 // ───────────────────────────────────────────────────
 
@@ -1087,7 +1287,7 @@ interface ArchitectureDiagramProps {
 
 const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps) => {
   // Only render visual diagram for projects that have one
-  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle'].includes(slug);
+  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync'].includes(slug);
 
   if (!hasDiagram) {
     // Fallback to text description
@@ -1138,6 +1338,7 @@ const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps
           {slug === 'billing-dashboard' && <BillingDashboardArchitecture />}
           {slug === 'spog' && <SPOGArchitecture />}
           {slug === 'identity-lifecycle' && <IdentityLifecycleArchitecture />}
+          {slug === 'rydoo-sync' && <RydooSyncArchitecture />}
         </div>
 
         {/* Text summary below */}

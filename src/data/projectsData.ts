@@ -1622,58 +1622,158 @@ export const projectsData: ProjectArticle[] = [
     id: 10,
     slug: "rydoo-sync",
     name: "Rydoo Sync",
-    tagline: "Serverless Expense Automation",
+    tagline: "Serverless Expense Backup & Audit Portal",
     type: "Automation",
     organization: "Amagi Media",
     category: "Automation",
-    readTime: "4 min read",
+    readTime: "8 min read",
     publishDate: "April 2024",
     icon: ArrowLeftRight,
     monogram: "RS",
     color: "bg-red-500",
     heroImage: "gradient-red",
 
-    overview: "Rydoo Sync is a serverless expense management automation system ensuring Indian data residency compliance. Running on AWS Lambda with scheduled EventBridge triggers, it syncs expense data daily at 2:00 AM IST with minimal operational cost (~$72/year).",
+    overview: "Rydoo Sync is a three-component serverless system for expense data backup, audit trail capture, and compliance verification. The Data Sync pulls expenses and receipts from the Rydoo API into date-partitioned S3 in Mumbai. The Browser Audit Scraper — a 1,800-line Playwright automation — logs into Rydoo's web UI to capture the full 10+ event audit trail that the API doesn't expose. The Audit Portal (Lambda + API Gateway) lets finance teams search any expense by reference ID, view the complete approval timeline, and preview backed-up receipts.",
 
-    challenge: "Amagi needed to sync expense data from Rydoo to internal systems while maintaining Indian data residency compliance for regulatory requirements. Manual sync processes were error-prone and delayed expense reporting. The solution needed to be cost-effective, reliable, and require minimal maintenance.",
+    challenge: "Amagi's finance team relied on Rydoo as their expense management platform but had no independent backup of expense records, receipts, or approval audit trails. Indian data residency regulations required all financial data to remain within Indian infrastructure, yet Rydoo's servers are EU-hosted. Critically, the Rydoo API only exposed 3–4 audit events per expense (submitted, approved, controlled, exported), while the web UI showed the full 10+ event trail including policy violations, rejections, re-submissions, and controller actions. Manual exports were tedious, incomplete, and provided no searchable interface. When auditors needed proof of a specific expense's complete approval chain — with the original receipt — finance had to manually navigate Rydoo's web UI per expense, a process taking 5–10 minutes each.",
 
-    solution: "Architected a serverless solution using AWS Lambda for compute, S3 for data storage, API Gateway for endpoints, and Secrets Manager for credential management. EventBridge triggers daily sync at 2:00 AM IST. The Lambda function fetches expense data from Rydoo API, transforms it, and stores it in compliance-approved storage within Indian AWS regions.",
+    solution: "Built a three-component system. The Data Sync runs daily at 2:00 AM IST via EventBridge, authenticating to the Rydoo API with OAuth 2.0 client credentials, fetching all exported expenses with pagination, downloading receipt files (PDF/JPG/PNG) with S3 dedup checks, and writing to date-partitioned S3 in ap-south-1 (Mumbai). The Browser Audit Scraper — a 1,800-line Playwright automation running on EC2 — logs into Rydoo's web UI, navigates to each expense page, and extracts the full 10+ event audit trail that the API doesn't expose. It features checkpoint/resume with atomic JSON writes, exponential backoff retries, auto re-login on session expiry, and browser restart every 500 expenses to prevent memory leaks. An incremental mode detects new and in-flight expenses nightly. The Audit Portal is a separate Lambda behind API Gateway serving an HTML search interface — enter an expense reference ID and get the expense detail card, complete audit timeline, and receipt preview via presigned S3 URLs.",
 
     features: [
-      "Serverless architecture for minimal operational overhead",
-      "Daily automated sync at 2:00 AM IST via EventBridge",
-      "Indian data residency compliance (AWS Mumbai region)",
-      "AWS Secrets Manager for secure credential storage",
-      "S3 for reliable expense data storage",
-      "Error handling and retry logic",
-      "CloudWatch logging for audit trails",
-      "Cost-optimized design (~$72/year)",
-      "Zero-downtime deployments",
-      "API Gateway for manual trigger capability"
+      "OAuth 2.0 client credentials authentication against Rydoo API with automatic token refresh",
+      "Paginated expense fetching from /v2/expenses/exported endpoint (100 records per page)",
+      "Receipt file download with S3 dedup — skips already-backed-up files",
+      "Date-partitioned S3 storage (expenses/year=YYYY/month=MM/) for Athena-compatible querying",
+      "Incremental sync with 30-day rolling window and last_sync.json state tracking",
+      "Playwright browser automation that logs into Rydoo's web UI and scrapes the full 10+ event audit trail per expense",
+      "Checkpoint/resume with atomic JSON writes and backup — survives crashes and restarts mid-scrape",
+      "Exponential backoff retries (5s, 15s, 30s), auto re-login on session expiry, browser restart every 500 expenses",
+      "Incremental nightly scraper detects new expenses and re-scrapes in-flight ones until reaching 'reimbursed' status",
+      "Web-based Audit Portal with expense search by reference ID and full detail card with audit timeline",
+      "Receipt preview and download via presigned S3 URLs (1-hour expiry)",
+      "SNS notifications on sync success (expense/receipt/audit counts) and failure (error details + CloudWatch link)"
     ],
 
-    architecture: "EventBridge scheduler triggers Lambda function daily at 2:00 AM IST. Lambda retrieves Rydoo API credentials from Secrets Manager, fetches expense data, transforms records, and writes to S3 in Indian AWS region. CloudWatch Logs capture execution details for debugging and compliance audits.",
+    architecture: "Three components work together. (1) Data Sync: EventBridge triggers Lambda daily at 2:00 AM IST → Secrets Manager credentials → OAuth 2.0 auth → paginated expense fetch → receipt download with S3 dedup → date-partitioned S3 writes → SNS notification. State persists in sync_state/last_sync.json for incremental runs. (2) Browser Audit Scraper: runs on EC2 after the data sync, loads the expense manifest, logs into Rydoo's web UI via Playwright, navigates to each expense page by type-specific URL slug, extracts the full audit trail from the Activity panel (10+ events vs API's 3–4), and saves per-expense JSON + screenshot to S3. Checkpoint/resume ensures long scraping runs survive interruptions. Incremental mode re-scrapes in-flight expenses until reaching reimbursed status. (3) Audit Portal: separate Lambda behind API Gateway serves an HTML search UI → searches partitioned S3 expense files by reference ID → renders expense detail card + audit timeline + receipt preview via presigned URLs.",
 
-    impact: "Finance team gained automated, reliable expense sync with 100% data residency compliance. The serverless architecture eliminated server maintenance overhead. Operational costs dropped to $72/year (83% reduction vs EC2-based solution). Daily sync ensured expense reports were always current.",
+    impact: "Finance team gained a fully independent, India-resident backup of all expense data with zero manual effort. Compliance verification time dropped from 5–10 minutes per expense (navigating Rydoo's web UI) to seconds (search by ID in the Audit Portal). The serverless architecture runs at ~$72/year — 83% cheaper than an equivalent EC2-based solution. Daily sync ensures the backup is never more than 24 hours stale. Receipt files are preserved even if deleted from Rydoo. The Athena-compatible partitioning enables SQL-based bulk analysis when auditors need aggregate reports across months.",
+
+    keyDecisions: [
+      {
+        question: "Why date-partitioned S3 storage instead of a database?",
+        answer: "Expense data is write-once, read-rarely — it's backed up for compliance, not queried in real-time. S3 with year=/month= partitioning is orders of magnitude cheaper than RDS, scales infinitely, and is natively Athena-queryable for ad-hoc auditor requests. The Audit Portal reads partitioned JSON files directly from S3, avoiding the cost and maintenance of a database entirely."
+      },
+      {
+        question: "Why OAuth 2.0 client credentials flow instead of API key authentication?",
+        answer: "Rydoo's API uses OAuth 2.0 exclusively for machine-to-machine access. The client credentials grant provides scoped tokens (expenses:read, users:read, fields:read, company_structure:read) with automatic expiry. Credentials are stored in AWS Secrets Manager rather than environment variables, ensuring they're encrypted at rest and rotatable without redeploying the Lambda."
+      },
+      {
+        question: "Why a separate Lambda for the Audit Portal instead of adding routes to the sync Lambda?",
+        answer: "The sync Lambda is optimized for batch processing — it runs once daily with a 15-minute timeout and high memory. The Audit Portal needs sub-second response times with a 30-second timeout and 256MB memory. Separating them allows independent scaling, IAM policies (portal only needs s3:GetObject, sync needs s3:PutObject), and deployment without risking the nightly sync."
+      },
+      {
+        question: "Why Playwright browser scraping instead of relying on the Rydoo API for audit trails?",
+        answer: "The Rydoo API only returns 3–4 audit events per expense (submitted, approved, controlled, exported), but the web UI shows the full 10+ event trail — including policy limit violations, rejections, re-submissions, auto-approvals, and controller actions. For compliance, the complete chain matters. The browser scraper logs into app.rydoo.com, navigates to each expense by type-specific URL slug, and extracts the Activity panel. Checkpoint/resume with atomic writes, auto re-login, and browser restart every 500 expenses makes it production-reliable for thousands of expenses."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "Expense Backup",
+        before: "No independent backup — all expense records, receipts, and audit trails lived only on Rydoo's EU-hosted servers",
+        after: "Complete daily backup to S3 in Mumbai (ap-south-1) with expenses, receipts, and audit trails in date-partitioned storage"
+      },
+      {
+        label: "Compliance Verification",
+        before: "Auditors had to manually navigate Rydoo's web UI per expense — 5–10 minutes each to find approval chain and receipt",
+        after: "Search by expense ID in Audit Portal, see full detail card + audit timeline + receipt preview in seconds"
+      },
+      {
+        label: "Data Residency",
+        before: "Financial data stored on Rydoo's EU infrastructure, creating regulatory exposure for Indian data residency requirements",
+        after: "All data backed up to AWS Mumbai region (ap-south-1), satisfying Indian data residency regulations"
+      },
+      {
+        label: "Receipt Preservation",
+        before: "Receipts accessible only through Rydoo's streaming URLs — if deleted from Rydoo, gone forever",
+        after: "Receipt files (PDF/JPG/PNG) downloaded and stored permanently in S3 with presigned URL access from Audit Portal"
+      },
+      {
+        label: "Operational Cost",
+        before: "Previous approach considered EC2-based sync running 24/7, estimated at ~$430/year for a small instance",
+        after: "Serverless architecture (Lambda + S3 + EventBridge) costs ~$72/year — 83% reduction, zero server maintenance"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/rydoo-sync/screenshot-1-landing.png",
+        alt: "Rydoo Audit Portal — Landing Page",
+        caption: "The Audit Portal home page with two functions: single expense search by reference ID (XPD prefix) and bulk CSV export by date range. Built as a serverless HTML app served via Lambda + API Gateway."
+      },
+      {
+        src: "/projects/rydoo-sync/screenshot-2-expense-detail.png",
+        alt: "Rydoo Audit Portal — Expense Detail with Audit Trail",
+        caption: "Expense detail view showing the full audit trail timeline (18 events from Created → Auto-Approved → Controlled → Reported to ERP), receipt backup status with download link, and expense metadata — all retrieved from date-partitioned S3 storage in the Mumbai region."
+      },
+    ],
 
     techStack: [
-      { name: "AWS Lambda", category: "infrastructure", icon: "amazonaws" },
-      { name: "AWS S3", category: "infrastructure", icon: "amazonaws" },
-      { name: "AWS API Gateway", category: "infrastructure", icon: "amazonaws" },
-      { name: "AWS Secrets Manager", category: "infrastructure", icon: "amazonaws" },
-      { name: "AWS EventBridge", category: "infrastructure", icon: "amazonaws" },
       { name: "Python", category: "backend", icon: "python" },
+      { name: "Boto3", category: "backend", icon: "amazonaws" },
+      { name: "Requests", category: "backend" },
+      { name: "Playwright", category: "backend" },
+      { name: "AWS Lambda", category: "infrastructure", icon: "awslambda" },
+      { name: "Amazon S3", category: "infrastructure", icon: "amazons3" },
+      { name: "Amazon API Gateway", category: "infrastructure", icon: "amazonapigateway" },
+      { name: "AWS Secrets Manager", category: "infrastructure", icon: "amazonaws" },
+      { name: "Amazon EventBridge", category: "infrastructure", icon: "amazonaws" },
+      { name: "Amazon SNS", category: "infrastructure", icon: "amazonaws" },
+      { name: "Amazon EC2", category: "infrastructure", icon: "amazonec2" },
+      { name: "AWS IAM", category: "infrastructure", icon: "amazonaws" },
+      { name: "CloudWatch", category: "infrastructure", icon: "amazoncloudwatch" },
+      { name: "OAuth 2.0", category: "backend" },
+      { name: "HTML/CSS", category: "frontend", icon: "html5" },
+      { name: "JSON", category: "backend", icon: "json" },
+      { name: "Bash", category: "infrastructure", icon: "gnubash" },
+    ],
+
+    integrations: [
+      {
+        system: "Rydoo Expense Platform",
+        type: "OAuth 2.0 Client Credentials + REST API",
+        dataFlow: "Expense records via /v2/expenses/exported with pagination, receipt file downloads via streaming URLs with Bearer token, audit trail history embedded in expense objects"
+      },
+      {
+        system: "Amazon S3 (ap-south-1)",
+        type: "AWS SDK (Boto3)",
+        dataFlow: "Date-partitioned write: expenses/year=/month=, receipts/year=/month=, audit_trail/, raw_data/, sync_state/last_sync.json — read: Audit Portal searches expense JSONs, generates presigned receipt URLs"
+      },
+      {
+        system: "AWS Secrets Manager",
+        type: "AWS SDK",
+        dataFlow: "Rydoo API client_id, client_secret, and scope retrieved at Lambda cold start, cached for function lifetime"
+      },
+      {
+        system: "Amazon SNS",
+        type: "AWS SDK",
+        dataFlow: "Sync completion notifications — success (expense count, receipt count, audit records) or failure (error message, CloudWatch log link)"
+      }
     ],
 
     metrics: [
       { label: "Architecture", value: "Serverless" },
       { label: "Annual Cost", value: "~$72" },
+      { label: "Cost Reduction", value: "83%" },
       { label: "Sync Schedule", value: "Daily 2AM" },
-      { label: "Compliance", value: "India DC" },
+      { label: "Data Residency", value: "India (Mumbai)" },
+      { label: "Python LOC", value: "5,800+" },
+      { label: "Components", value: "3" },
+      { label: "AWS Services", value: "8" },
     ],
 
-    userStory: "As a Finance Manager, I want expenses to sync automatically daily with Indian data residency compliance, without managing servers.",
-    description: "Serverless expense management synchronization with Indian data residency compliance, automated daily sync via AWS Lambda.",
+    userStory: "As a Finance Manager, I want all Rydoo expense data — records, receipts, and audit trails — automatically backed up to Indian infrastructure daily, with a searchable portal where auditors can verify any expense by reference ID in seconds.",
+    description: "Two-part serverless system: daily expense data backup from Rydoo API to S3 (Mumbai) with Indian data residency compliance, plus a web-based Audit Portal for instant expense verification with audit trails and receipt preview.",
   },
 
   // ==================== PERSONAL PROJECTS ====================
