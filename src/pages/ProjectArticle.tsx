@@ -149,7 +149,7 @@ const ArticleCTA = () => (
         Let's Connect
       </Link>
       <a
-        href="https://www.linkedin.com/in/introkasif/"
+        href="https://www.linkedin.com/in/kasif-ali/"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-amber-400 text-amber-700 rounded-xl font-semibold transition-all duration-300 hover:bg-amber-50 hover:shadow-md"
