@@ -2615,27 +2615,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        url: "/projects/nivesha/screenshot-1-dashboard.png",
+        src: "/projects/nivesha/screenshot-1-dashboard.png",
         caption: "Dashboard with live market indices (NIFTY 50, SENSEX, BANKNIFTY), quick actions for transactions, portfolio creation, and AI assistance",
         alt: "Nivesha dashboard showing welcome screen with live market ticker, quick action cards",
       },
       {
-        url: "/projects/nivesha/screenshot-3-research.png",
+        src: "/projects/nivesha/screenshot-3-research.png",
         caption: "AI Research hub with stock search, live market overview indices, and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with real-time prices",
         alt: "AI Research page showing stock search, market indices, and trending stock cards with prices",
       },
       {
-        url: "/projects/nivesha/screenshot-6-goals.png",
+        src: "/projects/nivesha/screenshot-6-goals.png",
         caption: "Financial Goals tracker with 4 goals totaling ₹3.75 Cr target, progress bars, SIP recommendations, and linked stock holdings per goal",
         alt: "Financial Goals page showing short-term and long-term goals with progress tracking and SIP details",
       },
       {
-        url: "/projects/nivesha/screenshot-7-settings.png",
+        src: "/projects/nivesha/screenshot-7-settings.png",
         caption: "Settings hub with profile management, broker integrations (Zerodha), tax reports, alerts, notifications, security, and preferences",
         alt: "Settings page showing profile information, integration options, and configuration sections",
       },
       {
-        url: "/projects/nivesha/screenshot-2-portfolio.png",
+        src: "/projects/nivesha/screenshot-2-portfolio.png",
         caption: "Portfolio management with create portfolio workflow and holdings tracking",
         alt: "Portfolio page showing portfolio creation and management interface",
       },
@@ -2666,37 +2666,67 @@ export const projectsData: ProjectArticle[] = [
 
     beforeAfter: [
       {
+        label: "Investment Workflow",
         before: "Checking 5 different apps for market data, portfolio value, stock research, IPO status, and SIP planning",
         after: "Single dashboard with live indices, portfolio valuation, AI research, IPO tracker, and goal-based planning",
       },
       {
+        label: "Portfolio Analytics",
         before: "Manual XIRR calculation in Excel spreadsheets with error-prone date tracking",
         after: "Automatic XIRR computation with every transaction, benchmark comparison against NIFTY 50",
       },
       {
+        label: "Market News",
         before: "Reading multiple news sources and manually filtering for portfolio-relevant stories",
         after: "Personalized news feed with sentiment analysis and automatic portfolio-stock matching",
       },
       {
+        label: "Financial Planning",
         before: "No structured approach to financial goals — ad-hoc savings without SIP discipline",
         after: "Goal-based planning with progress tracking, monthly SIP recommendations, and stock-to-goal linking",
       },
       {
+        label: "Stock Research",
         before: "Researching stocks across Screener, Moneycontrol, and TradingView separately",
         after: "AI-powered stock research combining fundamentals, technicals, peer comparison, and news sentiment in one view",
       },
     ],
 
     design: {
+      philosophy: "Nivesha uses a dark-mode-first design with emerald and cyan gradient accents, creating a premium financial dashboard aesthetic. The glassmorphism card system with backdrop-blur provides visual depth without clutter, while numbered sidebar navigation (01-06) establishes clear information hierarchy. The color system is purpose-driven: emerald for positive/growth, red for losses/warnings, amber for portfolio-relevant alerts.",
       principles: [
-        "Dark-mode-first with emerald/cyan gradient accents for a premium financial dashboard feel (screenshot 1)",
-        "Glassmorphism cards with backdrop-blur and subtle borders for depth without visual clutter",
-        "Numbered sidebar navigation (01-06) for clear information hierarchy across Dashboard, Portfolio, AI Research, Goals, Learn, Settings",
-        "Color-coded sentiment indicators — green for positive, red for negative, amber for portfolio-relevant news",
-        "Goal progress visualization with gradient progress bars and color-coded urgency (Behind in red, On Track in green)",
-        "Quick action cards with vibrant gradients (coral, teal, purple) for the three primary user flows",
+        {
+          title: "Live Market Ticker Bar",
+          description: "A persistent horizontal ticker at the top of the dashboard displays live market indices (NIFTY 50, SENSEX, BANKNIFTY, NIFTY IT) and commodity prices (Gold, Crude, USD/INR) with color-coded percentage changes, providing ambient market awareness without requiring navigation.",
+          screenshotIndex: 0,
+          highlight: "Live ticker showing NIFTY 50: 24,257 +0.95%, SENSEX: 78,218 +0.84% with green/red indicators"
+        },
+        {
+          title: "AI Research Hub with Trending Cards",
+          description: "The AI Research page uses a search-first layout with live market overview indices in metric cards, followed by trending stock cards showing company logos, current prices in INR, and percentage changes with color-coded sentiment badges.",
+          screenshotIndex: 1,
+          highlight: "Trending stocks grid: Reliance ₹2,580.5 +0.99%, TCS ₹3,650.2 +1.25%, HDFCBANK ₹1,680.75 -0.45%"
+        },
+        {
+          title: "Goal-Based Progress Visualization",
+          description: "Financial goals use gradient progress bars with color-coded status badges (Behind in red, On Track in green). Each goal card shows saved amount vs target, remaining amount, time left, monthly SIP, linked stocks with color avatars, and a direct link to view details.",
+          screenshotIndex: 2,
+          highlight: "House Down Payment: ₹8.50L of ₹20.00L, 42.5% progress, Behind badge, ₹35,000 monthly SIP"
+        },
+        {
+          title: "Settings Information Architecture",
+          description: "Settings uses a two-panel layout: left sidebar with icon-labeled sections (Profile, Integrations, Tax Reports, Alerts, Notifications, Security, Preferences) and right content area showing the selected section's details, optimizing for discoverability and scan-ability.",
+          screenshotIndex: 3,
+          highlight: "Seven settings sections with icons, currently showing Profile with personal info and password management"
+        },
+        {
+          title: "Quick Action Cards with Gradient CTAs",
+          description: "Three primary user flows (Add Transaction, Create Portfolio, Ask AI) are surfaced as vibrant gradient cards (coral, teal, purple) with numbered steps, making the most common actions immediately accessible from the dashboard.",
+          screenshotIndex: 0,
+          highlight: "Three gradient quick action cards: 01 Add Transaction, 02 Create Portfolio, 03 Ask AI"
+        }
       ],
-      palette: [
+      colorPalette: [
         { name: "Slate Dark", hex: "#0f172a", usage: "Primary background" },
         { name: "Card Surface", hex: "#1e293b", usage: "Card backgrounds with glassmorphism" },
         { name: "Emerald", hex: "#10b981", usage: "Primary accent, positive indicators, CTA buttons" },
@@ -2707,6 +2737,16 @@ export const projectsData: ProjectArticle[] = [
         { name: "Amber", hex: "#f59e0b", usage: "Portfolio-relevant news, warning badges" },
         { name: "White/60%", hex: "#ffffff99", usage: "Secondary text, muted labels" },
       ],
+      componentPatterns: [
+        "Zustand stores with TypeScript inference for auth state and UI preferences — zero boilerplate",
+        "React Query with custom hooks per domain (usePortfolio, useStockSearch, useMarketNews) for automatic cache invalidation",
+        "Recharts-based interactive visualizations for portfolio allocation pie charts and goal progress timelines",
+        "React Hook Form + Zod validation for transaction forms, goal creation, and settings updates",
+        "Collapsible sidebar with numbered navigation items and active state gradients",
+        "Glassmorphism card component with configurable backdrop-blur, border opacity, and hover shadow transitions",
+        "Sentiment-colored news cards with portfolio-match badges and time-ago formatting",
+        "Market ticker bar with live index prices, percentage changes, and commodity rates (Gold, Crude, USD/INR)",
+      ],
     },
 
     integrations: [
@@ -2716,17 +2756,6 @@ export const projectsData: ProjectArticle[] = [
       { system: "LLM Client (GPT-4)", type: "AI Service", dataFlow: "Stock analysis prompts sent to LLM for fundamental analysis, technical analysis, peer comparison, and research summaries" },
       { system: "Redis + Celery", type: "Task Queue", dataFlow: "Background job processing for market data refresh (every 15s during market hours), news aggregation, and portfolio recalculation" },
       { system: "Sentry", type: "Error Monitoring", dataFlow: "Frontend and backend error tracking with performance monitoring for API latency and market data fetch reliability" },
-    ],
-
-    componentPatterns: [
-      "Zustand stores with TypeScript inference for auth state and UI preferences — zero boilerplate",
-      "React Query with custom hooks per domain (usePortfolio, useStockSearch, useMarketNews) for automatic cache invalidation",
-      "Recharts-based interactive visualizations for portfolio allocation pie charts and goal progress timelines",
-      "React Hook Form + Zod validation for transaction forms, goal creation, and settings updates",
-      "Collapsible sidebar with numbered navigation items and active state gradients",
-      "Glassmorphism card component with configurable backdrop-blur, border opacity, and hover shadow transitions",
-      "Sentiment-colored news cards with portfolio-match badges and time-ago formatting",
-      "Market ticker bar with live index prices, percentage changes, and commodity rates (Gold, Crude, USD/INR)",
     ],
 
     techStack: [
@@ -2745,14 +2774,14 @@ export const projectsData: ProjectArticle[] = [
       { name: "SQLAlchemy Async", category: "backend", icon: "sqlalchemy" },
       { name: "Alembic", category: "backend", icon: "alembic" },
       { name: "Celery", category: "backend", icon: "celery" },
+      { name: "Python 3.12", category: "backend", icon: "python" },
       { name: "PostgreSQL", category: "database", icon: "postgresql" },
       { name: "Redis", category: "database", icon: "redis" },
-      { name: "yfinance", category: "integration", icon: "python" },
-      { name: "Zerodha Kite", category: "integration", icon: "zerodha" },
+      { name: "yfinance", category: "backend", icon: "python" },
+      { name: "Zerodha Kite", category: "backend", icon: "zerodha" },
       { name: "OpenAI GPT-4", category: "ai", icon: "openai" },
-      { name: "Sentry", category: "devops", icon: "sentry" },
-      { name: "Docker", category: "devops", icon: "docker" },
-      { name: "Python 3.12", category: "backend", icon: "python" },
+      { name: "Sentry", category: "infrastructure", icon: "sentry" },
+      { name: "Docker", category: "infrastructure", icon: "docker" },
     ],
 
     metrics: [
