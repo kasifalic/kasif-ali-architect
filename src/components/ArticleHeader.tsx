@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   Breadcrumb,
@@ -80,6 +80,12 @@ const ArticleHeader = ({ project }: ArticleHeaderProps) => {
         <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold uppercase tracking-wider">
           {project.type}
         </span>
+        {project.award && (
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-yellow-50 text-yellow-700 rounded-full text-xs font-semibold border border-yellow-300">
+            <Trophy className="w-3.5 h-3.5" />
+            {project.award}
+          </span>
+        )}
       </motion.div>
 
       {/* Project Title */}

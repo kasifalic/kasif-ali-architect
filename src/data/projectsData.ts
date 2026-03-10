@@ -110,6 +110,9 @@ export interface ProjectArticle {
   integrations?: Integration[];
   metrics: Metric[];
 
+  // Recognition
+  award?: string; // e.g. "GenAI Buildathon Winner"
+
   // Legacy fields for backward compatibility
   userStory: string;
   description: string;
@@ -2028,6 +2031,7 @@ export const projectsData: ProjectArticle[] = [
     type: "AI/Finance",
     organization: "Personal",
     category: "Finance & Investment",
+    award: "1st Place — GenAI Buildathon (Open)",
     readTime: "8 min read",
     publishDate: "February 2024",
     icon: TrendingUp,
@@ -2259,6 +2263,7 @@ export const projectsData: ProjectArticle[] = [
     type: "AI Agents",
     organization: "Personal",
     category: "AI & Agents",
+    award: "1st Place — GenAI Buildathon (Agents)",
     readTime: "10 min read",
     publishDate: "September 2024",
     icon: Zap,
@@ -2627,8 +2632,8 @@ export const projectsData: ProjectArticle[] = [
       { name: "Axios", category: "frontend", icon: "axios" },
       { name: "Firebase Auth", category: "backend", icon: "firebase" },
       { name: "Google Cloud Run", category: "infrastructure", icon: "googlecloud" },
-      { name: "Create React App", category: "devops", icon: "createreactapp" },
-      { name: "PostCSS", category: "devops", icon: "postcss" },
+      { name: "Create React App", category: "infrastructure", icon: "createreactapp" },
+      { name: "PostCSS", category: "frontend", icon: "postcss" },
       { name: "Web Speech API", category: "frontend" },
     ],
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useState, useCallback } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin } from 'lucide-react';
@@ -168,9 +168,9 @@ const ArticleCTA = () => (
 const ProjectArticle = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  // Scroll to top on navigation — useLayoutEffect fires before paint
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [slug]);
 
   // Find project by slug
