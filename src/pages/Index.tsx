@@ -1,5 +1,6 @@
 
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
@@ -14,25 +15,43 @@ import Footer from "@/components/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
+  const location = useLocation();
+
   useEffect(() => {
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = "smooth";
-
-    // Refresh ScrollTrigger on load
-    ScrollTrigger.refresh();
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
+  // Scroll to hash section on navigation (e.g. from article page breadcrumb → /#projects)
+  useEffect(() => {
+    if (location.hash) {
+      // Small delay to let sections render before scrolling
+      const timer = setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash]);
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Skip Navigation Link for Keyboard Users */}
+      <a
+        href="#main-content"
+        className="skip-link"
+      >
+        Skip to main content
+      </a>
       <Navbar />
-      <main className="overflow-x-hidden">
+      <main id="main-content" className="overflow-x-hidden">
         <HeroNew />
-        <ProjectsSection />
         <AboutSection />
+        <ProjectsSection />
         <ExperienceSection />
         <ContactSection />
       </main>

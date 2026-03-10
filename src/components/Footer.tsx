@@ -1,51 +1,190 @@
-
 import React from "react";
-import { Mail, Twitter, Instagram } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Mail, Twitter, Instagram, Linkedin, Github, Heart } from "lucide-react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (isHomePage) return; // Let default anchor behavior work on home page
+    e.preventDefault();
+    navigate('/' + href);
+  };
+
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Works", href: "#projects" },
+    { name: "Experience", href: "#experience" },
+    { name: "Contact", href: "#contact" },
+  ];
+
+  const socialLinks = [
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/in/kasif-ali/",
+      label: "LinkedIn",
+      color: "#0A66C2"
+    },
+    {
+      icon: Twitter,
+      href: "https://twitter.com/kasifmuthu",
+      label: "Twitter",
+      color: "#1DA1F2"
+    },
+    {
+      icon: Instagram,
+      href: "https://instagram.com/kasifal",
+      label: "Instagram",
+      color: "#E4405F"
+    },
+    {
+      icon: Github,
+      href: "https://github.com/kasifaliwdr",
+      label: "GitHub",
+      color: "#2a2218"
+    },
+    {
+      icon: Mail,
+      href: "mailto:kasifaliwdr@gmail.com",
+      label: "Email",
+      color: "#C9A86C"
+    },
+  ];
+
   return (
-    <footer className="bg-secondary/70 py-8">
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="text-xl font-bold font-space-grotesk text-gradient mb-4 md:mb-0">Kasif Ali</div>
-          <div className="hidden md:flex gap-8">
-            <a href="#home" className="text-sm hover:text-primary transition-colors">Home</a>
-            <a href="#about" className="text-sm hover:text-primary transition-colors">About</a>
-            <a href="#skills" className="text-sm hover:text-primary transition-colors">Skills</a>
-            <a href="#experience" className="text-sm hover:text-primary transition-colors">Experience</a>
-            <a href="#services" className="text-sm hover:text-primary transition-colors">Services</a>
-            <a href="#certifications" className="text-sm hover:text-primary transition-colors">Certifications</a>
-            <a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a>
+    <footer
+      className="relative py-12 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #FFFFFF 0%, #FFFBF5 50%, #FFF8F0 100%)',
+        borderTop: '1px solid rgba(201, 168, 108, 0.2)'
+      }}
+    >
+      {/* Subtle decorative blob - optimized */}
+      <div
+        className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-amber-100/15 pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8">
+
+          {/* Brand Section */}
+          <div>
+            <h3
+              className="text-2xl font-bold mb-3"
+              style={{
+                fontFamily: 'Sora, sans-serif',
+                background: 'linear-gradient(135deg, #2a2218 0%, #8B7355 50%, #C4A87C 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Kasif Ali
+            </h3>
+            <p
+              className="text-[#5a4a3a]/70 text-sm leading-relaxed"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              AI Systems Architect building production systems that scale from startup to enterprise. 10+ years of shipping solutions that matter.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4
+              className="text-sm font-semibold text-[#5a4a3a] uppercase tracking-wide mb-4"
+              style={{ fontFamily: 'Sora, sans-serif' }}
+            >
+              Quick Links
+            </h4>
+            <nav aria-label="Footer navigation">
+              <ul className="space-y-2">
+                {navLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={isHomePage ? link.href : `/${link.href}`}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className="text-[#5a4a3a]/70 hover:text-amber-700 transition-colors text-sm"
+                      style={{ fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          {/* Connect Section */}
+          <div>
+            <h4
+              className="text-sm font-semibold text-[#5a4a3a] uppercase tracking-wide mb-4"
+              style={{ fontFamily: 'Sora, sans-serif' }}
+            >
+              Connect
+            </h4>
+            <div className="flex gap-3 flex-wrap">
+              {socialLinks.map((social) => {
+                const SocialIcon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={social.href.startsWith('http') ? '_blank' : '_self'}
+                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md group"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.85)',
+                      border: '1px solid rgba(201, 168, 108, 0.2)'
+                    }}
+                    aria-label={`${social.label} ${social.href.startsWith('http') ? '(opens in new window)' : ''}`}
+                  >
+                    <SocialIcon
+                      className="w-4 h-4 transition-colors"
+                      style={{ color: social.color }}
+                      aria-hidden="true"
+                    />
+                  </a>
+                );
+              })}
+            </div>
+            <p
+              className="text-[#5a4a3a]/60 text-xs mt-4"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              Open to collaborations, consulting, and interesting conversations.
+            </p>
           </div>
         </div>
-        
-        {/* Social Media Section */}
-        <div className="flex justify-center gap-6 mt-6">
-          {/* Instagram Icon */}
-          <a href="https://instagram.com/kasifal" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-            <Instagram className="w-5 h-5" />
-          </a>
-          
-          {/* Medium Icon */}
-          <a href="https://medium.com/@kasifaliwdr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-              <path d="M4.37,7.46h0a.49.49,0,0,0-.17-.4L2.33,4.75V4.5h5.2l4,8.85,3.53-8.85h5v.25L18.32,6.7a.29.29,0,0,0-.11.29v10a.29.29,0,0,0,.11.28l1.69,1.95v.25h-8.5v-.25L13.29,17a.58.58,0,0,0-.17-.29V8.39L9,19.21H8.43L3.87,8.39v7.22a.83.83,0,0,0,.22.6L6,19.15v.25H0v-.25L1.89,16.2a.81.81,0,0,0,.21-.6V7.46Z"/>
-            </svg>
-          </a>
-          
-          {/* Twitter Icon */}
-          <a href="https://twitter.com/kasifmuthu" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-            <Twitter className="w-5 h-5" />
-          </a>
-          
-          {/* Mail Icon */}
-          <a href="mailto:kasifaliwdr@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
-            <Mail className="w-5 h-5" />
-          </a>
-        </div>
-        
-        <div className="border-t border-muted/20 mt-6 pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Kasif Ali. All rights reserved.
+
+        {/* Bottom Bar */}
+        <div
+          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{
+            borderTop: '1px solid rgba(201, 168, 108, 0.15)'
+          }}
+        >
+          <p
+            className="text-[#5a4a3a]/60 text-sm flex items-center gap-1.5"
+            style={{ fontFamily: 'Outfit, sans-serif' }}
+          >
+            © {currentYear} Kasif Ali. Crafted with
+            <Heart className="w-4 h-4 text-amber-600 fill-amber-600 inline-block" aria-label="love" />
+            in Bengaluru.
+          </p>
+
+          <p
+            className="text-[#5a4a3a]/50 text-xs"
+            style={{ fontFamily: 'Outfit, sans-serif' }}
+          >
+            Built with React, TypeScript & GSAP
+          </p>
         </div>
       </div>
     </footer>
@@ -53,6 +192,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
-

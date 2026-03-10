@@ -60,7 +60,7 @@ const ArticleHeader = ({ project }: ArticleHeaderProps) => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <a href="/#projects">Works</a>
+              <Link to="/#projects">Works</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
