@@ -21,6 +21,14 @@ import {
   Search,
   Clock,
   Zap,
+  Mic,
+  FileText,
+  Calculator,
+  Globe,
+  Cloud,
+  AudioLines,
+  Eye,
+  Workflow,
 } from 'lucide-react';
 
 // ───────────────────────────────────────────────────
@@ -1285,9 +1293,211 @@ interface ArchitectureDiagramProps {
   textDescription?: string;
 }
 
+// ───────────────────────────────────────────────────
+// DryVox Architecture
+// ───────────────────────────────────────────────────
+
+const DryVoxArchitecture = () => {
+  return (
+    <div className="relative">
+      {/* ── Layer 1: Clients ── */}
+      <LayerLabel label="Frontend & Users" delay={0} />
+      <div className="grid grid-cols-2 gap-3 mb-1">
+        <ArchNode
+          icon={Layout}
+          title="React 19 SPA"
+          subtitle="Vite 6, Zustand, Framer Motion, Tailwind"
+          variant="frontend"
+          delay={0.05}
+        />
+        <ArchNode
+          icon={Users}
+          title="Shipping Operators"
+          subtitle="Trainee | Junior | Senior experience levels"
+          variant="user"
+          delay={0.1}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="WebSocket + REST" delay={0.15} />
+      </div>
+
+      {/* ── Layer 2: Auth & Gateway ── */}
+      <LayerLabel label="Authentication & API Gateway" delay={0.2} />
+      <div className="grid grid-cols-2 gap-3 mb-1">
+        <ArchNode
+          icon={Shield}
+          title="AWS Cognito"
+          subtitle="OAuth 2.0, JWT, MFA, email verification"
+          variant="service"
+          delay={0.25}
+        />
+        <ArchNode
+          icon={Server}
+          title="FastAPI Backend"
+          subtitle="14 route modules, async SQLAlchemy, Pydantic v2"
+          variant="process"
+          delay={0.3}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="JWT-verified requests" delay={0.35} />
+      </div>
+
+      {/* ── Layer 3: AI Provider Gateway ── */}
+      <LayerLabel label="AI Provider Gateway (3 Providers)" delay={0.4} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={AudioLines}
+          title="Gemini Live"
+          subtitle="Native audio WebSocket proxy, function calling"
+          variant="ai"
+          delay={0.45}
+        />
+        <ArchNode
+          icon={Brain}
+          title="OpenAI Suite"
+          subtitle="GPT-4 chat, Whisper STT, TTS, Vision"
+          variant="ai"
+          delay={0.5}
+        />
+        <ArchNode
+          icon={Workflow}
+          title="OpenRouter"
+          subtitle="Fallback provider, cost-effective inference"
+          variant="ai"
+          delay={0.55}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Tool execution + RAG context" delay={0.6} />
+      </div>
+
+      {/* ── Layer 4: Domain Tools & Document Processing ── */}
+      <LayerLabel label="Domain Tools & Documents" delay={0.65} />
+      <div className="grid grid-cols-2 gap-3 mb-1">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+          className="rounded-xl bg-gradient-to-br from-amber-50/50 to-orange-50/50 border border-amber-200/40 p-4"
+        >
+          <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-amber-400 font-mono mb-3">
+            Shipping Calculators
+          </div>
+          <div className="flex flex-col gap-1.5">
+            {[
+              { label: 'Laytime', sublabel: 'NOR, weather days', icon: Clock },
+              { label: 'Demurrage', sublabel: 'Daily rate, pro-rata', icon: Calculator },
+              { label: 'Freight', sublabel: 'Rate estimation', icon: Globe },
+              { label: 'Voyage', sublabel: 'Distance, fuel, cost', icon: Globe },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 text-[11px]">
+                <item.icon className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                <span className="font-medium text-gray-700">{item.label}</span>
+                <span className="text-gray-400">— {item.sublabel}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.75 }}
+          className="rounded-xl bg-gradient-to-br from-violet-50/50 to-purple-50/50 border border-violet-200/40 p-4"
+        >
+          <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-400 font-mono mb-3">
+            Document Pipeline
+          </div>
+          <div className="flex flex-col gap-1.5">
+            {[
+              { label: 'OCR + Vision', sublabel: 'Charter Party analysis', icon: Eye },
+              { label: 'Parser', sublabel: 'PDF, DOCX, Excel, PPTX', icon: FileText },
+              { label: 'Generator', sublabel: 'HTML, PDF, DOCX, PPTX', icon: FileText },
+              { label: 'Mission RAG', sublabel: 'Persistent doc context', icon: Brain },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 text-[11px]">
+                <item.icon className="w-3 h-3 text-violet-500 flex-shrink-0" />
+                <span className="font-medium text-gray-700">{item.label}</span>
+                <span className="text-gray-400">— {item.sublabel}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Confidence scoring + audit" delay={0.8} />
+      </div>
+
+      {/* ── Layer 5: Data & Storage ── */}
+      <LayerLabel label="Data & Storage" delay={0.85} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={Database}
+          title="PostgreSQL"
+          subtitle="10 models, Alembic migrations, async"
+          variant="source"
+          delay={0.9}
+        />
+        <ArchNode
+          icon={Zap}
+          title="Redis"
+          subtitle="Session cache, rate limiting"
+          variant="service"
+          delay={0.95}
+        />
+        <ArchNode
+          icon={Cloud}
+          title="AWS S3"
+          subtitle="Document storage, generated files"
+          variant="service"
+          delay={1.0}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="CloudFront CDN" delay={1.05} />
+      </div>
+
+      {/* ── Layer 6: Infrastructure ── */}
+      <LayerLabel label="AWS Infrastructure" delay={1.1} />
+      <div className="grid grid-cols-3 gap-3">
+        <ArchNode
+          icon={Server}
+          title="EC2 + Docker"
+          subtitle="FastAPI backend, uvicorn"
+          variant="process"
+          delay={1.15}
+        />
+        <ArchNode
+          icon={Globe}
+          title="CloudFront"
+          subtitle="CDN, HTTPS termination"
+          variant="service"
+          delay={1.2}
+        />
+        <ArchNode
+          icon={Layout}
+          title="Amplify"
+          subtitle="Frontend hosting, CI/CD"
+          variant="frontend"
+          delay={1.25}
+        />
+      </div>
+    </div>
+  );
+};
+
 const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps) => {
   // Only render visual diagram for projects that have one
-  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync'].includes(slug);
+  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync', 'dryvox'].includes(slug);
 
   if (!hasDiagram) {
     // Fallback to text description
@@ -1339,6 +1549,7 @@ const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps
           {slug === 'spog' && <SPOGArchitecture />}
           {slug === 'identity-lifecycle' && <IdentityLifecycleArchitecture />}
           {slug === 'rydoo-sync' && <RydooSyncArchitecture />}
+          {slug === 'dryvox' && <DryVoxArchitecture />}
         </div>
 
         {/* Text summary below */}

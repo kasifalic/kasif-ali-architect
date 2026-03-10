@@ -2334,63 +2334,243 @@ export const projectsData: ProjectArticle[] = [
     id: 14,
     slug: "dryvox",
     name: "DryVox",
-    tagline: "Voice AI for Shipping",
+    tagline: "Voice AI Operational Checkpoint for Dry Bulk Shipping",
     type: "Voice AI",
     organization: "Personal",
     category: "AI & Agents",
-    readTime: "8 min read",
+    readTime: "12 min read",
     publishDate: "March 2024",
     icon: Mic,
     monogram: "DV",
     color: "bg-slate-600",
     heroImage: "gradient-slate",
 
-    overview: "DryVox is 'Jarvis for Shipbrokers'—an enterprise voice-first AI assistant for the maritime shipping industry. It features real-time voice streaming, multimodal document analysis (Charter Parties via GPT-4 Vision), and live market data integration for laytime/demurrage calculations.",
+    overview: "DryVox is a voice-driven operational checkpoint for dry bulk shipping operations. Built for Operations Managers and Post-Fixture Leads, it catches risk, gaps, and uncertainties before irreversible actions — with confidence levels and clear audit trails. The platform combines Gemini Live native audio streaming, GPT-4 vision for Charter Party document analysis, shipping calculators (laytime, demurrage, freight, voyage estimates), and mission context RAG — all wrapped in a dark neumorphic UI deployed on AWS with Cognito authentication.",
 
-    challenge: "Shipbrokers spend hours analyzing Charter Party documents, calculating laytime and demurrage, and tracking market data. Voice interfaces are natural for maritime professionals on the move. Traditional tools don't support voice-first interaction or multimodal document analysis. The industry needed an AI assistant that understands shipping domain terminology.",
+    challenge: "In dry bulk shipping, a single miscalculated demurrage claim or overlooked Charter Party clause can cost tens of thousands of dollars. Operations teams rely on manual spreadsheets, email threads, and institutional knowledge. Junior operators lack the experience to catch discrepancies, commercial teams face post-fixture surprises, and claims teams struggle with incomplete audit trails. The 30 seconds before sending an irreversible action — a demurrage claim, a fixture recap, a laytime calculation — is where the most expensive mistakes happen.",
 
-    solution: "Built a voice-first AI platform using WebSockets for real-time bidirectional voice streaming. Integrated OpenAI Whisper for speech-to-text and TTS for streaming audio responses. Implemented GPT-4 Vision for Charter Party document analysis via camera/upload. Created RAG workflows for persistent document context and sandboxed code execution for verified calculations.",
+    solution: "Built a full-stack voice-first AI platform with a FastAPI backend (14 API route modules, 10 database models, async PostgreSQL via SQLAlchemy), a React 19 frontend with Zustand state management, and AWS Cognito for enterprise authentication. The AI layer supports three LLM providers (OpenAI, Gemini, OpenRouter) with automatic fallback, Gemini Live WebSocket proxy for real-time native audio conversations, and a domain-specific tool system including laytime calculators, demurrage estimators, port distance lookups, freight calculators, and voyage estimators. Documents are processed through OCR + multi-format parsing (PDF, DOCX, Excel, PPTX) with generated output in HTML, PDF, and Office formats via Jinja2 templates and WeasyPrint. Every AI response includes a confidence score with flagged uncertainties.",
 
     features: [
-      "Real-time bidirectional voice streaming",
-      "Speech-to-text via OpenAI Whisper",
-      "Text-to-speech with streaming audio",
-      "GPT-4 Vision for Charter Party analysis",
-      "PDF, DOCX, Excel document parsing",
-      "RAG workflow for mission context",
-      "Sandboxed code execution for calculations",
-      "Live market data (BDI, bunker prices)",
-      "Port congestion tracking",
-      "Laytime/demurrage calculations",
-      "Neumorphism + Glassmorphism design"
+      "Gemini Live native audio — real-time bidirectional voice conversations with a maritime-trained AI assistant through a secure backend WebSocket proxy",
+      "Confidence scoring — every AI output includes a confidence percentage with explicitly flagged uncertainties requiring human verification",
+      "Laytime calculator — computes allowed/used laytime from Charter Party terms with NOR timestamps, weather working days, and exception handling",
+      "Demurrage estimator — calculates demurrage/despatch amounts from laytime results with daily rate application and pro-rata computation",
+      "Charter Party document analysis — OCR + GPT-4 Vision extracts clauses, dates, and rates from uploaded or photographed Charter Party documents",
+      "Multi-format document generation — produces professional reports in PDF, DOCX, PPTX, and HTML using Jinja2 templates and WeasyPrint rendering",
+      "Mission Context RAG — persistent document context per session allowing the AI to reference uploaded Charter Parties, fixture recaps, and voyage data across conversations",
+      "Experience-level adaptation — Trainee, Junior, and Senior modes adjust AI response detail, terminology complexity, and verification requirements",
+      "Live market data integration — Baltic Dry Index (BDI), bunker fuel prices, port congestion data, and freight rate benchmarks surfaced in real-time",
+      "Session history with type filters — searchable conversation history filtered by Voice, Document, Image, and Calculator session types",
+      "Port distance and voyage estimation — calculates steaming time, fuel consumption, and voyage costs between global ports",
+      "Admin dashboard with user management — role-based access control, user analytics, and audit logging for enterprise deployments"
     ],
 
-    architecture: "WebSocket server handles real-time voice streaming. Whisper transcribes speech, GPT-4 processes queries with RAG context, and TTS streams responses. Document uploads are processed via OCR and GPT-4 Vision for multimodal understanding. Sandboxed execution ensures calculation accuracy.",
+    architecture: "Three-tier architecture: React 19 SPA (Vite, Zustand, Framer Motion) → FastAPI async backend (14 route modules, WebSocket handlers, tool execution engine) → PostgreSQL + Redis. Authentication flows through AWS Cognito with JWT verification on every API call. The AI layer implements a provider gateway pattern supporting OpenAI (GPT-4, Whisper, TTS, Vision), Google Gemini (Live audio, function calling), and OpenRouter as fallback — selectable per-request. Voice flows through two paths: legacy OpenAI (Whisper STT → GPT-4 → TTS) and Gemini Live (native bidirectional audio WebSocket proxied through the backend to keep API keys server-side). The tool system registers domain-specific calculators (laytime, demurrage, freight, distance, voyage) that the LLM can invoke via function calling. Document processing handles PDF/DOCX/Excel/PPTX input through format-specific parsers and generates output via Jinja2 + WeasyPrint. Deployed on AWS EC2 behind CloudFront with S3 for document storage, Amplify for frontend hosting, and Cognito for identity management.",
 
-    impact: "Shipbrokers can now analyze Charter Parties hands-free while on calls or traveling. Laytime calculations that took hours are completed in minutes with verified accuracy. Voice-first interface matches the maritime industry's communication style.",
+    impact: "DryVox positions itself as the operational checkpoint for the 30 seconds before irreversible shipping actions. The confidence scoring system flags uncertainties that would otherwise go unnoticed — a 2.3-day discrepancy in time calculations, a missing NOR timestamp, an ambiguous Charter Party clause. The experience-level adaptation makes domain AI accessible to junior operators while maintaining the depth that senior brokers expect. The platform serves as both an operational tool and a training system for the next generation of shipping professionals.",
+
+    keyDecisions: [
+      {
+        question: "Why Gemini Live native audio over OpenAI Whisper + TTS pipeline?",
+        answer: "The legacy pipeline (Whisper STT → GPT-4 → TTS) introduced 3-5 second latency per turn — unacceptable for real-time voice conversations. Gemini Live provides native bidirectional audio streaming with sub-second latency, function calling during voice conversations, and natural interruption handling. The backend proxies the WebSocket connection to keep the Gemini API key server-side, never exposing it to the frontend."
+      },
+      {
+        question: "Why three LLM providers (OpenAI, Gemini, OpenRouter) instead of one?",
+        answer: "Each provider has different strengths: OpenAI for vision and document analysis, Gemini for real-time voice and function calling, OpenRouter for cost-effective fallback. The gateway pattern allows switching providers per-request based on task type, and automatic fallback ensures zero downtime if any single provider has an outage."
+      },
+      {
+        question: "Why AWS Cognito over Firebase Auth or custom JWT?",
+        answer: "DryVox targets enterprise shipping operations where security compliance matters. Cognito provides enterprise-grade MFA, SOC 2 compliance, integration with corporate identity providers (SAML/OIDC), and user pool management — requirements that Firebase or custom JWT would need significant custom work to match."
+      },
+      {
+        question: "Why confidence scoring on every AI response?",
+        answer: "Shipping decisions have real financial consequences — a wrong demurrage calculation can cost $50K+. Rather than pretending AI is always right, every response includes a confidence percentage and explicitly flags uncertainties (missing data, ambiguous clauses, calculation discrepancies). This 'operational checkpoint' approach builds trust with experienced operators who would otherwise distrust AI recommendations."
+      },
+      {
+        question: "Why domain-specific tool registration over generic function calling?",
+        answer: "Generic LLM function calling lacks shipping domain validation. The registered tool system (laytime, demurrage, freight, distance, voyage) includes domain-specific input validation, unit conversion (metric tons, long tons, deadweight), maritime date handling (weather working days, SHINC/SHEX), and result formatting that generic tools would get wrong. Tools are registered at startup and available to all LLM providers uniformly."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "Junior operators sent demurrage claims with calculation errors, discovered weeks later",
+        after: "Confidence scoring flags discrepancies and missing data before the claim is sent, with audit trail"
+      },
+      {
+        before: "Charter Party analysis required manual reading of 20+ page legal documents",
+        after: "GPT-4 Vision extracts key clauses, dates, and rates from uploaded or photographed documents in seconds"
+      },
+      {
+        before: "Laytime calculations done in spreadsheets with manual date/time arithmetic",
+        after: "Domain-specific calculator handles NOR timestamps, weather working days, SHINC/SHEX exceptions, and pro-rata computation"
+      },
+      {
+        before: "Voice communication limited to phone calls with no AI assistance",
+        after: "Gemini Live native audio enables real-time voice conversations with shipping-trained AI, including function calling during voice sessions"
+      },
+      {
+        before: "Institutional knowledge locked in senior operators' heads",
+        after: "Experience-level adaptation trains junior operators while Mission Context RAG preserves document knowledge across sessions"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/dryvox/screenshot-1-landing.png",
+        alt: "DryVox landing page — Before you click send operational checkpoint",
+        caption: "Landing page positioning DryVox as an operational checkpoint for dry bulk shipping. Shows the DryVox Review card with confidence scoring (72%) and flagged discrepancies, reinforcing the 'catch mistakes before irreversible actions' value proposition."
+      },
+      {
+        src: "/projects/dryvox/screenshot-2-landing-features.png",
+        alt: "DryVox governance model and use cases for shipping teams",
+        caption: "Governance section showing team-based value: Junior Operators (catch mistakes early), Commercial Teams (fewer post-fixture surprises), Claims Teams (cleaner audit trails), and Management (reduced key-person risk)."
+      },
+      {
+        src: "/projects/dryvox/screenshot-3-dashboard.png",
+        alt: "DryVox dashboard with market indices, shipping news, and quick actions",
+        caption: "Main dashboard with session stats, Baltic Dry Index (BDI) live chart, market indices (Panamax, Capesize, Supramax), shipping news feed, and quick actions for starting voice sessions or reviewing session history."
+      },
+      {
+        src: "/projects/dryvox/screenshot-4-assistant.png",
+        alt: "DryVox Assistant Hub with voice, upload, downloads, and calculator tabs",
+        caption: "Assistant Hub showing four capability tabs: Voice (Gemini Live real-time audio), Upload (document analysis), Downloads (generated reports), and Calculator (shipping computations). Experience level selector adapts AI responses for Trainee, Junior, or Senior operators."
+      },
+      {
+        src: "/projects/dryvox/screenshot-5-sessions.png",
+        alt: "DryVox session history with type-based filtering",
+        caption: "Session History page with searchable conversation list and type-based filters (All, Voice, Document, Image, Calculator). Each session shows duration, date, and status badges."
+      },
+      {
+        src: "/projects/dryvox/screenshot-6-settings.png",
+        alt: "DryVox settings with profile, experience level, voice, and appearance options",
+        caption: "Settings page with tabbed navigation: Profile, Experience Level, Voice & Audio configuration, Notifications, Appearance (theme customization), and Privacy & Security controls."
+      }
+    ],
+
+    design: {
+      philosophy: "DryVox uses a deep navy dark interface with neumorphic depth and ocean-gradient accents, designed for maritime professionals who work long hours in operations rooms. The dark theme reduces eye strain during extended sessions, while the cyan-to-purple gradient system creates a premium, technology-forward aesthetic that signals sophistication without sacrificing readability.",
+      principles: [
+        {
+          title: "Confidence-First Information Architecture",
+          description: "Every AI output surfaces a confidence percentage prominently, with explicitly flagged uncertainties highlighted in warning colors. This 'trust but verify' approach is critical in an industry where decisions have five-figure financial consequences.",
+          screenshotIndex: 0,
+          highlight: "Confidence bar at 72% with flagged discrepancies in the DryVox Review card"
+        },
+        {
+          title: "Experience-Level Adaptation",
+          description: "Three experience modes (Trainee, Junior, Senior) adjust the entire UI: response detail level, terminology complexity, and verification requirements. Junior mode explains shipping concepts inline; Senior mode assumes domain knowledge and gets straight to numbers.",
+          screenshotIndex: 3,
+          highlight: "Experience level selector with Trainee, Junior, and Senior icons in the Assistant Hub"
+        },
+        {
+          title: "Neumorphic Depth Hierarchy",
+          description: "Custom neumorphic shadows (neu-sm, neu-md, neu-lg, neu-inset) create a tactile depth hierarchy on the dark navy surface. Interactive elements feel 'pressable' while static content recedes, guiding attention through physical metaphor rather than just color.",
+          screenshotIndex: 2,
+          highlight: "Dashboard cards with neumorphic shadows creating raised and inset effects"
+        },
+        {
+          title: "Real-Time Data Presence",
+          description: "Live market data (BDI charts, bunker prices, port congestion) is always visible on the dashboard, not buried in settings. Shipping professionals need ambient market awareness — the dashboard serves as an information radiator.",
+          screenshotIndex: 2,
+          highlight: "Baltic Dry Index sparkline chart and live market indices (Panamax, Capesize, Supramax)"
+        },
+        {
+          title: "Multi-Modal Hub Pattern",
+          description: "The Assistant Hub presents four capability modes (Voice, Upload, Downloads, Calculator) as a tabbed horizontal navigation, allowing seamless switching between interaction types without losing context or leaving the page.",
+          screenshotIndex: 3,
+          highlight: "Four horizontal tabs: Voice (active), Upload, Downloads, Calculator"
+        }
+      ],
+      colorPalette: [
+        { name: "Navy Deep", hex: "#020617", usage: "Primary background, page canvas" },
+        { name: "Navy Surface", hex: "#0a0f1c", usage: "Card backgrounds, sidebar surface" },
+        { name: "Navy Elevated", hex: "#0f172a", usage: "Elevated cards, modal backgrounds" },
+        { name: "Ocean Cyan", hex: "#06b6d4", usage: "Primary accent, active states, CTAs, glow effects" },
+        { name: "Ocean Blue", hex: "#3b82f6", usage: "Secondary accent, info states, links" },
+        { name: "Ocean Purple", hex: "#8b5cf6", usage: "Tertiary accent, session badges, gradients" },
+        { name: "Signal Success", hex: "#10b981", usage: "Positive metrics, online indicators" },
+        { name: "Signal Warning", hex: "#f59e0b", usage: "Flagged uncertainties, confidence warnings" },
+        { name: "Signal Error", hex: "#ef4444", usage: "Critical flags, error states, discrepancy alerts" }
+      ],
+      componentPatterns: [
+        "Neumorphic stat cards with glow hover effects — raised shadows on navy surface with animated cyan/blue/purple glow borders on hover, used across dashboard KPIs and market indices",
+        "Glassmorphism panels with backdrop-blur for overlays — semi-transparent backgrounds with blur for modals, dropdowns, and floating elements, creating depth without obscuring context",
+        "Live transcript feed with real-time streaming — auto-scrolling conversation panel showing voice transcription and AI responses as they stream, with timestamp markers and speaker identification",
+        "Session cards with type-colored left border — color-coded left accent (cyan for voice, blue for document, purple for image, green for calculator) provides instant session type recognition in history lists",
+        "Gradient CTA buttons with shimmer animation — primary actions use ocean-cyan gradient backgrounds with a 2-second shimmer animation, drawing attention without being distracting",
+        "Collapsible sidebar navigation with user avatar — icon-only collapsed state maximizes workspace area, expands on hover to show full navigation labels with Framer Motion transitions"
+      ]
+    },
 
     techStack: [
-      { name: "React", category: "frontend", icon: "react" },
-      { name: "Vite", category: "frontend", icon: "vite" },
-      { name: "TailwindCSS", category: "frontend", icon: "tailwindcss" },
-      { name: "Framer Motion", category: "frontend" },
+      { name: "React 19", category: "frontend", icon: "react" },
+      { name: "TypeScript", category: "frontend", icon: "typescript" },
+      { name: "Vite 6", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
+      { name: "Framer Motion", category: "frontend", icon: "framer" },
+      { name: "Zustand 5", category: "frontend" },
+      { name: "React Router 7", category: "frontend", icon: "reactrouter" },
+      { name: "Axios", category: "frontend", icon: "axios" },
       { name: "FastAPI", category: "backend", icon: "fastapi" },
+      { name: "SQLAlchemy (async)", category: "backend" },
+      { name: "Pydantic v2", category: "backend", icon: "pydantic" },
+      { name: "Jinja2", category: "backend", icon: "jinja" },
+      { name: "WeasyPrint", category: "backend" },
+      { name: "Pandas", category: "backend", icon: "pandas" },
       { name: "PostgreSQL", category: "database", icon: "postgresql" },
-      { name: "WebSockets", category: "backend" },
-      { name: "OpenAI Whisper", category: "ai", icon: "openai" },
-      { name: "OpenAI TTS", category: "ai", icon: "openai" },
-      { name: "GPT-4 Vision", category: "ai", icon: "openai" },
+      { name: "Redis", category: "database", icon: "redis" },
+      { name: "OpenAI GPT-4 / Whisper / TTS", category: "ai", icon: "openai" },
+      { name: "Google Gemini Live", category: "ai", icon: "google" },
+      { name: "AWS Cognito", category: "infrastructure", icon: "amazonaws" },
+      { name: "AWS EC2 + CloudFront", category: "infrastructure", icon: "amazonec2" },
+      { name: "AWS S3", category: "infrastructure", icon: "amazons3" },
+      { name: "AWS Amplify", category: "infrastructure", icon: "awsamplify" },
+      { name: "Docker", category: "infrastructure", icon: "docker" },
+    ],
+
+    integrations: [
+      {
+        system: "Google Gemini Live",
+        type: "WebSocket Proxy",
+        dataFlow: "Bidirectional native audio streaming — frontend WebSocket connects to backend, which proxies to Gemini Live API. Backend keeps API key server-side, handles tool execution during voice conversations, and generates session summaries on disconnect."
+      },
+      {
+        system: "OpenAI (GPT-4, Whisper, TTS, Vision)",
+        type: "REST API + WebSocket",
+        dataFlow: "Legacy voice pipeline (Whisper STT → GPT-4 → TTS), document vision analysis (Charter Party OCR), embedding generation for RAG, and streaming chat completions with function calling for shipping calculators."
+      },
+      {
+        system: "AWS Cognito",
+        type: "OAuth 2.0 / JWT",
+        dataFlow: "User registration with email verification, sign-in with JWT token issuance (ID + access tokens), automatic token refresh via Amplify SDK, password reset flows, and MFA support for enterprise deployments."
+      },
+      {
+        system: "OpenRouter",
+        type: "REST API",
+        dataFlow: "Fallback LLM provider for cost-effective inference when OpenAI/Gemini are unavailable or rate-limited. Uses the same gateway interface for transparent provider switching."
+      },
+      {
+        system: "Maritime Market APIs",
+        type: "REST API",
+        dataFlow: "Real-time Baltic Dry Index (BDI), sub-indices (Panamax, Capesize, Supramax), bunker fuel prices, and port congestion data surfaced on the dashboard and available to the AI assistant during conversations."
+      }
     ],
 
     metrics: [
-      { label: "Completion", value: "94%" },
-      { label: "Stories Done", value: "31/33" },
-      { label: "Voice", value: "Real-time" },
-      { label: "Vision", value: "GPT-4V" },
+      { label: "API Routes", value: "14 modules" },
+      { label: "DB Models", value: "10 tables" },
+      { label: "LLM Providers", value: "3" },
+      { label: "Shipping Calculators", value: "5" },
+      { label: "Document Formats", value: "5 in, 4 out" },
+      { label: "Experience Levels", value: "3" },
+      { label: "Voice Latency", value: "Sub-second" },
+      { label: "Auth", value: "AWS Cognito" },
     ],
 
-    userStory: "As a Shipbroker, I want to analyze Charter Parties using voice commands while traveling so I can respond to deals faster.",
-    description: "Enterprise voice-first AI assistant for maritime shipping with real-time voice streaming and GPT-4 Vision document analysis.",
+    userStory: "As an Operations Manager in dry bulk shipping, I want a voice-first AI checkpoint that reviews my demurrage claims, laytime calculations, and fixture recaps before I send them — flagging discrepancies with confidence levels — so that I catch expensive mistakes in the 30 seconds before irreversible actions.",
+    description: "Voice-driven operational checkpoint for dry bulk shipping: Gemini Live native audio, GPT-4 Vision document analysis, shipping calculators, confidence scoring, and experience-level adaptation — deployed on AWS with Cognito enterprise auth.",
   },
 
   {
