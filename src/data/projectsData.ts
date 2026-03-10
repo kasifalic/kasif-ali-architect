@@ -2581,55 +2581,192 @@ export const projectsData: ProjectArticle[] = [
     type: "AI/Finance",
     organization: "Personal",
     category: "Finance & Investment",
-    readTime: "5 min read",
+    readTime: "8 min read",
     publishDate: "February 2024",
     icon: TrendingUp,
     monogram: "NV",
     color: "bg-emerald-600",
     heroImage: "gradient-emerald",
 
-    overview: "Nivesha is an AI-first investment platform designed for Indian retail investors. It combines conversational AI for portfolio analysis, real-time market data integration, tax optimization recommendations, and RAG-based market research to democratize sophisticated investment insights.",
+    overview: "Nivesha is a full-stack investment intelligence platform built for Indian retail investors. It brings together real-time NSE/BSE market data, AI-powered stock research with fundamentals and technicals, portfolio tracking with XIRR calculations, goal-based investment planning with SIP recommendations, IPO tracking with grey market premiums, and personalized market news with sentiment analysis — all in a single, polished dark-mode dashboard.",
 
-    challenge: "Indian retail investors lack access to sophisticated investment analysis tools available to institutional investors. Market research is time-consuming. Tax implications of investment decisions are complex. Investors need an AI companion that understands Indian market nuances, tax laws, and can provide personalized guidance.",
+    challenge: "Indian retail investors juggle multiple apps and websites for market data, portfolio tracking, stock research, and financial planning. There's no unified platform that combines real-time Indian market indices, AI-driven stock analysis, goal-based SIP planning, and IPO research. Existing tools either lack Indian market specifics (tax rules, NSE/BSE data, INR formatting) or require expensive subscriptions for basic analytics like XIRR and diversification scoring.",
 
-    solution: "Building a conversational AI platform with real-time NSE/BSE data integration. Implementing portfolio analysis with tax optimization recommendations specific to Indian regulations. Creating RAG-based market research that synthesizes news, analyst reports, and company filings. Dual LLM approach using GPT-4 and Claude for balanced insights.",
+    solution: "Built a comprehensive investment platform with a FastAPI async backend serving 16 API endpoints across 18 specialized services, backed by PostgreSQL with 13 tables and Redis for market data caching. The React 19 frontend uses Zustand for state management, React Query for server state, and Recharts for interactive portfolio visualizations. Integrated yfinance and Indian Stock API for real-time market data, Zerodha Kite Connect for broker integration, and an LLM client for AI-powered stock research that covers fundamentals, technicals, peer comparison, and news sentiment analysis.",
 
     features: [
-      "Conversational AI for portfolio analysis",
-      "Real-time NSE/BSE market data",
-      "Tax optimization recommendations",
-      "RAG-based market research",
-      "Dual LLM (GPT-4 + Claude) insights",
-      "Indian tax law understanding",
-      "Portfolio health scoring",
-      "Sector allocation analysis",
-      "Risk assessment",
-      "Investment recommendations"
+      "Live market dashboard with NIFTY 50, SENSEX, BANKNIFTY, NIFTY IT indices and commodity prices (Gold, Crude)",
+      "Multi-portfolio management with holdings tracking, buy/sell transactions, and real-time valuations",
+      "AI Research hub with stock search, market overview, trending stocks, and deep AI-powered analysis",
+      "Stock detail pages with fundamental analysis, technical indicators, peer comparison, and news sentiment",
+      "Goal-based financial planning with short-term and long-term goal tracking, SIP recommendations, and progress visualization",
+      "IPO tracker with upcoming, current, and listed IPOs, grey market premium data, and subscription status",
+      "Personalized market news feed with portfolio-relevant filtering and sentiment analysis (positive/negative/neutral)",
+      "Portfolio analytics with XIRR calculation, diversification scoring, sector allocation, and benchmark comparison against NIFTY 50",
+      "Watchlist management for tracking stocks of interest with real-time price updates",
+      "Settings hub with profile management, broker integrations, tax reports, price alerts, and notification preferences",
+      "Dark mode optimized UI with gradient accents and glassmorphism card design",
+      "Celery-based background task processing for market data refresh, news aggregation, and portfolio recalculation",
     ],
 
-    architecture: "FastAPI backend with PostgreSQL for portfolio storage and Redis for market data caching. Real-time data integration via market APIs. RAG pipeline indexes news, reports, and filings for contextual answers. Dual LLM approach provides balanced perspectives on investment queries.",
+    architecture: "Three-tier architecture: React 19 SPA frontend with Zustand state management and React Query for server-state synchronization, communicating via REST API to a FastAPI async backend. The backend runs 18 specialized services (ai_service, dashboard_service, portfolio_service, stock_service, news_service, ipo_service, performance_service, tax_service, alert_service, broker_service, report_service, etc.) with SQLAlchemy async ORM connecting to PostgreSQL (13 tables) for persistent storage. Redis serves dual duty as market data cache and Celery message broker for background tasks like market data refresh, news aggregation, and portfolio recalculation. External integrations include yfinance for global market data, Indian Stock API for NSE/BSE specifics, and Zerodha Kite Connect for direct broker connectivity.",
 
-    impact: "Retail investors will gain access to institutional-grade analysis through conversational interface. Tax optimization features help maximize post-tax returns. RAG-based research saves hours of manual market analysis.",
+    impact: "Consolidates 5+ separate tools (portfolio tracker, stock screener, news aggregator, SIP calculator, IPO tracker) into a single platform. Real-time market indices and portfolio valuations eliminate manual data entry. AI-powered research provides institutional-grade stock analysis in seconds. Goal-based planning with SIP recommendations makes financial planning accessible to retail investors.",
+
+    screenshots: [
+      {
+        url: "/projects/nivesha/screenshot-1-dashboard.png",
+        caption: "Dashboard with live market indices (NIFTY 50, SENSEX, BANKNIFTY), quick actions for transactions, portfolio creation, and AI assistance",
+        alt: "Nivesha dashboard showing welcome screen with live market ticker, quick action cards",
+      },
+      {
+        url: "/projects/nivesha/screenshot-3-research.png",
+        caption: "AI Research hub with stock search, live market overview indices, and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with real-time prices",
+        alt: "AI Research page showing stock search, market indices, and trending stock cards with prices",
+      },
+      {
+        url: "/projects/nivesha/screenshot-6-goals.png",
+        caption: "Financial Goals tracker with 4 goals totaling ₹3.75 Cr target, progress bars, SIP recommendations, and linked stock holdings per goal",
+        alt: "Financial Goals page showing short-term and long-term goals with progress tracking and SIP details",
+      },
+      {
+        url: "/projects/nivesha/screenshot-7-settings.png",
+        caption: "Settings hub with profile management, broker integrations (Zerodha), tax reports, alerts, notifications, security, and preferences",
+        alt: "Settings page showing profile information, integration options, and configuration sections",
+      },
+      {
+        url: "/projects/nivesha/screenshot-2-portfolio.png",
+        caption: "Portfolio management with create portfolio workflow and holdings tracking",
+        alt: "Portfolio page showing portfolio creation and management interface",
+      },
+    ],
+
+    keyDecisions: [
+      {
+        question: "Why FastAPI with async SQLAlchemy instead of Django?",
+        answer: "Financial data APIs require high concurrency — fetching prices for 50+ stocks simultaneously. FastAPI's native async support with SQLAlchemy async sessions lets us parallelize market data fetches without blocking the event loop, achieving 3-5x throughput vs synchronous Django ORM.",
+      },
+      {
+        question: "Why Zustand over Redux for frontend state?",
+        answer: "With React Query handling all server state (portfolio data, market prices, news), the remaining client state (auth, UI preferences, active filters) is minimal. Zustand's zero-boilerplate approach with TypeScript inference eliminated 80% of the state management code Redux would require.",
+      },
+      {
+        question: "Why separate services architecture (18 services) instead of fewer fat controllers?",
+        answer: "Each financial domain (portfolio, tax, performance, IPO, news) has distinct business logic, external API dependencies, and caching strategies. Isolated services let us independently tune Redis TTLs per data type — 15s for live prices, 5min for news, 24h for fundamentals — without cross-contamination.",
+      },
+      {
+        question: "Why Celery for background tasks instead of FastAPI BackgroundTasks?",
+        answer: "Market data refresh, news aggregation, and portfolio recalculation are CPU-intensive operations that shouldn't compete with API request handling. Celery with Redis broker provides dedicated worker processes, retry logic for flaky market APIs, and scheduled periodic tasks (market hours refresh every 15s).",
+      },
+      {
+        question: "Why build custom portfolio analytics (XIRR, diversification score) instead of using a finance library?",
+        answer: "Indian market specifics like STT (Securities Transaction Tax), LTCG/STCG thresholds, and INR-denominated calculations aren't well-supported by Western finance libraries. Custom implementations handle Indian fiscal year boundaries, dividend reinvestment tracking, and SEBI-compliant sector classification natively.",
+      },
+    ],
+
+    beforeAfter: [
+      {
+        before: "Checking 5 different apps for market data, portfolio value, stock research, IPO status, and SIP planning",
+        after: "Single dashboard with live indices, portfolio valuation, AI research, IPO tracker, and goal-based planning",
+      },
+      {
+        before: "Manual XIRR calculation in Excel spreadsheets with error-prone date tracking",
+        after: "Automatic XIRR computation with every transaction, benchmark comparison against NIFTY 50",
+      },
+      {
+        before: "Reading multiple news sources and manually filtering for portfolio-relevant stories",
+        after: "Personalized news feed with sentiment analysis and automatic portfolio-stock matching",
+      },
+      {
+        before: "No structured approach to financial goals — ad-hoc savings without SIP discipline",
+        after: "Goal-based planning with progress tracking, monthly SIP recommendations, and stock-to-goal linking",
+      },
+      {
+        before: "Researching stocks across Screener, Moneycontrol, and TradingView separately",
+        after: "AI-powered stock research combining fundamentals, technicals, peer comparison, and news sentiment in one view",
+      },
+    ],
+
+    design: {
+      principles: [
+        "Dark-mode-first with emerald/cyan gradient accents for a premium financial dashboard feel (screenshot 1)",
+        "Glassmorphism cards with backdrop-blur and subtle borders for depth without visual clutter",
+        "Numbered sidebar navigation (01-06) for clear information hierarchy across Dashboard, Portfolio, AI Research, Goals, Learn, Settings",
+        "Color-coded sentiment indicators — green for positive, red for negative, amber for portfolio-relevant news",
+        "Goal progress visualization with gradient progress bars and color-coded urgency (Behind in red, On Track in green)",
+        "Quick action cards with vibrant gradients (coral, teal, purple) for the three primary user flows",
+      ],
+      palette: [
+        { name: "Slate Dark", hex: "#0f172a", usage: "Primary background" },
+        { name: "Card Surface", hex: "#1e293b", usage: "Card backgrounds with glassmorphism" },
+        { name: "Emerald", hex: "#10b981", usage: "Primary accent, positive indicators, CTA buttons" },
+        { name: "Cyan", hex: "#06b6d4", usage: "Secondary accent, gradient endpoints" },
+        { name: "Coral", hex: "#f97316", usage: "Quick action highlights, warning states" },
+        { name: "Purple", hex: "#8b5cf6", usage: "AI Research accents, premium features" },
+        { name: "Red", hex: "#ef4444", usage: "Negative sentiment, losses, behind-schedule goals" },
+        { name: "Amber", hex: "#f59e0b", usage: "Portfolio-relevant news, warning badges" },
+        { name: "White/60%", hex: "#ffffff99", usage: "Secondary text, muted labels" },
+      ],
+    },
+
+    integrations: [
+      { system: "yfinance", type: "Market Data API", dataFlow: "Real-time stock prices, historical data, company financials fetched via yfinance Python library" },
+      { system: "Indian Stock API", type: "Market Data API", dataFlow: "NSE/BSE specific data including indices (NIFTY 50, SENSEX), IPO listings, and Indian market metadata" },
+      { system: "Zerodha Kite Connect", type: "Broker Integration", dataFlow: "Direct broker connectivity for portfolio sync, trade execution, and holdings import via Kite API" },
+      { system: "LLM Client (GPT-4)", type: "AI Service", dataFlow: "Stock analysis prompts sent to LLM for fundamental analysis, technical analysis, peer comparison, and research summaries" },
+      { system: "Redis + Celery", type: "Task Queue", dataFlow: "Background job processing for market data refresh (every 15s during market hours), news aggregation, and portfolio recalculation" },
+      { system: "Sentry", type: "Error Monitoring", dataFlow: "Frontend and backend error tracking with performance monitoring for API latency and market data fetch reliability" },
+    ],
+
+    componentPatterns: [
+      "Zustand stores with TypeScript inference for auth state and UI preferences — zero boilerplate",
+      "React Query with custom hooks per domain (usePortfolio, useStockSearch, useMarketNews) for automatic cache invalidation",
+      "Recharts-based interactive visualizations for portfolio allocation pie charts and goal progress timelines",
+      "React Hook Form + Zod validation for transaction forms, goal creation, and settings updates",
+      "Collapsible sidebar with numbered navigation items and active state gradients",
+      "Glassmorphism card component with configurable backdrop-blur, border opacity, and hover shadow transitions",
+      "Sentiment-colored news cards with portfolio-match badges and time-ago formatting",
+      "Market ticker bar with live index prices, percentage changes, and commodity rates (Gold, Crude, USD/INR)",
+    ],
 
     techStack: [
-      { name: "React", category: "frontend", icon: "react" },
+      { name: "React 19", category: "frontend", icon: "react" },
       { name: "TypeScript", category: "frontend", icon: "typescript" },
-      { name: "Vite", category: "frontend", icon: "vite" },
+      { name: "Vite 7", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwind" },
+      { name: "Zustand", category: "frontend", icon: "zustand" },
+      { name: "React Query", category: "frontend", icon: "react" },
+      { name: "Recharts", category: "frontend", icon: "recharts" },
+      { name: "React Hook Form", category: "frontend", icon: "react" },
+      { name: "Zod", category: "frontend", icon: "zod" },
+      { name: "React Markdown", category: "frontend", icon: "react" },
+      { name: "Lucide Icons", category: "frontend", icon: "lucide" },
       { name: "FastAPI", category: "backend", icon: "fastapi" },
+      { name: "SQLAlchemy Async", category: "backend", icon: "sqlalchemy" },
+      { name: "Alembic", category: "backend", icon: "alembic" },
+      { name: "Celery", category: "backend", icon: "celery" },
       { name: "PostgreSQL", category: "database", icon: "postgresql" },
-      { name: "Redis", category: "backend", icon: "redis" },
+      { name: "Redis", category: "database", icon: "redis" },
+      { name: "yfinance", category: "integration", icon: "python" },
+      { name: "Zerodha Kite", category: "integration", icon: "zerodha" },
       { name: "OpenAI GPT-4", category: "ai", icon: "openai" },
-      { name: "Anthropic Claude", category: "ai", icon: "anthropic" },
+      { name: "Sentry", category: "devops", icon: "sentry" },
+      { name: "Docker", category: "devops", icon: "docker" },
+      { name: "Python 3.12", category: "backend", icon: "python" },
     ],
 
     metrics: [
-      { label: "Market", value: "India" },
-      { label: "LLMs", value: "GPT-4 + Claude" },
-      { label: "Data", value: "Real-time" },
-      { label: "Status", value: "In Dev" },
+      { label: "API Endpoints", value: "16" },
+      { label: "Backend Services", value: "18" },
+      { label: "DB Tables", value: "13" },
+      { label: "Frontend Pages", value: "9" },
+      { label: "Market", value: "NSE/BSE" },
+      { label: "LLM", value: "GPT-4" },
+      { label: "Data Refresh", value: "15s" },
+      { label: "Status", value: "Live" },
     ],
 
-    userStory: "As an Indian retail investor, I want AI-powered portfolio analysis with tax optimization so I can make better investment decisions.",
-    description: "AI-first investment platform for Indian retail investors with conversational analysis and tax optimization.",
+    userStory: "As an Indian retail investor managing ₹10-50L across multiple stocks and mutual funds, I want a single dashboard where I can see my live portfolio value with XIRR, research stocks with AI-powered analysis covering fundamentals and technicals, set financial goals with SIP recommendations, track upcoming IPOs, and read portfolio-relevant news — so I can make informed investment decisions without switching between five different apps.",
+    description: "Full-stack investment intelligence platform for Indian retail investors — real-time NSE/BSE market data, AI-powered stock research, portfolio analytics with XIRR, goal-based SIP planning, IPO tracking, and personalized news with sentiment analysis. Built with React 19, FastAPI, PostgreSQL, Redis, Celery, and GPT-4.",
   },
 ];

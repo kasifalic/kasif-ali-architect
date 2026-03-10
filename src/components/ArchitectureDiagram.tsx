@@ -1495,9 +1495,164 @@ const DryVoxArchitecture = () => {
   );
 };
 
+// ───────────────────────────────────────────────────
+// Nivesha Architecture
+// ───────────────────────────────────────────────────
+const NiveshaArchitecture = () => {
+  return (
+    <div className="space-y-1">
+      {/* ── Layer 1: Frontend & Users ── */}
+      <LayerLabel label="Frontend & Users" delay={0.1} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={Layout}
+          title="React 19 SPA"
+          subtitle="Vite 7, TypeScript, Tailwind CSS"
+          variant="frontend"
+          delay={0.15}
+        />
+        <ArchNode
+          icon={Store}
+          title="Zustand + React Query"
+          subtitle="State management, server cache"
+          variant="frontend"
+          delay={0.2}
+        />
+        <ArchNode
+          icon={Monitor}
+          title="Recharts"
+          subtitle="Portfolio charts, goal progress"
+          variant="frontend"
+          delay={0.25}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="REST API (16 endpoints)" delay={0.3} />
+      </div>
+
+      {/* ── Layer 2: API & Auth ── */}
+      <LayerLabel label="FastAPI Backend" delay={0.35} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={Server}
+          title="FastAPI Async"
+          subtitle="16 endpoints, JWT auth"
+          variant="process"
+          delay={0.4}
+        />
+        <ArchNode
+          icon={Workflow}
+          title="18 Services"
+          subtitle="Portfolio, Tax, IPO, News, AI..."
+          variant="process"
+          delay={0.45}
+        />
+        <ArchNode
+          icon={RefreshCw}
+          title="Celery Workers"
+          subtitle="Market refresh, news aggregation"
+          variant="process"
+          delay={0.5}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Service layer orchestration" delay={0.55} />
+      </div>
+
+      {/* ── Layer 3: AI & Market Data ── */}
+      <LayerLabel label="AI & Market Data" delay={0.6} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={Brain}
+          title="GPT-4 LLM"
+          subtitle="Stock research, analysis summaries"
+          variant="ai"
+          delay={0.65}
+        />
+        <ArchNode
+          icon={Search}
+          title="yfinance"
+          subtitle="Global prices, fundamentals, history"
+          variant="service"
+          delay={0.7}
+        />
+        <ArchNode
+          icon={Globe}
+          title="Indian Stock API"
+          subtitle="NSE/BSE indices, IPO data"
+          variant="service"
+          delay={0.75}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Cache + persist" delay={0.8} />
+      </div>
+
+      {/* ── Layer 4: Data & Storage ── */}
+      <LayerLabel label="Data & Storage" delay={0.85} />
+      <div className="grid grid-cols-3 gap-3 mb-1">
+        <ArchNode
+          icon={Database}
+          title="PostgreSQL"
+          subtitle="13 tables, SQLAlchemy async, Alembic"
+          variant="source"
+          delay={0.9}
+        />
+        <ArchNode
+          icon={Zap}
+          title="Redis"
+          subtitle="Market cache (15s TTL), Celery broker"
+          variant="service"
+          delay={0.95}
+        />
+        <ArchNode
+          icon={Eye}
+          title="Sentry"
+          subtitle="Error tracking, perf monitoring"
+          variant="process"
+          delay={1.0}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Broker integration" delay={1.05} />
+      </div>
+
+      {/* ── Layer 5: External Integrations ── */}
+      <LayerLabel label="External Integrations" delay={1.1} />
+      <div className="grid grid-cols-3 gap-3">
+        <ArchNode
+          icon={Key}
+          title="Zerodha Kite"
+          subtitle="Holdings import, trade execution"
+          variant="source"
+          delay={1.15}
+        />
+        <ArchNode
+          icon={MessageSquare}
+          title="News APIs"
+          subtitle="Market news, sentiment analysis"
+          variant="service"
+          delay={1.2}
+        />
+        <ArchNode
+          icon={Shield}
+          title="JWT Auth"
+          subtitle="Token-based user authentication"
+          variant="process"
+          delay={1.25}
+        />
+      </div>
+    </div>
+  );
+};
+
 const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps) => {
   // Only render visual diagram for projects that have one
-  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync', 'dryvox'].includes(slug);
+  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync', 'dryvox', 'nivesha'].includes(slug);
 
   if (!hasDiagram) {
     // Fallback to text description
@@ -1550,6 +1705,7 @@ const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps
           {slug === 'identity-lifecycle' && <IdentityLifecycleArchitecture />}
           {slug === 'rydoo-sync' && <RydooSyncArchitecture />}
           {slug === 'dryvox' && <DryVoxArchitecture />}
+          {slug === 'nivesha' && <NiveshaArchitecture />}
         </div>
 
         {/* Text summary below */}
