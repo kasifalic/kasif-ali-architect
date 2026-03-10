@@ -2615,9 +2615,14 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
+        src: "/projects/nivesha/screenshot-0-landing.png",
+        caption: "Landing page with 'Track, Analyze & Grow Your Wealth' hero, 6 feature highlights (Smart Dashboard, AI-Powered Research, Portfolio Analytics, Goal-Based Investing, IPO Research Hub, Personalized News), stats bar, and login form",
+        alt: "Nivesha landing page showing value proposition, feature grid, platform stats, and login form",
+      },
+      {
         src: "/projects/nivesha/screenshot-1-dashboard.png",
-        caption: "Dashboard with live portfolio summary (₹15.3L value, P&L tracking), real-time market indices (NIFTY 50, SENSEX, BANKNIFTY, Gold, Crude), market news feed, and quick action cards for transactions, portfolio creation, and AI assistance",
-        alt: "Nivesha dashboard showing portfolio value, P&L, live market ticker, market news, and quick action cards",
+        caption: "Dashboard with live portfolio summary (₹15.3L value, -₹1.03L P&L), real-time market indices, Market News feed with sentiment-colored articles, and quick action cards",
+        alt: "Nivesha dashboard showing portfolio KPIs, live market ticker, news feed with articles, and quick actions",
       },
       {
         src: "/projects/nivesha/screenshot-2-portfolio.png",
@@ -2626,8 +2631,8 @@ export const projectsData: ProjectArticle[] = [
       },
       {
         src: "/projects/nivesha/screenshot-3-research.png",
-        caption: "AI Research hub with stock search, live market overview indices (NIFTY 50, SENSEX, NIFTY Bank, NIFTY IT), and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with real-time prices",
-        alt: "AI Research page showing stock search, market indices, and trending stock cards with prices",
+        caption: "AI Research hub with stock search, live market overview indices (NIFTY 50, SENSEX, NIFTY Bank, NIFTY IT), and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with monogram logos and real-time prices",
+        alt: "AI Research page showing stock search, market indices, and trending stock cards with monogram logos and prices",
       },
       {
         src: "/projects/nivesha/screenshot-6-goals.png",
@@ -2696,34 +2701,34 @@ export const projectsData: ProjectArticle[] = [
       philosophy: "Nivesha uses a dark-mode-first design with emerald and cyan gradient accents, creating a premium financial dashboard aesthetic. The glassmorphism card system with backdrop-blur provides visual depth without clutter, while numbered sidebar navigation (01-06) establishes clear information hierarchy. The color system is purpose-driven: emerald for positive/growth, red for losses/warnings, amber for portfolio-relevant alerts.",
       principles: [
         {
-          title: "Live Market Ticker Bar",
-          description: "A persistent horizontal ticker at the top of the dashboard displays live market indices (NIFTY 50, SENSEX, BANKNIFTY, NIFTY IT) and commodity prices (Gold, Crude, USD/INR) with color-coded percentage changes, providing ambient market awareness without requiring navigation.",
+          title: "Landing Page Value Proposition",
+          description: "The landing page presents a clear value hierarchy: hero headline, 6 numbered feature cards in a 2-column grid, a stats bar (500+ Stocks, NSE & BSE, Real-time, 100% Free), and the login form — all in a dark-mode split layout that communicates premium positioning.",
           screenshotIndex: 0,
-          highlight: "Live ticker showing NIFTY 50: 24,257 +0.95%, SENSEX: 78,218 +0.84% with green/red indicators"
+          highlight: "Six numbered features (01-06) with descriptions, stats bar with platform metrics, and login form"
+        },
+        {
+          title: "Live Market Ticker & Portfolio KPIs",
+          description: "The dashboard surfaces four numbered KPI cards (Total Value, Total P&L, Total Invested, Today's Change) with color-coded indicators, plus a persistent market ticker showing live NIFTY 50, SENSEX, BANKNIFTY, NIFTY IT, USD/INR, Gold, and Crude prices.",
+          screenshotIndex: 1,
+          highlight: "KPI cards: ₹15,30,270 total value, ₹-1,03,451 P&L in red, live ticker with green/red percentages"
         },
         {
           title: "AI Research Hub with Trending Cards",
-          description: "The AI Research page uses a search-first layout with live market overview indices in metric cards, followed by trending stock cards showing company logos, current prices in INR, and percentage changes with color-coded sentiment badges.",
-          screenshotIndex: 2,
+          description: "The AI Research page uses a search-first layout with live market overview indices in metric cards, followed by trending stock cards showing monogram logos, current prices in INR, and percentage changes with color-coded sentiment badges.",
+          screenshotIndex: 3,
           highlight: "Trending stocks grid: Reliance ₹2,580.5 +0.99%, TCS ₹3,650.2 +1.25%, HDFCBANK ₹1,680.75 -0.45%"
         },
         {
           title: "Goal-Based Progress Visualization",
           description: "Financial goals use gradient progress bars with color-coded status badges (Behind in red, On Track in green). Each goal card shows saved amount vs target, remaining amount, time left, monthly SIP, linked stocks with color avatars, and a direct link to view details.",
-          screenshotIndex: 3,
+          screenshotIndex: 4,
           highlight: "House Down Payment: ₹8.50L of ₹20.00L, 42.5% progress, Behind badge, ₹35,000 monthly SIP"
         },
         {
           title: "Settings Information Architecture",
           description: "Settings uses a two-panel layout: left sidebar with icon-labeled sections (Profile, Integrations, Tax Reports, Alerts, Notifications, Security, Preferences) and right content area showing the selected section's details, optimizing for discoverability and scan-ability.",
-          screenshotIndex: 4,
+          screenshotIndex: 5,
           highlight: "Seven settings sections with icons, currently showing Profile with personal info and password management"
-        },
-        {
-          title: "Quick Action Cards with Gradient CTAs",
-          description: "Three primary user flows (Add Transaction, Create Portfolio, Ask AI) are surfaced as vibrant gradient cards (coral, teal, purple) with numbered steps, making the most common actions immediately accessible from the dashboard.",
-          screenshotIndex: 0,
-          highlight: "Three gradient quick action cards: 01 Add Transaction, 02 Create Portfolio, 03 Ask AI"
         }
       ],
       colorPalette: [
