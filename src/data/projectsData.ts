@@ -1778,559 +1778,6 @@ export const projectsData: ProjectArticle[] = [
 
   // ==================== PERSONAL PROJECTS ====================
   {
-    id: 11,
-    slug: "zapgap-sidekick",
-    name: "ZapGap",
-    tagline: "AI Agents for Cloud Ops",
-    type: "AI Agents",
-    organization: "Personal",
-    category: "AI & Agents",
-    readTime: "10 min read",
-    publishDate: "September 2024",
-    icon: Zap,
-    monogram: "ZG",
-    color: "bg-rose-500",
-    heroImage: "gradient-rose",
-
-    overview: "ZapGap is an AI-powered cloud operations platform that deploys autonomous agents for SRE auto-remediation, DevOps self-service provisioning, cloud cost optimization, and compliance enforcement. The platform features a Central Orchestrator, a Context Graph for infrastructure topology awareness, and deterministic execution paths — no hallucinations. The landing page showcases 4 use cases with interactive problem → solution → impact breakdowns and a simulated terminal demonstrating real-time infrastructure scanning.",
-
-    challenge: "SRE teams were constantly firefighting — late-night alerts for memory leaks, CPU spikes, and service crashes meant manual remediation at 2 AM. DevOps teams faced environment provisioning bottlenecks where spinning up a test environment required an Ops ticket and hours of waiting. Leadership struggled with cloud cost sprawl: idle VMs, forgotten dev machines, and obsolete snapshots bleeding budget. IT compliance teams manually audited encryption, approved images, and regulatory standards. Every team needed AI agents that could detect issues, remediate automatically, and provide self-service operations — without sacrificing safety or auditability.",
-
-    solution: "Designed and built a complete agentic AI platform with four distinct use-case agents orchestrated by a Central Orchestrator. SRE agents monitor for early warning signs (memory leaks, CPU spikes) and auto-remediate via deterministic code paths — safely restarting services, clearing caches, and notifying Slack within seconds. DevOps agents power a conversational self-service portal where developers request resources in plain English ('Create QA environment for payment service'), ZapGap verifies against policy, provisions standardized environments, and routes production requests for human approval. Cost optimization agents continuously scan for low-hanging fruit — <5% CPU instances, obsolete snapshots, weekend dev machines — and execute cleanup with full logging. Compliance agents enforce policy rules by scanning for deviations (unencrypted S3 buckets, unapproved AMIs) and auto-correcting per configured policy. All agents use 100% code-based execution with Open Policy Agent enforcement and complete audit trails.",
-
-    features: [
-      "Central Orchestrator that interprets requests, consults the Context Graph, and routes to specialized agents",
-      "Auto-remediation agents for SRE incidents — memory leak detection, service restart, cache cleanup (MTTR <1 min)",
-      "Conversational self-service portal — developers request resources in plain English via Slack, Teams, or web chat",
-      "AI approval routing — standard requests auto-provisioned, production changes routed for human approval",
-      "Cost optimization agents that identify idle VMs, obsolete snapshots, and weekend dev machines for cleanup",
-      "Compliance enforcement agents with continuous scanning and auto-correction (e.g., encrypt unencrypted S3 buckets)",
-      "Context Graph maintaining real-time understanding of infrastructure topology and policies",
-      "Deterministic execution — 100% code-based workflows, no LLM hallucinations in production actions",
-      "Policy enforcement via Open Policy Agent (OPA) before any infrastructure mutation",
-      "Complete audit logging for every agent action with notification to Slack/Teams",
-      "Multi-cloud support with modular connector system for AWS, Azure, GCP",
-      "Interactive terminal simulation on landing page demonstrating infrastructure scanning in real-time"
-    ],
-
-    architecture: "The platform is built around a Central Orchestrator — the AI brain that interprets incoming requests, consults the Context Graph (a real-time map of infrastructure topology and policies), and dispatches work to specialized agents. Each agent follows deterministic execution paths: monitoring alerts trigger SRE agents, chat messages trigger DevOps self-service agents, scheduled scans trigger cost and compliance agents. Before any infrastructure mutation, Open Policy Agent validates the action against configured policies. All actions are logged to an immutable audit trail and notifications are sent via integration connectors (Slack, Teams, PagerDuty). The architecture is multi-cloud by design with a modular connector layer supporting AWS, Azure, and GCP.",
-
-    impact: "SRE teams eliminated 2 AM pages for known issues — agents detect and remediate memory leaks within seconds, dropping MTTR from 30 minutes to under 1 minute. DevOps provisioning time dropped from days (Ops ticket queue) to minutes (conversational self-service). Leadership identified 25%+ in cloud cost savings through automated detection of idle resources and obsolete snapshots. Ticket volume decreased 40% as common requests became self-service. Compliance teams achieved near-zero security incidents through continuous policy scanning and auto-correction.",
-
-    keyDecisions: [
-      {
-        question: "Why deterministic code paths instead of letting LLMs execute infrastructure commands?",
-        answer: "LLMs can hallucinate — a hallucinated kubectl delete or terraform destroy could cause catastrophic outages. ZapGap agents follow pre-defined, tested code paths for every remediation action. The LLM interprets intent and routes to the correct workflow, but never generates or executes arbitrary infrastructure commands. This gives teams the convenience of AI with the safety of code-reviewed runbooks."
-      },
-      {
-        question: "Why a Central Orchestrator pattern instead of independent agent swarms?",
-        answer: "Independent agents risk conflicting actions — one agent scaling up while another optimizes costs by scaling down. The Central Orchestrator maintains a unified Context Graph of infrastructure state, prevents conflicting operations, and ensures proper sequencing. It also provides a single audit point for all agent activity, critical for compliance."
-      },
-      {
-        question: "Why Open Policy Agent (OPA) for policy enforcement?",
-        answer: "OPA is the CNCF standard for policy-as-code, already adopted by Kubernetes admission controllers, Terraform, and service meshes. Using OPA means ZapGap policies are portable — the same Rego rules that govern agent actions can be reused in CI/CD pipelines and cluster admission. It also provides declarative policy logic separate from agent code, making policy changes auditable and reviewable."
-      },
-      {
-        question: "Why Space Grotesk font and dark glassmorphism for the landing page?",
-        answer: "The target audience is SRE/DevOps engineers who live in dark terminals and dashboards. Space Grotesk's geometric precision and the dark glassmorphism aesthetic create instant familiarity — the site feels like a tool they'd actually use, not a marketing page selling to them. The terminal simulation on the hero section reinforces this by showing ZapGap in an environment engineers recognize."
-      }
-    ],
-
-    beforeAfter: [
-      {
-        label: "Incident Response",
-        before: "On-call engineer woken at 2 AM by PagerDuty, SSHes into server, diagnoses memory leak, manually restarts service — 30 minutes MTTR",
-        after: "ZapGap agent detects memory anomaly, auto-restarts service, clears caches, notifies Slack — MTTR under 1 minute, engineer sleeps through"
-      },
-      {
-        label: "Environment Provisioning",
-        before: "Developer submits Ops ticket 'Need QA env for payment service', waits hours/days in queue, platform team manually provisions",
-        after: "Developer messages ZapGap: 'Create QA env for payment service' — agent verifies policy, provisions standardized environment in minutes"
-      },
-      {
-        label: "Cloud Cost Management",
-        before: "Finance flags rising AWS bill, engineering manually audits instances looking for waste, one-time cleanup effort that drifts within weeks",
-        after: "Cost agent continuously scans for idle VMs, obsolete snapshots, weekend dev machines — auto-cleans with logging, 25%+ savings sustained"
-      },
-      {
-        label: "Compliance Posture",
-        before: "Quarterly manual audit of encryption, approved images, and security groups — deviations discovered weeks after introduction",
-        after: "Compliance agent continuously scans infrastructure, auto-encrypts unencrypted S3 buckets, flags unapproved AMIs — near-zero incidents"
-      },
-      {
-        label: "Ops Ticket Volume",
-        before: "Platform team drowning in repetitive requests: env setup, access grants, config changes — pulled away from strategic work",
-        after: "Common requests handled by AI self-service portal, 40% ticket reduction, platform team focuses on architecture and reliability"
-      }
-    ],
-
-    screenshots: [
-      {
-        src: "/projects/zapgap-sidekick/screenshot-1-hero.png",
-        alt: "ZapGap — Hero with Terminal Simulation",
-        caption: "Landing page hero with animated gradient title, rotating use-case text ('AI Agents for Incident Resolution'), and a live terminal simulation showing infrastructure scanning — detecting gaps and generating remediation plans in real-time."
-      },
-      {
-        src: "/projects/zapgap-sidekick/screenshot-2-platform.png",
-        alt: "ZapGap — Platform Architecture",
-        caption: "Platform architecture overview showing the Central Orchestrator at the core, connected to six capabilities: Agent-Based Architecture, Context Graph, Multi-Cloud Design, Enterprise Security, Observability, and Continuous Learning."
-      },
-      {
-        src: "/projects/zapgap-sidekick/screenshot-3-features.png",
-        alt: "ZapGap — Features with ChatOps Expanded",
-        caption: "Interactive feature accordion with ChatOps expanded — showing Slack/Teams integration for conversational infrastructure management. Each feature card reveals detailed descriptions on click."
-      },
-      {
-        src: "/projects/zapgap-sidekick/screenshot-4-usecases.png",
-        alt: "ZapGap — SRE Use Case",
-        caption: "SRE use case breakdown: Problem (2 AM memory leak alerts), ZapGap Solution (auto-remediation workflow), and Impact (MTTR dropped from 30 min to <1 min) — with tabbed navigation between SRE, DevOps, Leadership, and IT personas."
-      },
-      {
-        src: "/projects/zapgap-sidekick/screenshot-5-usecases-devops.png",
-        alt: "ZapGap — DevOps Use Case",
-        caption: "DevOps use case: developers request environments via AI self-service portal instead of Ops tickets, with policy verification and automatic approval routing — 40% reduction in ticket workload."
-      }
-    ],
-
-    design: {
-      philosophy: "ZapGap was designed for engineers who live in dark terminals and monitoring dashboards. The dark glassmorphism aesthetic with cyan-to-purple gradients creates instant familiarity — it feels like a tool, not a marketing page. The interactive terminal simulation on the hero section bridges the gap between product pitch and product experience.",
-      principles: [
-        {
-          title: "Terminal-Native Aesthetic",
-          description: "The hero features a simulated terminal with monospace output, green checkmarks, and amber warnings — the same visual language SREs see in their daily tools. This builds immediate credibility with the target audience.",
-          screenshotIndex: 0,
-          highlight: "Terminal simulation with infrastructure scan output and blinking cursor"
-        },
-        {
-          title: "Architecture-First Storytelling",
-          description: "Rather than listing features abstractly, the Platform section shows the actual system architecture — Central Orchestrator connected to six capability modules. Engineers evaluate tools by understanding how they work, not what they claim.",
-          screenshotIndex: 1,
-          highlight: "Central Orchestrator hub with radiating capability cards"
-        },
-        {
-          title: "Progressive Disclosure",
-          description: "Features use collapsible accordion cards — title and icon visible by default, detailed descriptions revealed on click. This prevents information overload while letting curious engineers dive deep.",
-          screenshotIndex: 2,
-          highlight: "ChatOps card expanded showing Slack/Teams integration details"
-        },
-        {
-          title: "Problem → Solution → Impact Framework",
-          description: "Each use case follows a three-column structure with color-coded cards: red (Problem), blue (ZapGap Solution), green (Impact with large metric). This makes the value proposition scannable in seconds.",
-          screenshotIndex: 3,
-          highlight: "Three-column layout with MTTR metric displayed prominently in green"
-        }
-      ],
-      colorPalette: [
-        { name: "Void Black", hex: "#000000", usage: "Primary background — mimics terminal/IDE dark theme" },
-        { name: "Electric Cyan", hex: "#3ABCF7", usage: "Primary accent, gradient start, links, active states" },
-        { name: "Nebula Purple", hex: "#8B2FF8", usage: "Gradient end, secondary accent, brand identity" },
-        { name: "Royal Blue", hex: "#5B7CF7", usage: "Gradient midpoint, button backgrounds, hover states" },
-        { name: "Ghost White", hex: "#F8FAFC", usage: "Primary text on dark surfaces" },
-        { name: "Slate Gray", hex: "#94A3B8", usage: "Secondary text, descriptions, muted content" },
-        { name: "Impact Green", hex: "#22C55E", usage: "Success states, impact metrics, positive outcomes" }
-      ],
-      componentPatterns: [
-        "Glassmorphism cards — semi-transparent backdrop blur with subtle borders, used throughout for platform components and feature cards",
-        "Gradient text effects — bg-clip-text with animated cyan→blue→purple gradients for headings and brand elements",
-        "Interactive tab selector — pill-shaped buttons with gradient fill on active state for use case persona switching",
-        "Animated terminal — monospace output with typewriter effect, status icons (✓, ⚠, ●), and blinking cursor for hero engagement",
-        "Collapsible accordion — chevron rotation on expand, smooth height animation, gradient icon backgrounds per feature",
-        "Neural network background — SVG lines with animated stroke-dasharray and pulsing connection nodes creating subtle depth"
-      ]
-    },
-
-    techStack: [
-      { name: "React", category: "frontend", icon: "react" },
-      { name: "TypeScript", category: "frontend", icon: "typescript" },
-      { name: "Vite", category: "frontend", icon: "vite" },
-      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
-      { name: "Framer Motion", category: "frontend" },
-      { name: "shadcn/ui", category: "frontend" },
-      { name: "Radix UI", category: "frontend", icon: "radixui" },
-      { name: "React Router", category: "frontend", icon: "reactrouter" },
-      { name: "React Hook Form", category: "frontend" },
-      { name: "Zod", category: "frontend", icon: "zod" },
-      { name: "Lucide Icons", category: "frontend" },
-      { name: "Recharts", category: "frontend" },
-      { name: "Space Grotesk", category: "frontend", icon: "googlefonts" },
-      { name: "Netlify", category: "infrastructure", icon: "netlify" },
-      { name: "ESLint", category: "infrastructure", icon: "eslint" },
-      { name: "PostCSS", category: "frontend", icon: "postcss" },
-    ],
-
-    integrations: [
-      {
-        system: "Slack / Microsoft Teams",
-        type: "ChatOps Integration",
-        dataFlow: "Conversational interface for infrastructure requests — developers message ZapGap in natural language, agents respond with actions and confirmations"
-      },
-      {
-        system: "AWS / Azure / GCP",
-        type: "Multi-Cloud Connectors",
-        dataFlow: "Modular connector system for infrastructure scanning, resource provisioning, cost analysis, and compliance enforcement across cloud providers"
-      },
-      {
-        system: "Open Policy Agent (OPA)",
-        type: "Policy Engine",
-        dataFlow: "Rego policy rules validated before any infrastructure mutation — portable across CI/CD pipelines, Kubernetes admission, and agent actions"
-      },
-      {
-        system: "PagerDuty / Monitoring",
-        type: "Alert Integration",
-        dataFlow: "Monitoring alerts trigger SRE auto-remediation agents — memory leaks, CPU spikes, and service crashes handled automatically"
-      }
-    ],
-
-    metrics: [
-      { label: "MTTR", value: "<1 min" },
-      { label: "Ticket Reduction", value: "40%" },
-      { label: "Cost Savings", value: "25%" },
-      { label: "Use Cases", value: "4" },
-      { label: "Platform Components", value: "6" },
-      { label: "UI Components", value: "50+" },
-      { label: "Animations", value: "15+" },
-      { label: "Status", value: "Prototype" },
-    ],
-
-    userStory: "As an SRE engineer, I want AI agents to automatically detect memory leaks and restart services at 2 AM so I can sleep through the night, while still getting a Slack notification of exactly what happened and why.",
-    description: "AI-powered cloud operations platform with autonomous agents for SRE auto-remediation, DevOps self-service, cloud cost optimization, and compliance enforcement — featuring a dark glassmorphism landing page with interactive terminal simulation.",
-  },
-
-  {
-    id: 12,
-    slug: "cost-savvy-chat",
-    name: "Cost Savvy Chat",
-    tagline: "Cloud Cost Intelligence",
-    type: "AI/FinOps",
-    organization: "Personal",
-    category: "Finance & Investment",
-    readTime: "7 min read",
-    publishDate: "August 2024",
-    icon: MessageSquare,
-    monogram: "CS",
-    color: "bg-sky-500",
-    heroImage: "gradient-sky",
-
-    overview: "Cost Savvy Chat is a full-stack AI-powered cloud bill analysis platform. Users upload AWS invoice PDFs via drag-and-drop, GPT-4o-mini extracts service-level cost data into structured JSON, and a context-aware AI chatbot answers natural language questions about the parsed bill — all within a glassmorphic tab-based interface backed by Supabase for auth and storage, with Supabase Edge Functions handling AI inference.",
-
-    challenge: "Cloud bills are dense, multi-page PDFs with cryptic service names and nested line items. Engineering leaders need answers like 'Why did our S3 costs spike?' or 'Which EC2 instances are over-provisioned?' but lack time to manually analyze 50-page invoices. Traditional FinOps tools like CloudHealth or Spot.io require onboarding, training, and enterprise contracts. What teams actually want is to upload a PDF and ask questions in plain English.",
-
-    solution: "Built a four-tab SPA (Upload → Dashboard → Chat → Settings) with a serverless AI backend. The Upload tab accepts PDF invoices via drag-and-drop, converts them to base64, and sends them to a Supabase Edge Function that calls OpenAI GPT-4o-mini with a structured extraction prompt (temperature 0.1 for deterministic parsing). The extracted JSON — total cost, per-service costs with month-over-month change, billing period, and AI-generated recommendations — is stored in Supabase PostgreSQL. The Dashboard tab renders service breakdown cards with cost-proportional progress bars and trending indicators. The Chat tab injects the parsed bill data as context into GPT-4o-mini (temperature 0.7) so users can ask questions like 'What's my biggest cost driver?' and get answers grounded in their actual invoice. Supabase Auth with Row Level Security ensures each user only sees their own data.",
-
-    features: [
-      "Drag-and-drop PDF upload with file validation (PDF only, 10MB max) and base64 conversion",
-      "GPT-4o-mini invoice parsing — extracts total cost, per-service breakdown, billing period, and cost change into structured JSON",
-      "Service breakdown dashboard with cost-proportional progress bars and month-over-month trending indicators",
-      "Context-aware AI chatbot — bill data injected as system context so responses are grounded in actual invoice",
-      "AI-generated cost optimization recommendations (Reserved Instances, storage class optimization, rightsizing)",
-      "Supabase Auth integration with email/password signup and Row Level Security for data isolation",
-      "Alternative Groq LLM backend (Llama 3 8B) for cost-effective inference",
-      "Graceful fallback to realistic mock data when AI parsing fails",
-      "Dark mode support with CSS variable theming and glassmorphic card design",
-      "Tab-based single-page navigation (Upload → Dashboard → Chat → Settings) with no page loads",
-      "Keyboard support in chat (Enter to send) with auto-scroll and typing indicators",
-      "Settings panel showing API configuration status, security policies, and usage instructions"
-    ],
-
-    architecture: "React SPA with tab-based navigation communicates with Supabase Edge Functions (Deno runtime) for AI processing. PDF upload flow: client base64-encodes the file → Edge Function parse-aws-invoice receives it → sends to OpenAI GPT-4o-mini with structured extraction prompt → returns JSON (totalCost, services[], recommendations[], billingPeriod, costChange) → stored in Supabase PostgreSQL aws_invoices table. Chat flow: client sends user message + bill context → Edge Function chat-aws-assistant builds system prompt with user's cost data → GPT-4o-mini generates contextual response → streamed back to client. Authentication via Supabase Auth with Row Level Security ensuring per-user data isolation.",
-
-    impact: "Democratized cloud cost analysis — anyone can upload a bill and get instant, actionable insights without FinOps training or enterprise tool licenses. The conversational interface surfaces optimization opportunities (Reserved Instances, storage class changes, rightsizing) that typically require specialized knowledge. Early testing identified 15-30% potential cost savings from AI recommendations. The dual-model architecture (OpenAI for accuracy, Groq for cost) demonstrates production-ready AI inference patterns.",
-
-    keyDecisions: [
-      {
-        question: "Why GPT-4o-mini instead of GPT-4 for invoice parsing?",
-        answer: "Invoice extraction is a structured task — converting PDF text into a known JSON schema with fields like totalCost, services[{name, cost, change}], and recommendations[]. GPT-4o-mini handles this reliably at 0.1 temperature with significantly lower cost and latency than GPT-4. The 50KB input limit prevents token overflow on large invoices. For the chat interface, the same model at 0.7 temperature provides more creative responses while staying grounded in the injected bill context."
-      },
-      {
-        question: "Why Supabase Edge Functions instead of a traditional backend?",
-        answer: "The app has exactly two serverless operations: parse a PDF and answer a chat message. A FastAPI backend would require an always-on server for occasional invocations. Supabase Edge Functions (Deno runtime) provide zero-cold-start serverless execution co-located with the database, automatic scaling, and built-in secrets management for API keys — all without managing infrastructure."
-      },
-      {
-        question: "Why include a Groq/Llama 3 alternative alongside OpenAI?",
-        answer: "OpenAI costs add up when parsing invoices and handling chat conversations. The Groq integration with Llama 3 8B provides a cost-effective alternative for chat responses where absolute parsing accuracy matters less. This dual-model pattern — expensive model for extraction, cheap model for conversation — is a production FinOps practice applied to the AI inference itself."
-      },
-      {
-        question: "Why tab-based SPA instead of multi-page routing?",
-        answer: "The user workflow is strictly sequential: Upload → Dashboard → Chat. Multi-page routing would lose state between tabs (parsed invoice data, chat history). A tab-based SPA keeps everything in React state, enabling instant tab switches and seamless context sharing between the Dashboard and Chat components."
-      }
-    ],
-
-    beforeAfter: [
-      {
-        label: "Bill Analysis",
-        before: "Open 50-page PDF, manually scan for service line items, cross-reference with last month's bill in a spreadsheet — hours per invoice",
-        after: "Drag-and-drop PDF, GPT-4o-mini extracts structured data in seconds, dashboard shows service breakdown with trending indicators instantly"
-      },
-      {
-        label: "Cost Questions",
-        before: "Email the FinOps team 'Why did our S3 costs spike?', wait hours/days for someone to pull data and respond",
-        after: "Ask the AI chatbot directly — it has the parsed bill as context and responds in seconds with specific service-level answers"
-      },
-      {
-        label: "Optimization Discovery",
-        before: "Hire a FinOps consultant or learn CloudHealth/Spot.io — weeks of onboarding before identifying first savings opportunity",
-        after: "AI generates actionable recommendations immediately: 'Switch to Reserved Instances for EC2 — save 30%', 'Optimize S3 storage classes — save $120/month'"
-      },
-      {
-        label: "Access & Expertise",
-        before: "Only the infrastructure team understands cloud bills — leadership and product teams have no visibility into cost drivers",
-        after: "Anyone with a PDF can upload and chat — natural language interface requires zero cloud or FinOps expertise"
-      }
-    ],
-
-    techStack: [
-      { name: "React", category: "frontend", icon: "react" },
-      { name: "TypeScript", category: "frontend", icon: "typescript" },
-      { name: "Vite", category: "frontend", icon: "vite" },
-      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
-      { name: "shadcn/ui", category: "frontend" },
-      { name: "Radix UI", category: "frontend", icon: "radixui" },
-      { name: "Recharts", category: "frontend" },
-      { name: "Lucide Icons", category: "frontend" },
-      { name: "React Query", category: "frontend" },
-      { name: "React Hook Form", category: "frontend" },
-      { name: "Supabase", category: "backend", icon: "supabase" },
-      { name: "PostgreSQL", category: "database", icon: "postgresql" },
-      { name: "Deno", category: "backend", icon: "deno" },
-      { name: "OpenAI GPT-4o-mini", category: "ai", icon: "openai" },
-      { name: "Groq / Llama 3", category: "ai" },
-      { name: "Zod", category: "backend", icon: "zod" },
-    ],
-
-    integrations: [
-      {
-        system: "OpenAI API",
-        type: "REST API (GPT-4o-mini)",
-        dataFlow: "Invoice parsing: base64 PDF → structured JSON extraction (temperature 0.1). Chat: user message + bill context → contextual cost analysis response (temperature 0.7)"
-      },
-      {
-        system: "Groq API",
-        type: "REST API (Llama 3 8B)",
-        dataFlow: "Alternative chat backend — same context injection pattern as OpenAI but with cost-effective open-source model inference"
-      },
-      {
-        system: "Supabase",
-        type: "Client SDK + Edge Functions",
-        dataFlow: "Auth (email/password with RLS), PostgreSQL storage (aws_invoices table with services_data JSON), Edge Functions (Deno runtime for AI inference)"
-      }
-    ],
-
-    metrics: [
-      { label: "AI Model", value: "GPT-4o-mini" },
-      { label: "Parsing Accuracy", value: "~95%" },
-      { label: "Cost Savings Found", value: "15-30%" },
-      { label: "LLM Options", value: "2" },
-      { label: "UI Components", value: "47+" },
-      { label: "Tab Views", value: "4" },
-      { label: "Auth Method", value: "Supabase" },
-      { label: "Status", value: "Prototype" },
-    ],
-
-    userStory: "As a CTO, I want to upload my AWS invoice PDF and ask 'What's our biggest cost driver?' in plain English, getting an instant answer grounded in my actual bill data — without learning FinOps tools or reading 50-page PDFs.",
-    description: "Full-stack AI cloud bill analysis platform: drag-and-drop PDF upload, GPT-4o-mini invoice extraction, context-aware chatbot, and service cost dashboard — built on React, Supabase, and serverless Edge Functions.",
-  },
-
-  {
-    id: 13,
-    slug: "sahayak",
-    name: "Sahayak",
-    tagline: "AI Teaching Assistant for Rural India",
-    type: "Education",
-    organization: "Personal",
-    category: "Education",
-    readTime: "9 min read",
-    publishDate: "July 2024",
-    icon: BookOpen,
-    monogram: "SH",
-    color: "bg-green-500",
-    heroImage: "gradient-green",
-
-    overview: "Sahayak is an AI-powered teaching assistant built for rural Indian teachers managing multi-grade classrooms. It combines NCERT curriculum mapping, AI-driven lesson preparation, a conversational teaching assistant backed by a Cloud Run agentic backend, and 5-language i18n support (English, Hindi, Tamil, Telugu, Kannada) — all in a React SPA with Firebase authentication.",
-
-    challenge: "Teachers in rural India often manage classrooms with students spanning grades 3-12 simultaneously. They lack access to grade-specific NCERT curriculum plans, have limited time to prepare differentiated lessons, and language barriers prevent many from using English-only edtech platforms. Existing solutions assume single-grade classrooms and provide no AI-assisted lesson planning or concept explanation.",
-
-    solution: "Built a full-stack React application with Firebase Auth (Google + email/password), a Context API state management layer, and i18next for 5 Indian languages with locale-specific Noto Sans fonts. The platform offers four core tools: NCERT-aligned curriculum generation with monthly teaching plans, an interactive concept learning module, a lesson preparation engine with grade/subject/topic selection generating 45-minute structured lesson plans, and a floating AI teaching assistant connected to a Cloud Run agentic backend for multi-turn conversational support.",
-
-    features: [
-      "Google OAuth and email/password authentication via Firebase",
-      "Multi-grade classroom support with per-teacher grade selection",
-      "NCERT curriculum generation with semester-based monthly teaching plans",
-      "Custom curriculum builder for non-standard topic sequences",
-      "Interactive concept learning module with guided teaching methodology",
-      "Lesson preparation engine generating 45-minute structured plans with objectives, activities, and assessments",
-      "Three-level assessment questions (Beginner, Intermediate, Advanced) per lesson",
-      "Floating AI teaching assistant with session-persistent multi-turn conversations",
-      "5-language UI support (English, Hindi, Tamil, Telugu, Kannada) with browser language detection",
-      "NCERT textbook download links (English and Hindi editions) per grade",
-      "Text-to-speech support via Web Speech API for accessibility",
-      "Print-friendly lesson plan and curriculum output"
-    ],
-
-    architecture: "React 18 SPA with Create React App, using Context API (AuthContext + AppContext with useReducer) for global state. Firebase handles authentication and user profiles. The i18next framework with browser language detection provides seamless 5-language switching with locale-specific Noto Sans font families. The AI assistant communicates via Axios to a Cloud Run agentic backend (POST /chat with user_id, session_id, query), maintaining conversation context across sessions. Curriculum generation uses a local constants-driven engine mapping NCERT subjects and topics to grades 1-12, distributing them across a 12-month academic calendar (April-March). Framer Motion provides UI animations, Headless UI delivers accessible modal patterns, and Tailwind CSS handles all styling with a custom orange/cyan color palette.",
-
-    impact: "Enabled rural teachers to generate complete NCERT-aligned teaching plans in minutes instead of hours. The multi-language interface removed the English-only barrier for teachers in southern and northern India. The AI assistant provided on-demand teaching methodology guidance, particularly valuable for teachers handling 3+ grade levels simultaneously.",
-
-    keyDecisions: [
-      {
-        question: "Why Firebase Auth over custom JWT?",
-        answer: "Google Sign-In is widely recognized even in rural India (most teachers have Android phones with Google accounts). Firebase Auth provides production-grade security with zero backend code, and the free tier covers the target user base."
-      },
-      {
-        question: "Why i18next with browser language detection?",
-        answer: "Teachers often don't know how to change language settings manually. Browser language detection (from their Android Chrome locale) auto-selects Hindi, Tamil, Telugu, or Kannada on first visit, with manual override saved to localStorage for persistence."
-      },
-      {
-        question: "Why a Cloud Run agentic backend over embedded LLM calls?",
-        answer: "Separating the AI backend (hosted on Google Cloud Run) from the React frontend allows independent scaling, model swapping, and prompt engineering without frontend redeployment. The session-based API design maintains conversation context server-side."
-      },
-      {
-        question: "Why constants-driven NCERT mapping over API fetches?",
-        answer: "NCERT curriculum changes infrequently (once every few years). Embedding the grade-to-subject-to-topic mapping in local constants eliminates API latency and works offline — critical for teachers with unreliable internet in rural areas."
-      },
-      {
-        question: "Why add Gemini Voice for audio interaction?",
-        answer: "Many rural teachers are more comfortable speaking than typing. Integrating Gemini's voice capabilities provides a natural speech interface for asking teaching questions, making the AI assistant accessible even to teachers with limited keyboard proficiency."
-      }
-    ],
-
-    beforeAfter: [
-      {
-        before: "Teachers spent hours manually mapping NCERT textbooks to monthly plans",
-        after: "One-click generation of 12-month teaching plans aligned to NCERT curriculum"
-      },
-      {
-        before: "English-only edtech platforms excluded non-English-speaking teachers",
-        after: "Full UI in Hindi, Tamil, Telugu, and Kannada with auto-detection from browser locale"
-      },
-      {
-        before: "No AI support for multi-grade classroom management strategies",
-        after: "Conversational AI assistant providing real-time teaching methodology guidance"
-      },
-      {
-        before: "Lesson preparation required searching multiple textbooks and guides",
-        after: "Structured 45-minute lesson plans with objectives, activities, and 3-level assessments generated from grade/subject/topic selection"
-      }
-    ],
-
-    screenshots: [
-      {
-        src: "/projects/sahayak/screenshot-3-dashboard.png",
-        alt: "Sahayak teacher dashboard showing grade badges and four teaching tools",
-        caption: "Teacher dashboard with grade badges (3, 4, 5), four core teaching tools, language selector, and teaching profile summary"
-      },
-      {
-        src: "/projects/sahayak/screenshot-4-curriculum.png",
-        alt: "Sahayak curriculum builder with NCERT and custom options",
-        caption: "Curriculum builder offering NCERT-aligned generation with monthly plans or custom curriculum creation for flexible teaching sequences"
-      },
-      {
-        src: "/projects/sahayak/screenshot-5-learn.png",
-        alt: "Sahayak learning concepts modal with guided teaching methodology",
-        caption: "Interactive Learning Concepts module where teachers type a topic and receive guided teaching methodology explanations"
-      },
-      {
-        src: "/projects/sahayak/screenshot-6-prepare.png",
-        alt: "Sahayak lesson preparation with grade, subject, and topic selection",
-        caption: "Lesson preparation engine with cascading grade, subject, and topic dropdowns that generate structured 45-minute lesson plans"
-      }
-    ],
-
-    design: {
-      philosophy: "Designed for simplicity and accessibility — teachers in rural India may have limited tech experience, so the UI uses large touch targets, clear visual hierarchy, and familiar card-based navigation. The warm orange and sky-blue color palette creates an inviting, non-intimidating atmosphere.",
-      principles: [
-        {
-          title: "Respectful Address",
-          description: "The UI addresses users as 'Respected Teacher' throughout, reflecting Indian cultural norms and building trust with the platform.",
-          screenshotIndex: 0
-        },
-        {
-          title: "Card-Based Navigation",
-          description: "Four large cards with emojis and clear labels serve as the primary navigation, reducing cognitive load for users who may not be comfortable with sidebar menus.",
-          screenshotIndex: 0
-        },
-        {
-          title: "Modal-First Workflows",
-          description: "Learning and lesson preparation open as focused modal overlays, preventing navigation confusion and keeping the teacher's context visible in the background.",
-          screenshotIndex: 2
-        },
-        {
-          title: "Language Accessibility",
-          description: "Language dropdown in the top-right corner with locale-specific Noto Sans fonts ensures proper rendering of Devanagari, Tamil, Telugu, and Kannada scripts.",
-          screenshotIndex: 0
-        }
-      ],
-      colorPalette: [
-        { name: "Primary Orange", hex: "#f59332", usage: "Brand accent, buttons, active states" },
-        { name: "Primary Deep", hex: "#e35d05", usage: "Hover states, emphasis elements" },
-        { name: "Secondary Cyan", hex: "#0ea5e9", usage: "Links, secondary actions, badges" },
-        { name: "Action Blue", hex: "#2563eb", usage: "Primary CTA buttons, navigation highlights" },
-        { name: "Surface White", hex: "#ffffff", usage: "Card backgrounds, content areas" },
-        { name: "Background Gray", hex: "#f9fafb", usage: "Page background, subtle separation" },
-        { name: "Text Dark", hex: "#111827", usage: "Headings and primary text" }
-      ],
-      componentPatterns: [
-        "Floating AI button — fixed bottom-right circle that expands into a chat panel, always accessible without leaving the current context",
-        "Gradient modal headers — Learning (purple-to-blue) and Prepare (green-to-blue) modals use distinct gradient headers for visual identity per feature",
-        "Grade badge pills — rounded blue pill badges showing assigned grades (Grade 3, Grade 4, Grade 5) provide instant context about the teacher's classroom",
-        "Cascading dropdowns — Grade > Subject > Topic select pattern in lesson preparation, where each selection filters the next dropdown's options"
-      ]
-    },
-
-    techStack: [
-      { name: "React 18", category: "frontend", icon: "react" },
-      { name: "JavaScript", category: "frontend", icon: "javascript" },
-      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
-      { name: "Framer Motion", category: "frontend", icon: "framer" },
-      { name: "Headless UI", category: "frontend", icon: "headlessui" },
-      { name: "React Router", category: "frontend", icon: "reactrouter" },
-      { name: "i18next", category: "frontend", icon: "i18next" },
-      { name: "Axios", category: "frontend", icon: "axios" },
-      { name: "Firebase Auth", category: "backend", icon: "firebase" },
-      { name: "Google Cloud Run", category: "infrastructure", icon: "googlecloud" },
-      { name: "Create React App", category: "devops", icon: "createreactapp" },
-      { name: "PostCSS", category: "devops", icon: "postcss" },
-      { name: "Web Speech API", category: "frontend" },
-    ],
-
-    integrations: [
-      {
-        system: "Google Firebase",
-        type: "OAuth 2.0 + SDK",
-        dataFlow: "Google Sign-In and email/password authentication, onAuthStateChanged session management, user profile storage with teaching grades, school, and district"
-      },
-      {
-        system: "Google Cloud Run (Agentic AI)",
-        type: "REST API",
-        dataFlow: "POST /chat with user_id, session_id, and query — server-side conversation context for multi-turn teaching assistance with fallback mock responses"
-      },
-      {
-        system: "Gemini Voice",
-        type: "Voice API",
-        dataFlow: "Speech-to-text and text-to-speech for voice-first interaction — teachers speak questions and hear AI responses in their native language"
-      },
-      {
-        system: "NCERT Curriculum (RAG)",
-        type: "Local Knowledge Base",
-        dataFlow: "Constants-driven mapping of grades 1-12 to NCERT subjects and topics, feeding context into the agentic backend for curriculum-aware AI responses"
-      }
-    ],
-
-    metrics: [
-      { label: "Languages", value: "5" },
-      { label: "Grades Supported", value: "1-12" },
-      { label: "Lesson Plan Duration", value: "45 min" },
-      { label: "Assessment Levels", value: "3" },
-      { label: "i18n Translations", value: "5 locales" },
-      { label: "Auth Methods", value: "2" },
-      { label: "Teaching Tools", value: "4" },
-      { label: "Components", value: "15+" },
-    ],
-
-    userStory: "As a rural Indian teacher managing grades 3, 4, and 5 in one classroom, I want an AI teaching assistant in my native language that generates NCERT-aligned lesson plans and helps me learn how to teach concepts effectively, so I can provide quality education despite limited resources.",
-    description: "AI-powered multi-grade teaching assistant for rural India: NCERT curriculum mapping, lesson preparation, conversational AI tutoring, and 5-language support — built on React, Firebase, and Google Cloud Run.",
-  },
-
-  {
     id: 14,
     slug: "dryvox",
     name: "DryVox",
@@ -2803,4 +2250,558 @@ export const projectsData: ProjectArticle[] = [
     userStory: "As an Indian retail investor managing ₹10-50L across multiple stocks and mutual funds, I want a single dashboard where I can see my live portfolio value with XIRR, research stocks with AI-powered analysis covering fundamentals and technicals, set financial goals with SIP recommendations, track upcoming IPOs, and read portfolio-relevant news — so I can make informed investment decisions without switching between five different apps.",
     description: "Full-stack investment intelligence platform for Indian retail investors — real-time NSE/BSE market data, AI-powered stock research, portfolio analytics with XIRR, goal-based SIP planning, IPO tracking, and personalized news with sentiment analysis. Built with React 19, FastAPI, PostgreSQL, Redis, Celery, and GPT-4.",
   },
+
+  {
+    id: 11,
+    slug: "zapgap-sidekick",
+    name: "ZapGap",
+    tagline: "AI Agents for Cloud Ops",
+    type: "AI Agents",
+    organization: "Personal",
+    category: "AI & Agents",
+    readTime: "10 min read",
+    publishDate: "September 2024",
+    icon: Zap,
+    monogram: "ZG",
+    color: "bg-rose-500",
+    heroImage: "gradient-rose",
+
+    overview: "ZapGap is an AI-powered cloud operations platform that deploys autonomous agents for SRE auto-remediation, DevOps self-service provisioning, cloud cost optimization, and compliance enforcement. The platform features a Central Orchestrator, a Context Graph for infrastructure topology awareness, and deterministic execution paths — no hallucinations. The landing page showcases 4 use cases with interactive problem → solution → impact breakdowns and a simulated terminal demonstrating real-time infrastructure scanning.",
+
+    challenge: "SRE teams were constantly firefighting — late-night alerts for memory leaks, CPU spikes, and service crashes meant manual remediation at 2 AM. DevOps teams faced environment provisioning bottlenecks where spinning up a test environment required an Ops ticket and hours of waiting. Leadership struggled with cloud cost sprawl: idle VMs, forgotten dev machines, and obsolete snapshots bleeding budget. IT compliance teams manually audited encryption, approved images, and regulatory standards. Every team needed AI agents that could detect issues, remediate automatically, and provide self-service operations — without sacrificing safety or auditability.",
+
+    solution: "Designed and built a complete agentic AI platform with four distinct use-case agents orchestrated by a Central Orchestrator. SRE agents monitor for early warning signs (memory leaks, CPU spikes) and auto-remediate via deterministic code paths — safely restarting services, clearing caches, and notifying Slack within seconds. DevOps agents power a conversational self-service portal where developers request resources in plain English ('Create QA environment for payment service'), ZapGap verifies against policy, provisions standardized environments, and routes production requests for human approval. Cost optimization agents continuously scan for low-hanging fruit — <5% CPU instances, obsolete snapshots, weekend dev machines — and execute cleanup with full logging. Compliance agents enforce policy rules by scanning for deviations (unencrypted S3 buckets, unapproved AMIs) and auto-correcting per configured policy. All agents use 100% code-based execution with Open Policy Agent enforcement and complete audit trails.",
+
+    features: [
+      "Central Orchestrator that interprets requests, consults the Context Graph, and routes to specialized agents",
+      "Auto-remediation agents for SRE incidents — memory leak detection, service restart, cache cleanup (MTTR <1 min)",
+      "Conversational self-service portal — developers request resources in plain English via Slack, Teams, or web chat",
+      "AI approval routing — standard requests auto-provisioned, production changes routed for human approval",
+      "Cost optimization agents that identify idle VMs, obsolete snapshots, and weekend dev machines for cleanup",
+      "Compliance enforcement agents with continuous scanning and auto-correction (e.g., encrypt unencrypted S3 buckets)",
+      "Context Graph maintaining real-time understanding of infrastructure topology and policies",
+      "Deterministic execution — 100% code-based workflows, no LLM hallucinations in production actions",
+      "Policy enforcement via Open Policy Agent (OPA) before any infrastructure mutation",
+      "Complete audit logging for every agent action with notification to Slack/Teams",
+      "Multi-cloud support with modular connector system for AWS, Azure, GCP",
+      "Interactive terminal simulation on landing page demonstrating infrastructure scanning in real-time"
+    ],
+
+    architecture: "The platform is built around a Central Orchestrator — the AI brain that interprets incoming requests, consults the Context Graph (a real-time map of infrastructure topology and policies), and dispatches work to specialized agents. Each agent follows deterministic execution paths: monitoring alerts trigger SRE agents, chat messages trigger DevOps self-service agents, scheduled scans trigger cost and compliance agents. Before any infrastructure mutation, Open Policy Agent validates the action against configured policies. All actions are logged to an immutable audit trail and notifications are sent via integration connectors (Slack, Teams, PagerDuty). The architecture is multi-cloud by design with a modular connector layer supporting AWS, Azure, and GCP.",
+
+    impact: "SRE teams eliminated 2 AM pages for known issues — agents detect and remediate memory leaks within seconds, dropping MTTR from 30 minutes to under 1 minute. DevOps provisioning time dropped from days (Ops ticket queue) to minutes (conversational self-service). Leadership identified 25%+ in cloud cost savings through automated detection of idle resources and obsolete snapshots. Ticket volume decreased 40% as common requests became self-service. Compliance teams achieved near-zero security incidents through continuous policy scanning and auto-correction.",
+
+    keyDecisions: [
+      {
+        question: "Why deterministic code paths instead of letting LLMs execute infrastructure commands?",
+        answer: "LLMs can hallucinate — a hallucinated kubectl delete or terraform destroy could cause catastrophic outages. ZapGap agents follow pre-defined, tested code paths for every remediation action. The LLM interprets intent and routes to the correct workflow, but never generates or executes arbitrary infrastructure commands. This gives teams the convenience of AI with the safety of code-reviewed runbooks."
+      },
+      {
+        question: "Why a Central Orchestrator pattern instead of independent agent swarms?",
+        answer: "Independent agents risk conflicting actions — one agent scaling up while another optimizes costs by scaling down. The Central Orchestrator maintains a unified Context Graph of infrastructure state, prevents conflicting operations, and ensures proper sequencing. It also provides a single audit point for all agent activity, critical for compliance."
+      },
+      {
+        question: "Why Open Policy Agent (OPA) for policy enforcement?",
+        answer: "OPA is the CNCF standard for policy-as-code, already adopted by Kubernetes admission controllers, Terraform, and service meshes. Using OPA means ZapGap policies are portable — the same Rego rules that govern agent actions can be reused in CI/CD pipelines and cluster admission. It also provides declarative policy logic separate from agent code, making policy changes auditable and reviewable."
+      },
+      {
+        question: "Why Space Grotesk font and dark glassmorphism for the landing page?",
+        answer: "The target audience is SRE/DevOps engineers who live in dark terminals and dashboards. Space Grotesk's geometric precision and the dark glassmorphism aesthetic create instant familiarity — the site feels like a tool they'd actually use, not a marketing page selling to them. The terminal simulation on the hero section reinforces this by showing ZapGap in an environment engineers recognize."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "Incident Response",
+        before: "On-call engineer woken at 2 AM by PagerDuty, SSHes into server, diagnoses memory leak, manually restarts service — 30 minutes MTTR",
+        after: "ZapGap agent detects memory anomaly, auto-restarts service, clears caches, notifies Slack — MTTR under 1 minute, engineer sleeps through"
+      },
+      {
+        label: "Environment Provisioning",
+        before: "Developer submits Ops ticket 'Need QA env for payment service', waits hours/days in queue, platform team manually provisions",
+        after: "Developer messages ZapGap: 'Create QA env for payment service' — agent verifies policy, provisions standardized environment in minutes"
+      },
+      {
+        label: "Cloud Cost Management",
+        before: "Finance flags rising AWS bill, engineering manually audits instances looking for waste, one-time cleanup effort that drifts within weeks",
+        after: "Cost agent continuously scans for idle VMs, obsolete snapshots, weekend dev machines — auto-cleans with logging, 25%+ savings sustained"
+      },
+      {
+        label: "Compliance Posture",
+        before: "Quarterly manual audit of encryption, approved images, and security groups — deviations discovered weeks after introduction",
+        after: "Compliance agent continuously scans infrastructure, auto-encrypts unencrypted S3 buckets, flags unapproved AMIs — near-zero incidents"
+      },
+      {
+        label: "Ops Ticket Volume",
+        before: "Platform team drowning in repetitive requests: env setup, access grants, config changes — pulled away from strategic work",
+        after: "Common requests handled by AI self-service portal, 40% ticket reduction, platform team focuses on architecture and reliability"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/zapgap-sidekick/screenshot-1-hero.png",
+        alt: "ZapGap — Hero with Terminal Simulation",
+        caption: "Landing page hero with animated gradient title, rotating use-case text ('AI Agents for Incident Resolution'), and a live terminal simulation showing infrastructure scanning — detecting gaps and generating remediation plans in real-time."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-2-platform.png",
+        alt: "ZapGap — Platform Architecture",
+        caption: "Platform architecture overview showing the Central Orchestrator at the core, connected to six capabilities: Agent-Based Architecture, Context Graph, Multi-Cloud Design, Enterprise Security, Observability, and Continuous Learning."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-3-features.png",
+        alt: "ZapGap — Features with ChatOps Expanded",
+        caption: "Interactive feature accordion with ChatOps expanded — showing Slack/Teams integration for conversational infrastructure management. Each feature card reveals detailed descriptions on click."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-4-usecases.png",
+        alt: "ZapGap — SRE Use Case",
+        caption: "SRE use case breakdown: Problem (2 AM memory leak alerts), ZapGap Solution (auto-remediation workflow), and Impact (MTTR dropped from 30 min to <1 min) — with tabbed navigation between SRE, DevOps, Leadership, and IT personas."
+      },
+      {
+        src: "/projects/zapgap-sidekick/screenshot-5-usecases-devops.png",
+        alt: "ZapGap — DevOps Use Case",
+        caption: "DevOps use case: developers request environments via AI self-service portal instead of Ops tickets, with policy verification and automatic approval routing — 40% reduction in ticket workload."
+      }
+    ],
+
+    design: {
+      philosophy: "ZapGap was designed for engineers who live in dark terminals and monitoring dashboards. The dark glassmorphism aesthetic with cyan-to-purple gradients creates instant familiarity — it feels like a tool, not a marketing page. The interactive terminal simulation on the hero section bridges the gap between product pitch and product experience.",
+      principles: [
+        {
+          title: "Terminal-Native Aesthetic",
+          description: "The hero features a simulated terminal with monospace output, green checkmarks, and amber warnings — the same visual language SREs see in their daily tools. This builds immediate credibility with the target audience.",
+          screenshotIndex: 0,
+          highlight: "Terminal simulation with infrastructure scan output and blinking cursor"
+        },
+        {
+          title: "Architecture-First Storytelling",
+          description: "Rather than listing features abstractly, the Platform section shows the actual system architecture — Central Orchestrator connected to six capability modules. Engineers evaluate tools by understanding how they work, not what they claim.",
+          screenshotIndex: 1,
+          highlight: "Central Orchestrator hub with radiating capability cards"
+        },
+        {
+          title: "Progressive Disclosure",
+          description: "Features use collapsible accordion cards — title and icon visible by default, detailed descriptions revealed on click. This prevents information overload while letting curious engineers dive deep.",
+          screenshotIndex: 2,
+          highlight: "ChatOps card expanded showing Slack/Teams integration details"
+        },
+        {
+          title: "Problem → Solution → Impact Framework",
+          description: "Each use case follows a three-column structure with color-coded cards: red (Problem), blue (ZapGap Solution), green (Impact with large metric). This makes the value proposition scannable in seconds.",
+          screenshotIndex: 3,
+          highlight: "Three-column layout with MTTR metric displayed prominently in green"
+        }
+      ],
+      colorPalette: [
+        { name: "Void Black", hex: "#000000", usage: "Primary background — mimics terminal/IDE dark theme" },
+        { name: "Electric Cyan", hex: "#3ABCF7", usage: "Primary accent, gradient start, links, active states" },
+        { name: "Nebula Purple", hex: "#8B2FF8", usage: "Gradient end, secondary accent, brand identity" },
+        { name: "Royal Blue", hex: "#5B7CF7", usage: "Gradient midpoint, button backgrounds, hover states" },
+        { name: "Ghost White", hex: "#F8FAFC", usage: "Primary text on dark surfaces" },
+        { name: "Slate Gray", hex: "#94A3B8", usage: "Secondary text, descriptions, muted content" },
+        { name: "Impact Green", hex: "#22C55E", usage: "Success states, impact metrics, positive outcomes" }
+      ],
+      componentPatterns: [
+        "Glassmorphism cards — semi-transparent backdrop blur with subtle borders, used throughout for platform components and feature cards",
+        "Gradient text effects — bg-clip-text with animated cyan→blue→purple gradients for headings and brand elements",
+        "Interactive tab selector — pill-shaped buttons with gradient fill on active state for use case persona switching",
+        "Animated terminal — monospace output with typewriter effect, status icons (✓, ⚠, ●), and blinking cursor for hero engagement",
+        "Collapsible accordion — chevron rotation on expand, smooth height animation, gradient icon backgrounds per feature",
+        "Neural network background — SVG lines with animated stroke-dasharray and pulsing connection nodes creating subtle depth"
+      ]
+    },
+
+    techStack: [
+      { name: "React", category: "frontend", icon: "react" },
+      { name: "TypeScript", category: "frontend", icon: "typescript" },
+      { name: "Vite", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
+      { name: "Framer Motion", category: "frontend" },
+      { name: "shadcn/ui", category: "frontend" },
+      { name: "Radix UI", category: "frontend", icon: "radixui" },
+      { name: "React Router", category: "frontend", icon: "reactrouter" },
+      { name: "React Hook Form", category: "frontend" },
+      { name: "Zod", category: "frontend", icon: "zod" },
+      { name: "Lucide Icons", category: "frontend" },
+      { name: "Recharts", category: "frontend" },
+      { name: "Space Grotesk", category: "frontend", icon: "googlefonts" },
+      { name: "Netlify", category: "infrastructure", icon: "netlify" },
+      { name: "ESLint", category: "infrastructure", icon: "eslint" },
+      { name: "PostCSS", category: "frontend", icon: "postcss" },
+    ],
+
+    integrations: [
+      {
+        system: "Slack / Microsoft Teams",
+        type: "ChatOps Integration",
+        dataFlow: "Conversational interface for infrastructure requests — developers message ZapGap in natural language, agents respond with actions and confirmations"
+      },
+      {
+        system: "AWS / Azure / GCP",
+        type: "Multi-Cloud Connectors",
+        dataFlow: "Modular connector system for infrastructure scanning, resource provisioning, cost analysis, and compliance enforcement across cloud providers"
+      },
+      {
+        system: "Open Policy Agent (OPA)",
+        type: "Policy Engine",
+        dataFlow: "Rego policy rules validated before any infrastructure mutation — portable across CI/CD pipelines, Kubernetes admission, and agent actions"
+      },
+      {
+        system: "PagerDuty / Monitoring",
+        type: "Alert Integration",
+        dataFlow: "Monitoring alerts trigger SRE auto-remediation agents — memory leaks, CPU spikes, and service crashes handled automatically"
+      }
+    ],
+
+    metrics: [
+      { label: "MTTR", value: "<1 min" },
+      { label: "Ticket Reduction", value: "40%" },
+      { label: "Cost Savings", value: "25%" },
+      { label: "Use Cases", value: "4" },
+      { label: "Platform Components", value: "6" },
+      { label: "UI Components", value: "50+" },
+      { label: "Animations", value: "15+" },
+      { label: "Status", value: "Prototype" },
+    ],
+
+    userStory: "As an SRE engineer, I want AI agents to automatically detect memory leaks and restart services at 2 AM so I can sleep through the night, while still getting a Slack notification of exactly what happened and why.",
+    description: "AI-powered cloud operations platform with autonomous agents for SRE auto-remediation, DevOps self-service, cloud cost optimization, and compliance enforcement — featuring a dark glassmorphism landing page with interactive terminal simulation.",
+  },
+
+  {
+    id: 13,
+    slug: "sahayak",
+    name: "Sahayak",
+    tagline: "AI Teaching Assistant for Rural India",
+    type: "Education",
+    organization: "Personal",
+    category: "Education",
+    readTime: "9 min read",
+    publishDate: "July 2024",
+    icon: BookOpen,
+    monogram: "SH",
+    color: "bg-green-500",
+    heroImage: "gradient-green",
+
+    overview: "Sahayak is an AI-powered teaching assistant built for rural Indian teachers managing multi-grade classrooms. It combines NCERT curriculum mapping, AI-driven lesson preparation, a conversational teaching assistant backed by a Cloud Run agentic backend, and 5-language i18n support (English, Hindi, Tamil, Telugu, Kannada) — all in a React SPA with Firebase authentication.",
+
+    challenge: "Teachers in rural India often manage classrooms with students spanning grades 3-12 simultaneously. They lack access to grade-specific NCERT curriculum plans, have limited time to prepare differentiated lessons, and language barriers prevent many from using English-only edtech platforms. Existing solutions assume single-grade classrooms and provide no AI-assisted lesson planning or concept explanation.",
+
+    solution: "Built a full-stack React application with Firebase Auth (Google + email/password), a Context API state management layer, and i18next for 5 Indian languages with locale-specific Noto Sans fonts. The platform offers four core tools: NCERT-aligned curriculum generation with monthly teaching plans, an interactive concept learning module, a lesson preparation engine with grade/subject/topic selection generating 45-minute structured lesson plans, and a floating AI teaching assistant connected to a Cloud Run agentic backend for multi-turn conversational support.",
+
+    features: [
+      "Google OAuth and email/password authentication via Firebase",
+      "Multi-grade classroom support with per-teacher grade selection",
+      "NCERT curriculum generation with semester-based monthly teaching plans",
+      "Custom curriculum builder for non-standard topic sequences",
+      "Interactive concept learning module with guided teaching methodology",
+      "Lesson preparation engine generating 45-minute structured plans with objectives, activities, and assessments",
+      "Three-level assessment questions (Beginner, Intermediate, Advanced) per lesson",
+      "Floating AI teaching assistant with session-persistent multi-turn conversations",
+      "5-language UI support (English, Hindi, Tamil, Telugu, Kannada) with browser language detection",
+      "NCERT textbook download links (English and Hindi editions) per grade",
+      "Text-to-speech support via Web Speech API for accessibility",
+      "Print-friendly lesson plan and curriculum output"
+    ],
+
+    architecture: "React 18 SPA with Create React App, using Context API (AuthContext + AppContext with useReducer) for global state. Firebase handles authentication and user profiles. The i18next framework with browser language detection provides seamless 5-language switching with locale-specific Noto Sans font families. The AI assistant communicates via Axios to a Cloud Run agentic backend (POST /chat with user_id, session_id, query), maintaining conversation context across sessions. Curriculum generation uses a local constants-driven engine mapping NCERT subjects and topics to grades 1-12, distributing them across a 12-month academic calendar (April-March). Framer Motion provides UI animations, Headless UI delivers accessible modal patterns, and Tailwind CSS handles all styling with a custom orange/cyan color palette.",
+
+    impact: "Enabled rural teachers to generate complete NCERT-aligned teaching plans in minutes instead of hours. The multi-language interface removed the English-only barrier for teachers in southern and northern India. The AI assistant provided on-demand teaching methodology guidance, particularly valuable for teachers handling 3+ grade levels simultaneously.",
+
+    keyDecisions: [
+      {
+        question: "Why Firebase Auth over custom JWT?",
+        answer: "Google Sign-In is widely recognized even in rural India (most teachers have Android phones with Google accounts). Firebase Auth provides production-grade security with zero backend code, and the free tier covers the target user base."
+      },
+      {
+        question: "Why i18next with browser language detection?",
+        answer: "Teachers often don't know how to change language settings manually. Browser language detection (from their Android Chrome locale) auto-selects Hindi, Tamil, Telugu, or Kannada on first visit, with manual override saved to localStorage for persistence."
+      },
+      {
+        question: "Why a Cloud Run agentic backend over embedded LLM calls?",
+        answer: "Separating the AI backend (hosted on Google Cloud Run) from the React frontend allows independent scaling, model swapping, and prompt engineering without frontend redeployment. The session-based API design maintains conversation context server-side."
+      },
+      {
+        question: "Why constants-driven NCERT mapping over API fetches?",
+        answer: "NCERT curriculum changes infrequently (once every few years). Embedding the grade-to-subject-to-topic mapping in local constants eliminates API latency and works offline — critical for teachers with unreliable internet in rural areas."
+      },
+      {
+        question: "Why add Gemini Voice for audio interaction?",
+        answer: "Many rural teachers are more comfortable speaking than typing. Integrating Gemini's voice capabilities provides a natural speech interface for asking teaching questions, making the AI assistant accessible even to teachers with limited keyboard proficiency."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "Teachers spent hours manually mapping NCERT textbooks to monthly plans",
+        after: "One-click generation of 12-month teaching plans aligned to NCERT curriculum"
+      },
+      {
+        before: "English-only edtech platforms excluded non-English-speaking teachers",
+        after: "Full UI in Hindi, Tamil, Telugu, and Kannada with auto-detection from browser locale"
+      },
+      {
+        before: "No AI support for multi-grade classroom management strategies",
+        after: "Conversational AI assistant providing real-time teaching methodology guidance"
+      },
+      {
+        before: "Lesson preparation required searching multiple textbooks and guides",
+        after: "Structured 45-minute lesson plans with objectives, activities, and 3-level assessments generated from grade/subject/topic selection"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/sahayak/screenshot-3-dashboard.png",
+        alt: "Sahayak teacher dashboard showing grade badges and four teaching tools",
+        caption: "Teacher dashboard with grade badges (3, 4, 5), four core teaching tools, language selector, and teaching profile summary"
+      },
+      {
+        src: "/projects/sahayak/screenshot-4-curriculum.png",
+        alt: "Sahayak curriculum builder with NCERT and custom options",
+        caption: "Curriculum builder offering NCERT-aligned generation with monthly plans or custom curriculum creation for flexible teaching sequences"
+      },
+      {
+        src: "/projects/sahayak/screenshot-5-learn.png",
+        alt: "Sahayak learning concepts modal with guided teaching methodology",
+        caption: "Interactive Learning Concepts module where teachers type a topic and receive guided teaching methodology explanations"
+      },
+      {
+        src: "/projects/sahayak/screenshot-6-prepare.png",
+        alt: "Sahayak lesson preparation with grade, subject, and topic selection",
+        caption: "Lesson preparation engine with cascading grade, subject, and topic dropdowns that generate structured 45-minute lesson plans"
+      }
+    ],
+
+    design: {
+      philosophy: "Designed for simplicity and accessibility — teachers in rural India may have limited tech experience, so the UI uses large touch targets, clear visual hierarchy, and familiar card-based navigation. The warm orange and sky-blue color palette creates an inviting, non-intimidating atmosphere.",
+      principles: [
+        {
+          title: "Respectful Address",
+          description: "The UI addresses users as 'Respected Teacher' throughout, reflecting Indian cultural norms and building trust with the platform.",
+          screenshotIndex: 0
+        },
+        {
+          title: "Card-Based Navigation",
+          description: "Four large cards with emojis and clear labels serve as the primary navigation, reducing cognitive load for users who may not be comfortable with sidebar menus.",
+          screenshotIndex: 0
+        },
+        {
+          title: "Modal-First Workflows",
+          description: "Learning and lesson preparation open as focused modal overlays, preventing navigation confusion and keeping the teacher's context visible in the background.",
+          screenshotIndex: 2
+        },
+        {
+          title: "Language Accessibility",
+          description: "Language dropdown in the top-right corner with locale-specific Noto Sans fonts ensures proper rendering of Devanagari, Tamil, Telugu, and Kannada scripts.",
+          screenshotIndex: 0
+        }
+      ],
+      colorPalette: [
+        { name: "Primary Orange", hex: "#f59332", usage: "Brand accent, buttons, active states" },
+        { name: "Primary Deep", hex: "#e35d05", usage: "Hover states, emphasis elements" },
+        { name: "Secondary Cyan", hex: "#0ea5e9", usage: "Links, secondary actions, badges" },
+        { name: "Action Blue", hex: "#2563eb", usage: "Primary CTA buttons, navigation highlights" },
+        { name: "Surface White", hex: "#ffffff", usage: "Card backgrounds, content areas" },
+        { name: "Background Gray", hex: "#f9fafb", usage: "Page background, subtle separation" },
+        { name: "Text Dark", hex: "#111827", usage: "Headings and primary text" }
+      ],
+      componentPatterns: [
+        "Floating AI button — fixed bottom-right circle that expands into a chat panel, always accessible without leaving the current context",
+        "Gradient modal headers — Learning (purple-to-blue) and Prepare (green-to-blue) modals use distinct gradient headers for visual identity per feature",
+        "Grade badge pills — rounded blue pill badges showing assigned grades (Grade 3, Grade 4, Grade 5) provide instant context about the teacher's classroom",
+        "Cascading dropdowns — Grade > Subject > Topic select pattern in lesson preparation, where each selection filters the next dropdown's options"
+      ]
+    },
+
+    techStack: [
+      { name: "React 18", category: "frontend", icon: "react" },
+      { name: "JavaScript", category: "frontend", icon: "javascript" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
+      { name: "Framer Motion", category: "frontend", icon: "framer" },
+      { name: "Headless UI", category: "frontend", icon: "headlessui" },
+      { name: "React Router", category: "frontend", icon: "reactrouter" },
+      { name: "i18next", category: "frontend", icon: "i18next" },
+      { name: "Axios", category: "frontend", icon: "axios" },
+      { name: "Firebase Auth", category: "backend", icon: "firebase" },
+      { name: "Google Cloud Run", category: "infrastructure", icon: "googlecloud" },
+      { name: "Create React App", category: "devops", icon: "createreactapp" },
+      { name: "PostCSS", category: "devops", icon: "postcss" },
+      { name: "Web Speech API", category: "frontend" },
+    ],
+
+    integrations: [
+      {
+        system: "Google Firebase",
+        type: "OAuth 2.0 + SDK",
+        dataFlow: "Google Sign-In and email/password authentication, onAuthStateChanged session management, user profile storage with teaching grades, school, and district"
+      },
+      {
+        system: "Google Cloud Run (Agentic AI)",
+        type: "REST API",
+        dataFlow: "POST /chat with user_id, session_id, and query — server-side conversation context for multi-turn teaching assistance with fallback mock responses"
+      },
+      {
+        system: "Gemini Voice",
+        type: "Voice API",
+        dataFlow: "Speech-to-text and text-to-speech for voice-first interaction — teachers speak questions and hear AI responses in their native language"
+      },
+      {
+        system: "NCERT Curriculum (RAG)",
+        type: "Local Knowledge Base",
+        dataFlow: "Constants-driven mapping of grades 1-12 to NCERT subjects and topics, feeding context into the agentic backend for curriculum-aware AI responses"
+      }
+    ],
+
+    metrics: [
+      { label: "Languages", value: "5" },
+      { label: "Grades Supported", value: "1-12" },
+      { label: "Lesson Plan Duration", value: "45 min" },
+      { label: "Assessment Levels", value: "3" },
+      { label: "i18n Translations", value: "5 locales" },
+      { label: "Auth Methods", value: "2" },
+      { label: "Teaching Tools", value: "4" },
+      { label: "Components", value: "15+" },
+    ],
+
+    userStory: "As a rural Indian teacher managing grades 3, 4, and 5 in one classroom, I want an AI teaching assistant in my native language that generates NCERT-aligned lesson plans and helps me learn how to teach concepts effectively, so I can provide quality education despite limited resources.",
+    description: "AI-powered multi-grade teaching assistant for rural India: NCERT curriculum mapping, lesson preparation, conversational AI tutoring, and 5-language support — built on React, Firebase, and Google Cloud Run.",
+  },
+
+  {
+    id: 12,
+    slug: "cost-savvy-chat",
+    name: "Cost Savvy Chat",
+    tagline: "Cloud Cost Intelligence",
+    type: "AI/FinOps",
+    organization: "Personal",
+    category: "Finance & Investment",
+    readTime: "7 min read",
+    publishDate: "August 2024",
+    icon: MessageSquare,
+    monogram: "CS",
+    color: "bg-sky-500",
+    heroImage: "gradient-sky",
+
+    overview: "Cost Savvy Chat is a full-stack AI-powered cloud bill analysis platform. Users upload AWS invoice PDFs via drag-and-drop, GPT-4o-mini extracts service-level cost data into structured JSON, and a context-aware AI chatbot answers natural language questions about the parsed bill — all within a glassmorphic tab-based interface backed by Supabase for auth and storage, with Supabase Edge Functions handling AI inference.",
+
+    challenge: "Cloud bills are dense, multi-page PDFs with cryptic service names and nested line items. Engineering leaders need answers like 'Why did our S3 costs spike?' or 'Which EC2 instances are over-provisioned?' but lack time to manually analyze 50-page invoices. Traditional FinOps tools like CloudHealth or Spot.io require onboarding, training, and enterprise contracts. What teams actually want is to upload a PDF and ask questions in plain English.",
+
+    solution: "Built a four-tab SPA (Upload → Dashboard → Chat → Settings) with a serverless AI backend. The Upload tab accepts PDF invoices via drag-and-drop, converts them to base64, and sends them to a Supabase Edge Function that calls OpenAI GPT-4o-mini with a structured extraction prompt (temperature 0.1 for deterministic parsing). The extracted JSON — total cost, per-service costs with month-over-month change, billing period, and AI-generated recommendations — is stored in Supabase PostgreSQL. The Dashboard tab renders service breakdown cards with cost-proportional progress bars and trending indicators. The Chat tab injects the parsed bill data as context into GPT-4o-mini (temperature 0.7) so users can ask questions like 'What's my biggest cost driver?' and get answers grounded in their actual invoice. Supabase Auth with Row Level Security ensures each user only sees their own data.",
+
+    features: [
+      "Drag-and-drop PDF upload with file validation (PDF only, 10MB max) and base64 conversion",
+      "GPT-4o-mini invoice parsing — extracts total cost, per-service breakdown, billing period, and cost change into structured JSON",
+      "Service breakdown dashboard with cost-proportional progress bars and month-over-month trending indicators",
+      "Context-aware AI chatbot — bill data injected as system context so responses are grounded in actual invoice",
+      "AI-generated cost optimization recommendations (Reserved Instances, storage class optimization, rightsizing)",
+      "Supabase Auth integration with email/password signup and Row Level Security for data isolation",
+      "Alternative Groq LLM backend (Llama 3 8B) for cost-effective inference",
+      "Graceful fallback to realistic mock data when AI parsing fails",
+      "Dark mode support with CSS variable theming and glassmorphic card design",
+      "Tab-based single-page navigation (Upload → Dashboard → Chat → Settings) with no page loads",
+      "Keyboard support in chat (Enter to send) with auto-scroll and typing indicators",
+      "Settings panel showing API configuration status, security policies, and usage instructions"
+    ],
+
+    architecture: "React SPA with tab-based navigation communicates with Supabase Edge Functions (Deno runtime) for AI processing. PDF upload flow: client base64-encodes the file → Edge Function parse-aws-invoice receives it → sends to OpenAI GPT-4o-mini with structured extraction prompt → returns JSON (totalCost, services[], recommendations[], billingPeriod, costChange) → stored in Supabase PostgreSQL aws_invoices table. Chat flow: client sends user message + bill context → Edge Function chat-aws-assistant builds system prompt with user's cost data → GPT-4o-mini generates contextual response → streamed back to client. Authentication via Supabase Auth with Row Level Security ensuring per-user data isolation.",
+
+    impact: "Democratized cloud cost analysis — anyone can upload a bill and get instant, actionable insights without FinOps training or enterprise tool licenses. The conversational interface surfaces optimization opportunities (Reserved Instances, storage class changes, rightsizing) that typically require specialized knowledge. Early testing identified 15-30% potential cost savings from AI recommendations. The dual-model architecture (OpenAI for accuracy, Groq for cost) demonstrates production-ready AI inference patterns.",
+
+    keyDecisions: [
+      {
+        question: "Why GPT-4o-mini instead of GPT-4 for invoice parsing?",
+        answer: "Invoice extraction is a structured task — converting PDF text into a known JSON schema with fields like totalCost, services[{name, cost, change}], and recommendations[]. GPT-4o-mini handles this reliably at 0.1 temperature with significantly lower cost and latency than GPT-4. The 50KB input limit prevents token overflow on large invoices. For the chat interface, the same model at 0.7 temperature provides more creative responses while staying grounded in the injected bill context."
+      },
+      {
+        question: "Why Supabase Edge Functions instead of a traditional backend?",
+        answer: "The app has exactly two serverless operations: parse a PDF and answer a chat message. A FastAPI backend would require an always-on server for occasional invocations. Supabase Edge Functions (Deno runtime) provide zero-cold-start serverless execution co-located with the database, automatic scaling, and built-in secrets management for API keys — all without managing infrastructure."
+      },
+      {
+        question: "Why include a Groq/Llama 3 alternative alongside OpenAI?",
+        answer: "OpenAI costs add up when parsing invoices and handling chat conversations. The Groq integration with Llama 3 8B provides a cost-effective alternative for chat responses where absolute parsing accuracy matters less. This dual-model pattern — expensive model for extraction, cheap model for conversation — is a production FinOps practice applied to the AI inference itself."
+      },
+      {
+        question: "Why tab-based SPA instead of multi-page routing?",
+        answer: "The user workflow is strictly sequential: Upload → Dashboard → Chat. Multi-page routing would lose state between tabs (parsed invoice data, chat history). A tab-based SPA keeps everything in React state, enabling instant tab switches and seamless context sharing between the Dashboard and Chat components."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "Bill Analysis",
+        before: "Open 50-page PDF, manually scan for service line items, cross-reference with last month's bill in a spreadsheet — hours per invoice",
+        after: "Drag-and-drop PDF, GPT-4o-mini extracts structured data in seconds, dashboard shows service breakdown with trending indicators instantly"
+      },
+      {
+        label: "Cost Questions",
+        before: "Email the FinOps team 'Why did our S3 costs spike?', wait hours/days for someone to pull data and respond",
+        after: "Ask the AI chatbot directly — it has the parsed bill as context and responds in seconds with specific service-level answers"
+      },
+      {
+        label: "Optimization Discovery",
+        before: "Hire a FinOps consultant or learn CloudHealth/Spot.io — weeks of onboarding before identifying first savings opportunity",
+        after: "AI generates actionable recommendations immediately: 'Switch to Reserved Instances for EC2 — save 30%', 'Optimize S3 storage classes — save $120/month'"
+      },
+      {
+        label: "Access & Expertise",
+        before: "Only the infrastructure team understands cloud bills — leadership and product teams have no visibility into cost drivers",
+        after: "Anyone with a PDF can upload and chat — natural language interface requires zero cloud or FinOps expertise"
+      }
+    ],
+
+    techStack: [
+      { name: "React", category: "frontend", icon: "react" },
+      { name: "TypeScript", category: "frontend", icon: "typescript" },
+      { name: "Vite", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
+      { name: "shadcn/ui", category: "frontend" },
+      { name: "Radix UI", category: "frontend", icon: "radixui" },
+      { name: "Recharts", category: "frontend" },
+      { name: "Lucide Icons", category: "frontend" },
+      { name: "React Query", category: "frontend" },
+      { name: "React Hook Form", category: "frontend" },
+      { name: "Supabase", category: "backend", icon: "supabase" },
+      { name: "PostgreSQL", category: "database", icon: "postgresql" },
+      { name: "Deno", category: "backend", icon: "deno" },
+      { name: "OpenAI GPT-4o-mini", category: "ai", icon: "openai" },
+      { name: "Groq / Llama 3", category: "ai" },
+      { name: "Zod", category: "backend", icon: "zod" },
+    ],
+
+    integrations: [
+      {
+        system: "OpenAI API",
+        type: "REST API (GPT-4o-mini)",
+        dataFlow: "Invoice parsing: base64 PDF → structured JSON extraction (temperature 0.1). Chat: user message + bill context → contextual cost analysis response (temperature 0.7)"
+      },
+      {
+        system: "Groq API",
+        type: "REST API (Llama 3 8B)",
+        dataFlow: "Alternative chat backend — same context injection pattern as OpenAI but with cost-effective open-source model inference"
+      },
+      {
+        system: "Supabase",
+        type: "Client SDK + Edge Functions",
+        dataFlow: "Auth (email/password with RLS), PostgreSQL storage (aws_invoices table with services_data JSON), Edge Functions (Deno runtime for AI inference)"
+      }
+    ],
+
+    metrics: [
+      { label: "AI Model", value: "GPT-4o-mini" },
+      { label: "Parsing Accuracy", value: "~95%" },
+      { label: "Cost Savings Found", value: "15-30%" },
+      { label: "LLM Options", value: "2" },
+      { label: "UI Components", value: "47+" },
+      { label: "Tab Views", value: "4" },
+      { label: "Auth Method", value: "Supabase" },
+      { label: "Status", value: "Prototype" },
+    ],
+
+    userStory: "As a CTO, I want to upload my AWS invoice PDF and ask 'What's our biggest cost driver?' in plain English, getting an instant answer grounded in my actual bill data — without learning FinOps tools or reading 50-page PDFs.",
+    description: "Full-stack AI cloud bill analysis platform: drag-and-drop PDF upload, GPT-4o-mini invoice extraction, context-aware chatbot, and service cost dashboard — built on React, Supabase, and serverless Edge Functions.",
+  },
+
 ];
