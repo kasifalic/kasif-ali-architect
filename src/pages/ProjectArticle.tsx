@@ -216,7 +216,7 @@ const ProjectArticle = () => {
             <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
               Quick Overview
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {project.metrics.slice(0, 4).map((metric) => (
                 <div key={metric.label} className="text-center">
                   <div className="font-sora text-2xl font-bold text-amber-600">

@@ -186,7 +186,7 @@ const ClassificationPipeline = ({ delay = 0 }: { delay?: number }) => {
       <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-400 font-mono mb-3">
         Hybrid Classification Pipeline
       </div>
-      <div className="flex items-center gap-1 flex-wrap justify-center">
+      <div className="grid grid-cols-2 sm:flex sm:items-center sm:flex-wrap sm:justify-center gap-2 sm:gap-1">
         {steps.map((step, i) => (
           <div key={step.label} className="flex items-center gap-1">
             <motion.div
@@ -194,9 +194,9 @@ const ClassificationPipeline = ({ delay = 0 }: { delay?: number }) => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: delay + 0.1 * i }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-violet-200/50 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-violet-200/50 shadow-sm w-full sm:w-auto"
             >
-              <step.icon className="w-3.5 h-3.5 text-violet-500" />
+              <step.icon className="w-3.5 h-3.5 text-violet-500 flex-shrink-0" />
               <div>
                 <div className="text-[11px] font-semibold text-gray-800 leading-none">{step.label}</div>
                 <div className="text-[9px] text-gray-400 leading-none mt-0.5">{step.sublabel}</div>
@@ -208,6 +208,7 @@ const ClassificationPipeline = ({ delay = 0 }: { delay?: number }) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: delay + 0.1 * i + 0.15 }}
+                className="hidden sm:block"
               >
                 <ArrowDown className="w-3 h-3 text-violet-300 rotate-[-90deg]" />
               </motion.div>
@@ -274,7 +275,7 @@ const VendorLensArchitecture = () => {
 
       {/* ── Layer 3: Core Services ── */}
       <LayerLabel label="Core Services" delay={0.4} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Store}
           title="Vendor Management"
@@ -329,7 +330,7 @@ const VendorLensArchitecture = () => {
 
       {/* ── Layer 6: Consumers ── */}
       <LayerLabel label="Consumers" delay={1.0} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Boxes}
           title="Finance Team"
@@ -503,7 +504,7 @@ const UnifiedPostureHubArchitecture = () => {
 
       {/* ── Layer 6: Consumers ── */}
       <LayerLabel label="Consumers" delay={1.25} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Boxes}
           title="IT Security"
@@ -539,7 +540,7 @@ const BillingDashboardArchitecture = () => {
     <div className="relative">
       {/* ── Layer 1: Data Sources ── */}
       <LayerLabel label="Data Sources" delay={0} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Mail}
           title="Gmail"
@@ -563,7 +564,7 @@ const BillingDashboardArchitecture = () => {
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <div className="flex justify-center">
           <FlowArrow label="OAuth 2.0" delay={0.2} />
         </div>
@@ -601,7 +602,7 @@ const BillingDashboardArchitecture = () => {
       {/* ── Layer 3: AI & Async Processing ── */}
       <LayerLabel label="AI & Async Processing" delay={0.55} />
       <div className="w-full rounded-xl bg-gradient-to-br from-violet-50/50 to-purple-50/50 border border-violet-200/40 p-4 mb-1">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* AI Services */}
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-400 font-mono mb-2">
@@ -685,7 +686,7 @@ const BillingDashboardArchitecture = () => {
 
       {/* ── Layer 5: Consumers ── */}
       <LayerLabel label="Consumers" delay={1.0} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Boxes}
           title="Billing Team"
@@ -877,7 +878,7 @@ const SPOGArchitecture = () => {
 
       {/* ── Layer 6: Consumers ── */}
       <LayerLabel label="Consumers" delay={1.25} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Users}
           title="CFO"
@@ -930,7 +931,7 @@ const IdentityLifecycleArchitecture = () => {
 
       {/* ── Layer 2: Three Cron Phases ── */}
       <LayerLabel label="Cron-Triggered Phases" delay={0.2} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Users}
           title="Onboarding"
@@ -1057,7 +1058,7 @@ const IdentityLifecycleArchitecture = () => {
 
       {/* ── Layer 6: Feedback ── */}
       <LayerLabel label="Feedback & Notifications" delay={1.3} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Database}
           title="SAP Writeback"
@@ -1257,7 +1258,7 @@ const RydooSyncArchitecture = () => {
 
       {/* ── Layer 6: Consumers ── */}
       <LayerLabel label="Consumers" delay={1.4} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Users}
           title="Finance Team"
@@ -1348,7 +1349,7 @@ const DryVoxArchitecture = () => {
 
       {/* ── Layer 3: AI Provider Gateway ── */}
       <LayerLabel label="AI Provider Gateway (3 Providers)" delay={0.4} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={AudioLines}
           title="Gemini Live"
@@ -1438,7 +1439,7 @@ const DryVoxArchitecture = () => {
 
       {/* ── Layer 5: Data & Storage ── */}
       <LayerLabel label="Data & Storage" delay={0.85} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Database}
           title="PostgreSQL"
@@ -1468,7 +1469,7 @@ const DryVoxArchitecture = () => {
 
       {/* ── Layer 6: Infrastructure ── */}
       <LayerLabel label="AWS Infrastructure" delay={1.1} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Server}
           title="EC2 + Docker"
@@ -1503,7 +1504,7 @@ const NiveshaArchitecture = () => {
     <div className="space-y-1">
       {/* ── Layer 1: Frontend & Users ── */}
       <LayerLabel label="Frontend & Users" delay={0.1} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Layout}
           title="React 19 SPA"
@@ -1533,7 +1534,7 @@ const NiveshaArchitecture = () => {
 
       {/* ── Layer 2: API & Auth ── */}
       <LayerLabel label="FastAPI Backend" delay={0.35} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Server}
           title="FastAPI Async"
@@ -1563,7 +1564,7 @@ const NiveshaArchitecture = () => {
 
       {/* ── Layer 3: AI & Market Data ── */}
       <LayerLabel label="AI & Market Data" delay={0.6} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Brain}
           title="GPT-4 LLM"
@@ -1593,7 +1594,7 @@ const NiveshaArchitecture = () => {
 
       {/* ── Layer 4: Data & Storage ── */}
       <LayerLabel label="Data & Storage" delay={0.85} />
-      <div className="grid grid-cols-3 gap-3 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
         <ArchNode
           icon={Database}
           title="PostgreSQL"
@@ -1623,7 +1624,7 @@ const NiveshaArchitecture = () => {
 
       {/* ── Layer 5: External Integrations ── */}
       <LayerLabel label="External Integrations" delay={1.1} />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
         <ArchNode
           icon={Key}
           title="Zerodha Kite"
@@ -1673,7 +1674,7 @@ const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps
       className="mt-8 relative"
     >
       {/* Container */}
-      <div className="relative p-6 md:p-8 rounded-2xl bg-white border border-gray-200/80 shadow-lg overflow-hidden">
+      <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-white border border-gray-200/80 shadow-lg overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`,
