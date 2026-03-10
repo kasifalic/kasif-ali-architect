@@ -2616,12 +2616,17 @@ export const projectsData: ProjectArticle[] = [
     screenshots: [
       {
         src: "/projects/nivesha/screenshot-1-dashboard.png",
-        caption: "Dashboard with live market indices (NIFTY 50, SENSEX, BANKNIFTY), quick actions for transactions, portfolio creation, and AI assistance",
-        alt: "Nivesha dashboard showing welcome screen with live market ticker, quick action cards",
+        caption: "Dashboard with live portfolio summary (₹15.3L value, P&L tracking), real-time market indices (NIFTY 50, SENSEX, BANKNIFTY, Gold, Crude), market news feed, and quick action cards for transactions, portfolio creation, and AI assistance",
+        alt: "Nivesha dashboard showing portfolio value, P&L, live market ticker, market news, and quick action cards",
+      },
+      {
+        src: "/projects/nivesha/screenshot-2-portfolio.png",
+        caption: "Portfolio overview showing 'Long Term Growth' portfolio with ₹15.3L value, 10 holdings, -6.16% P&L, total value and P&L summary in header",
+        alt: "Portfolio page showing Long Term Growth portfolio card with value, P&L, and holdings count",
       },
       {
         src: "/projects/nivesha/screenshot-3-research.png",
-        caption: "AI Research hub with stock search, live market overview indices, and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with real-time prices",
+        caption: "AI Research hub with stock search, live market overview indices (NIFTY 50, SENSEX, NIFTY Bank, NIFTY IT), and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with real-time prices",
         alt: "AI Research page showing stock search, market indices, and trending stock cards with prices",
       },
       {
@@ -2633,11 +2638,6 @@ export const projectsData: ProjectArticle[] = [
         src: "/projects/nivesha/screenshot-7-settings.png",
         caption: "Settings hub with profile management, broker integrations (Zerodha), tax reports, alerts, notifications, security, and preferences",
         alt: "Settings page showing profile information, integration options, and configuration sections",
-      },
-      {
-        src: "/projects/nivesha/screenshot-2-portfolio.png",
-        caption: "Portfolio management with create portfolio workflow and holdings tracking",
-        alt: "Portfolio page showing portfolio creation and management interface",
       },
     ],
 
@@ -2704,19 +2704,19 @@ export const projectsData: ProjectArticle[] = [
         {
           title: "AI Research Hub with Trending Cards",
           description: "The AI Research page uses a search-first layout with live market overview indices in metric cards, followed by trending stock cards showing company logos, current prices in INR, and percentage changes with color-coded sentiment badges.",
-          screenshotIndex: 1,
+          screenshotIndex: 2,
           highlight: "Trending stocks grid: Reliance ₹2,580.5 +0.99%, TCS ₹3,650.2 +1.25%, HDFCBANK ₹1,680.75 -0.45%"
         },
         {
           title: "Goal-Based Progress Visualization",
           description: "Financial goals use gradient progress bars with color-coded status badges (Behind in red, On Track in green). Each goal card shows saved amount vs target, remaining amount, time left, monthly SIP, linked stocks with color avatars, and a direct link to view details.",
-          screenshotIndex: 2,
+          screenshotIndex: 3,
           highlight: "House Down Payment: ₹8.50L of ₹20.00L, 42.5% progress, Behind badge, ₹35,000 monthly SIP"
         },
         {
           title: "Settings Information Architecture",
           description: "Settings uses a two-panel layout: left sidebar with icon-labeled sections (Profile, Integrations, Tax Reports, Alerts, Notifications, Security, Preferences) and right content area showing the selected section's details, optimizing for discoverability and scan-ability.",
-          screenshotIndex: 3,
+          screenshotIndex: 4,
           highlight: "Seven settings sections with icons, currently showing Profile with personal info and password management"
         },
         {
