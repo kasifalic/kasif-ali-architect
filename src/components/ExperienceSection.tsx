@@ -34,6 +34,7 @@ interface Chapter {
   // Company widget data
   stockSymbol?: string;
   stockExchange?: string;
+  newsSearchTerm?: string; // Override company name for news search
   isPrivate?: boolean;
   privateMessage?: string;
 }
@@ -63,7 +64,7 @@ const ExperienceSection = () => {
       techStack: ["LLMs", "RAG", "Databricks", "Terraform", "AWS", "Azure", "Python", "Langchain", "Weaviate"],
       signatureMetric: { value: "12+", label: "AI Tools Shipped" },
       isCurrent: true,
-      stockSymbol: "AMAGI.NS", // Update with actual NSE symbol when available
+      stockSymbol: "AMAGI.NS",
       stockExchange: "NSE"
     },
     {
@@ -86,7 +87,9 @@ const ExperienceSection = () => {
       ],
       techStack: ["AWS", "Proxmox", "Hetzner", "Terraform", "Freddy AI", "Kubiya", "JumpCloud", "Okta", "Twingate", "Intune", "Wazuh"],
       signatureMetric: { value: "40%", label: "Cost Reduction" },
-      stockSymbol: "STRAND" // News about genomic testing work
+      isPrivate: true,
+      privateMessage: "Private — Genomics & Precision Medicine",
+      newsSearchTerm: "Strand Life Sciences genomics"
     },
     {
       number: "03",
@@ -131,7 +134,9 @@ const ExperienceSection = () => {
       ],
       techStack: ["AWS", "Azure", "VMware", "JumpCloud", "Okta", "Jamf", "Freshservice", "Sophos", "Juniper", "G Suite"],
       signatureMetric: { value: "21→350+", label: "Users Scaled" },
-      stockSymbol: "JIFFLENOW" // News only - acquired by Cvent
+      isPrivate: true,
+      privateMessage: "Private — Acquired by Cvent (Blackstone)",
+      newsSearchTerm: "Cvent meeting automation"
     },
     {
       number: "01",
@@ -153,7 +158,9 @@ const ExperienceSection = () => {
       ],
       techStack: ["SCCM", "WDS", "Jamf", "Exchange", "Lync", "VMware", "Hyper-V", "Active Directory", "Windows Server"],
       signatureMetric: { value: "2000+", label: "Devices Managed" },
-      stockSymbol: "CENTURYLINK" // News only - now Lumen Technologies
+      stockSymbol: "LUMN",
+      stockExchange: "NYSE",
+      newsSearchTerm: "Lumen Technologies"
     }
   ];
 
@@ -316,6 +323,7 @@ const ExperienceSection = () => {
                         accentColor={chapter.accentColor}
                         isPrivate={chapter.isPrivate}
                         privateMessage={chapter.privateMessage}
+                        newsSearchTerm={chapter.newsSearchTerm}
                       />
                     </div>
                   )}
