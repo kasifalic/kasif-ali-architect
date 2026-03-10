@@ -2586,7 +2586,7 @@ export const projectsData: ProjectArticle[] = [
     icon: TrendingUp,
     monogram: "NV",
     color: "bg-emerald-600",
-    heroImage: "gradient-emerald",
+    heroImage: "/projects/nivesha/hero.png",
 
     overview: "Nivesha is a full-stack investment intelligence platform built for Indian retail investors. It brings together real-time NSE/BSE market data, AI-powered stock research with fundamentals and technicals, portfolio tracking with XIRR calculations, goal-based investment planning with SIP recommendations, IPO tracking with grey market premiums, and personalized market news with sentiment analysis — all in a single, polished dark-mode dashboard.",
 
