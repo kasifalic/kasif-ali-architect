@@ -199,27 +199,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_47_16.png",
+        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_47_16.webp",
         alt: "VendorLens Main Dashboard",
         caption: "Main dashboard — Engineering vs Non-Engineering spend analysis, vendor performance metrics, top vendors & tools, and functional owner management"
       },
       {
-        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_47_52.png",
+        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_47_52.webp",
         alt: "Vendor Management Page",
         caption: "Vendor management — Sortable vendor table with spend, contracts, growth trends, and upcoming renewal dates"
       },
       {
-        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_09.png",
+        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_09.webp",
         alt: "Cost Analysis Page",
         caption: "Cost analysis — Trend analysis, department-level spending breakdown, and AI-powered cost optimization opportunities with confidence scoring"
       },
       {
-        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_20.png",
+        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_20.webp",
         alt: "Reports & Exports Page",
         caption: "Reports & exports — Pre-configured financial reports, scheduled deliveries, and on-demand data exports"
       },
       {
-        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_31.png",
+        src: "/projects/vendorlens/screencapture-purple-bask-69920692-figma-site-2026-02-12-00_48_31.webp",
         alt: "Renewal Management Page",
         caption: "Renewal management — Urgency-based contract tracking with auto-renew status, owner assignment, and days-until-expiry alerts"
       }
@@ -422,22 +422,22 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/unified-posture-hub/screenshot-1-dashboard.png",
+        src: "/projects/unified-posture-hub/screenshot-1-dashboard.webp",
         alt: "Endpoints Compliance Dashboard",
         caption: "Main dashboard — KPI metric cards (total, compliant, non-compliant), 90-day compliance trend chart, asset distribution by type, compliance by category progress bars, and recent security alerts"
       },
       {
-        src: "/projects/unified-posture-hub/screenshot-2-assets.png",
+        src: "/projects/unified-posture-hub/screenshot-2-assets.webp",
         alt: "Asset Management Page",
         caption: "Asset management — Device type summary cards (laptops, servers, desktops) with compliance percentages, searchable asset table showing per-tool compliance status with checkmarks and crosses"
       },
       {
-        src: "/projects/unified-posture-hub/screenshot-3-reports.png",
+        src: "/projects/unified-posture-hub/screenshot-3-reports.webp",
         alt: "Reports Page",
         caption: "Reports — Compliance summary, non-compliant assets, monthly trend, and asset inventory reports with download and on-demand generation capabilities"
       },
       {
-        src: "/projects/unified-posture-hub/screenshot-4-settings.png",
+        src: "/projects/unified-posture-hub/screenshot-4-settings.webp",
         alt: "Settings Page",
         caption: "Settings — User management, email/SMTP configuration, API key management, notification toggles, security settings (2FA, session timeout, audit logging), and data management"
       }
@@ -652,32 +652,32 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/billing-dashboard/screenshot-1-dashboard.png",
+        src: "/projects/billing-dashboard/screenshot-1-dashboard.webp",
         alt: "Summary Dashboard",
         caption: "Summary dashboard — KPI cards (total emails, SLA compliance gauge, pending actions, overdue replies), email volume trend chart with time range selector, classification breakdown donut, top customers by value, and live SLA status alerts"
       },
       {
-        src: "/projects/billing-dashboard/screenshot-2-team.png",
+        src: "/projects/billing-dashboard/screenshot-2-team.webp",
         alt: "Team Performance",
         caption: "Team performance — Individual analyst cards with emails handled, average turnaround time, SLA compliance rates, and pending counts. Email load distribution bar chart and team comparison radar chart for cross-metric benchmarking"
       },
       {
-        src: "/projects/billing-dashboard/screenshot-3-customers.png",
+        src: "/projects/billing-dashboard/screenshot-3-customers.webp",
         alt: "Customer Overview",
         caption: "Customer overview — 512 tracked customers with multi-currency open values (USD, INR, GBP, EUR), email volume sparklines, escalation counts, average TAT, and sentiment scores in a searchable, sortable table"
       },
       {
-        src: "/projects/billing-dashboard/screenshot-4-ai-insights.png",
+        src: "/projects/billing-dashboard/screenshot-4-ai-insights.webp",
         alt: "AI Insights",
         caption: "AI Insights — GPT-generated daily summary with key highlights, actionable recommendations, 95% classification accuracy gauge, trending topic tags, and automation opportunity cards with estimated time savings"
       },
       {
-        src: "/projects/billing-dashboard/screenshot-7-actions-popup.png",
+        src: "/projects/billing-dashboard/screenshot-7-actions-popup.webp",
         alt: "Pending Actions",
         caption: "Pending Actions modal — 700+ threads awaiting team response, paginated list with email subjects, customer names, timestamps, and thread counts. Click any thread to open the full email detail view"
       },
       {
-        src: "/projects/billing-dashboard/screenshot-6-email-detail.png",
+        src: "/projects/billing-dashboard/screenshot-6-email-detail.webp",
         alt: "Email Detail",
         caption: "Email Detail view — full email content with classification badges (Reminder, Follow-Up, Neutral), message metadata sidebar (From, To, CC, Sent), customer card, quick actions (copy text, reply), and complete thread history"
       }
@@ -889,27 +889,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/payable-dashboard/screenshot-1-dashboard.png",
+        src: "/projects/payable-dashboard/screenshot-1-dashboard.webp",
         alt: "Payable Dashboard Overview",
         caption: "Main dashboard — KPI cards showing daily email volume, average response time, SLA compliance, and pending escalations. AI-powered semantic search bar and Recent Emails with Attachments section for quick document access."
       },
       {
-        src: "/projects/payable-dashboard/screenshot-2-analytics.png",
+        src: "/projects/payable-dashboard/screenshot-2-analytics.webp",
         alt: "Analytics Summary Sections",
         caption: "Email volume trend chart with daily/weekly/monthly toggle, Response Time SLA breakdown with color-coded compliance bands, and summary cards for Vendor Analytics, Sentiment Analysis, and Process Health."
       },
       {
-        src: "/projects/payable-dashboard/screenshot-3-vendor-details.png",
+        src: "/projects/payable-dashboard/screenshot-3-vendor-details.webp",
         alt: "Vendor Analytics Expanded",
         caption: "Vendor & Request Analytics detail view — top vendors by email volume, request category distribution showing Payment Delays, Invoice Queries, PO Queries, Tax Queries, and General Inquiry breakdown."
       },
       {
-        src: "/projects/payable-dashboard/screenshot-4-sentiment.png",
+        src: "/projects/payable-dashboard/screenshot-4-sentiment.webp",
         alt: "Sentiment Analysis & Escalations",
         caption: "Communication sentiment breakdown (neutral/negative/positive) with vendor-level scores. High-Risk Vendors panel showing sentiment percentage, escalation count, and risk level for proactive vendor management."
       },
       {
-        src: "/projects/payable-dashboard/screenshot-5-team.png",
+        src: "/projects/payable-dashboard/screenshot-5-team.webp",
         alt: "Team Productivity & Performance",
         caption: "Team performance table with efficiency scores, response counts, SLA compliance rates, average response times, and category coverage per team member. Process health metrics showing email resolution efficiency and closure rates."
       }
@@ -1117,27 +1117,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/purchase-dashboard/screenshot-1-dashboard.png",
+        src: "/projects/purchase-dashboard/screenshot-1-dashboard.webp",
         alt: "Purchase Dashboard Overview",
         caption: "Main dashboard — KPI cards (email volume, avg response time, SLA compliance, pending escalations), email volume trend chart with incoming/outgoing split, and response time SLA breakdown"
       },
       {
-        src: "/projects/purchase-dashboard/screenshot-2-overview-metrics.png",
+        src: "/projects/purchase-dashboard/screenshot-2-overview-metrics.webp",
         alt: "All Sections Metrics Overview",
         caption: "Collapsed metrics overview — Vendor analytics, sentiment analysis, process health monitoring (closure rate, unanswered emails), and team productivity summary cards"
       },
       {
-        src: "/projects/purchase-dashboard/screenshot-3-vendor-expanded.png",
+        src: "/projects/purchase-dashboard/screenshot-3-vendor-expanded.webp",
         alt: "Vendor & Request Analytics Expanded",
         caption: "Vendor deep-dive — Top vendors by email volume, request category distribution (Invoice Queries, Vendor Onboarding, Payment Processing), vendors with payment issues, and recent internal requests"
       },
       {
-        src: "/projects/purchase-dashboard/screenshot-4-sentiment-expanded.png",
+        src: "/projects/purchase-dashboard/screenshot-4-sentiment-expanded.webp",
         alt: "Sentiment Analysis & Escalations Expanded",
         caption: "Sentiment intelligence — Communication sentiment breakdown (negative/neutral/positive), high-risk vendor list with escalation counts, critical escalations timeline, and vendor vs internal sentiment comparison"
       },
       {
-        src: "/projects/purchase-dashboard/screenshot-5-team-expanded.png",
+        src: "/projects/purchase-dashboard/screenshot-5-team-expanded.webp",
         alt: "Team Productivity & Performance Expanded",
         caption: "Team performance — Top performer and most responsive badges, detailed performance table with efficiency scores, SLA compliance per member, response times, and category specialist assignments"
       }
@@ -1313,27 +1313,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/cursor-analytics/screenshot-1-overview.png",
+        src: "/projects/cursor-analytics/screenshot-1-overview.webp",
         alt: "Cursor Analytics Overview Dashboard",
         caption: "Overview dashboard — KPI cards (members, total requests, spend, lines generated, avg cost/user), top performers leaderboard with productivity scores, feature adoption rates, and code generation metrics"
       },
       {
-        src: "/projects/cursor-analytics/screenshot-2-overview-bottom.png",
+        src: "/projects/cursor-analytics/screenshot-2-overview-bottom.webp",
         alt: "Overview Bottom - Models & Spending",
         caption: "Overview continued — Code generation stats (3.9M lines generated, 1.7M accepted, 56% retention), top AI models by user count, and monthly spending summary with trend charts"
       },
       {
-        src: "/projects/cursor-analytics/screenshot-3-users.png",
+        src: "/projects/cursor-analytics/screenshot-3-users.webp",
         alt: "Users Tab - Detailed Per-User Table",
         caption: "Users tab — Sortable table with productivity score, request counts, Plan/Ask/Agent breakdown, generated/accepted lines, spend, and all-time usage per engineer"
       },
       {
-        src: "/projects/cursor-analytics/screenshot-4-analytics.png",
+        src: "/projects/cursor-analytics/screenshot-4-analytics.webp",
         alt: "Analytics Tab - Spending Trends",
         caption: "Analytics tab — Total spend, top spender, total requests KPIs, and 6-month spending trend line chart (Sep '25 - Feb '26) showing cost trajectory"
       },
       {
-        src: "/projects/cursor-analytics/screenshot-5-analytics-bottom.png",
+        src: "/projects/cursor-analytics/screenshot-5-analytics-bottom.webp",
         alt: "Analytics Bottom - Model Costs & Top Spenders",
         caption: "Analytics deep-dive — Cost by Model (Top 10) horizontal bar chart, monthly billing breakdown (Free/Included/On-Demand), top spenders ranking, and per-user monthly usage with bar + trend overlay"
       }
@@ -1520,22 +1520,22 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/calendar-analytics/screenshot-1-dashboard.png",
+        src: "/projects/calendar-analytics/screenshot-1-dashboard.webp",
         alt: "Calendar Analytics Dashboard",
         caption: "Executive dashboard — KPI cards (428K meetings, 496K hours, 46% external collaboration, most active department), department analytics pie chart with distribution breakdown, and top 10 cross-departmental collaboration rankings"
       },
       {
-        src: "/projects/calendar-analytics/screenshot-2-insights.png",
+        src: "/projects/calendar-analytics/screenshot-2-insights.webp",
         alt: "Key Insights and Executive Summary",
         caption: "Key Insights — Weekly meeting load (53h), cross-department connectivity (8%), external focus (46%), collaboration intensity legend, and AI-generated executive summary analyzing organizational health"
       },
       {
-        src: "/projects/calendar-analytics/screenshot-3-kpi-modal.png",
+        src: "/projects/calendar-analytics/screenshot-3-kpi-modal.webp",
         alt: "KPI Insights Modal - Total Meetings",
         caption: "KPI drill-down modal — Total Meetings Analysis showing meeting distribution (322 avg/user), activity level assessment, top contributors (3 power users), collaboration scope (50 departments), and executive summary"
       },
       {
-        src: "/projects/calendar-analytics/screenshot-4-chatbot.png",
+        src: "/projects/calendar-analytics/screenshot-4-chatbot.webp",
         alt: "AI Chatbot - Aria Analytics Partner",
         caption: "AI chatbot 'Aria' — Analytics partner for natural language queries about meeting data, with suggested prompts for department analysis, collaboration patterns, and meeting efficiency"
       }
@@ -1604,7 +1604,7 @@ export const projectsData: ProjectArticle[] = [
     icon: PieChart,
     monogram: "SP",
     color: "bg-cyan-500",
-    heroImage: "/projects/spog/hero.jpg",
+    heroImage: "/projects/spog/hero.webp",
 
     overview: "SPOG (Single Pane of Glass) is an enterprise financial analytics platform that consolidates Balance Sheet and Cash Flow data from NetSuite into a unified Databricks dashboard. Tracking $500M+ in assets and $50M+ in quarterly cash movements, it replaces manual report compilation with automated PySpark ETL pipelines, Delta Lake storage, and Databricks Genie for natural language financial queries.",
 
@@ -1866,7 +1866,7 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/identity-lifecycle/hero-identity-lifecycle.jpg",
+        src: "/projects/identity-lifecycle/hero-identity-lifecycle.webp",
         alt: "Identity Lifecycle Automation — System Flow Visualization",
         caption: "Conceptual visualization of the three-system identity pipeline: HR badge (SAP SuccessFactors) → Workspace envelope (Google Workspace) → Security shield (OneLogin SSO), with employee silhouettes flowing through the provisioning stream."
       }
@@ -1965,12 +1965,12 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/rydoo-sync/screenshot-1-landing.png",
+        src: "/projects/rydoo-sync/screenshot-1-landing.webp",
         alt: "Rydoo Audit Portal — Landing Page",
         caption: "The Audit Portal home page with two functions: single expense search by reference ID (XPD prefix) and bulk CSV export by date range. Built as a serverless HTML app served via Lambda + API Gateway."
       },
       {
-        src: "/projects/rydoo-sync/screenshot-2-expense-detail.png",
+        src: "/projects/rydoo-sync/screenshot-2-expense-detail.webp",
         alt: "Rydoo Audit Portal — Expense Detail with Audit Trail",
         caption: "Expense detail view showing the full audit trail timeline (18 events from Created → Auto-Approved → Controlled → Reported to ERP), receipt backup status with download link, and expense metadata — all retrieved from date-partitioned S3 storage in the Mumbai region."
       },
@@ -2124,32 +2124,32 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/dryvox/screenshot-1-landing.png",
+        src: "/projects/dryvox/screenshot-1-landing.webp",
         alt: "DryVox landing page — Before you click send operational checkpoint",
         caption: "Landing page positioning DryVox as an operational checkpoint for dry bulk shipping. Shows the DryVox Review card with confidence scoring (72%) and flagged discrepancies, reinforcing the 'catch mistakes before irreversible actions' value proposition."
       },
       {
-        src: "/projects/dryvox/screenshot-2-landing-features.png",
+        src: "/projects/dryvox/screenshot-2-landing-features.webp",
         alt: "DryVox governance model and use cases for shipping teams",
         caption: "Governance section showing team-based value: Junior Operators (catch mistakes early), Commercial Teams (fewer post-fixture surprises), Claims Teams (cleaner audit trails), and Management (reduced key-person risk)."
       },
       {
-        src: "/projects/dryvox/screenshot-3-dashboard.png",
+        src: "/projects/dryvox/screenshot-3-dashboard.webp",
         alt: "DryVox dashboard with market indices, shipping news, and quick actions",
         caption: "Main dashboard with session stats, Baltic Dry Index (BDI) live chart, market indices (Panamax, Capesize, Supramax), shipping news feed, and quick actions for starting voice sessions or reviewing session history."
       },
       {
-        src: "/projects/dryvox/screenshot-4-assistant.png",
+        src: "/projects/dryvox/screenshot-4-assistant.webp",
         alt: "DryVox Assistant Hub with voice, upload, downloads, and calculator tabs",
         caption: "Assistant Hub showing four capability tabs: Voice (Gemini Live real-time audio), Upload (document analysis), Downloads (generated reports), and Calculator (shipping computations). Experience level selector adapts AI responses for Trainee, Junior, or Senior operators."
       },
       {
-        src: "/projects/dryvox/screenshot-5-sessions.png",
+        src: "/projects/dryvox/screenshot-5-sessions.webp",
         alt: "DryVox session history with type-based filtering",
         caption: "Session History page with searchable conversation list and type-based filters (All, Voice, Document, Image, Calculator). Each session shows duration, date, and status badges."
       },
       {
-        src: "/projects/dryvox/screenshot-6-settings.png",
+        src: "/projects/dryvox/screenshot-6-settings.webp",
         alt: "DryVox settings with profile, experience level, voice, and appearance options",
         caption: "Settings page with tabbed navigation: Profile, Experience Level, Voice & Audio configuration, Notifications, Appearance (theme customization), and Privacy & Security controls."
       }
@@ -2293,7 +2293,7 @@ export const projectsData: ProjectArticle[] = [
     icon: TrendingUp,
     monogram: "NV",
     color: "bg-emerald-600",
-    heroImage: "/projects/nivesha/hero.png",
+    heroImage: "/projects/nivesha/hero.webp",
 
     overview: "Nivesha is a full-stack investment intelligence platform built for Indian retail investors. It brings together real-time NSE/BSE market data, AI-powered stock research with fundamentals and technicals, portfolio tracking with XIRR calculations, goal-based investment planning with SIP recommendations, IPO tracking with grey market premiums, and personalized market news with sentiment analysis — all in a single, polished dark-mode dashboard.",
 
@@ -2322,32 +2322,32 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/nivesha/screenshot-0-landing.png",
+        src: "/projects/nivesha/screenshot-0-landing.webp",
         caption: "Landing page with 'Track, Analyze & Grow Your Wealth' hero, 6 feature highlights (Smart Dashboard, AI-Powered Research, Portfolio Analytics, Goal-Based Investing, IPO Research Hub, Personalized News), stats bar, and login form",
         alt: "Nivesha landing page showing value proposition, feature grid, platform stats, and login form",
       },
       {
-        src: "/projects/nivesha/screenshot-1-dashboard.png",
+        src: "/projects/nivesha/screenshot-1-dashboard.webp",
         caption: "Dashboard with live portfolio summary (₹15.3L value, -₹1.03L P&L), real-time market indices, Market News feed with sentiment-colored articles, and quick action cards",
         alt: "Nivesha dashboard showing portfolio KPIs, live market ticker, news feed with articles, and quick actions",
       },
       {
-        src: "/projects/nivesha/screenshot-2-portfolio.png",
+        src: "/projects/nivesha/screenshot-2-portfolio.webp",
         caption: "Portfolio overview showing 'Long Term Growth' portfolio with ₹15.3L value, 10 holdings, -6.16% P&L, total value and P&L summary in header",
         alt: "Portfolio page showing Long Term Growth portfolio card with value, P&L, and holdings count",
       },
       {
-        src: "/projects/nivesha/screenshot-3-research.png",
+        src: "/projects/nivesha/screenshot-3-research.webp",
         caption: "AI Research hub with stock search, live market overview indices (NIFTY 50, SENSEX, NIFTY Bank, NIFTY IT), and trending stocks (Reliance, TCS, HDFC Bank, Infosys, ITC) with monogram logos and real-time prices",
         alt: "AI Research page showing stock search, market indices, and trending stock cards with monogram logos and prices",
       },
       {
-        src: "/projects/nivesha/screenshot-6-goals.png",
+        src: "/projects/nivesha/screenshot-6-goals.webp",
         caption: "Financial Goals tracker with 4 goals totaling ₹3.75 Cr target, progress bars, SIP recommendations, and linked stock holdings per goal",
         alt: "Financial Goals page showing short-term and long-term goals with progress tracking and SIP details",
       },
       {
-        src: "/projects/nivesha/screenshot-7-settings.png",
+        src: "/projects/nivesha/screenshot-7-settings.webp",
         caption: "Settings hub with profile management, broker integrations (Zerodha), tax reports, alerts, notifications, security, and preferences",
         alt: "Settings page showing profile information, integration options, and configuration sections",
       },
@@ -2601,27 +2601,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/zapgap-sidekick/screenshot-1-hero.png",
+        src: "/projects/zapgap-sidekick/screenshot-1-hero.webp",
         alt: "ZapGap — Hero with Terminal Simulation",
         caption: "Landing page hero with animated gradient title, rotating use-case text ('AI Agents for Incident Resolution'), and a live terminal simulation showing infrastructure scanning — detecting gaps and generating remediation plans in real-time."
       },
       {
-        src: "/projects/zapgap-sidekick/screenshot-2-platform.png",
+        src: "/projects/zapgap-sidekick/screenshot-2-platform.webp",
         alt: "ZapGap — Platform Architecture",
         caption: "Platform architecture overview showing the Central Orchestrator at the core, connected to six capabilities: Agent-Based Architecture, Context Graph, Multi-Cloud Design, Enterprise Security, Observability, and Continuous Learning."
       },
       {
-        src: "/projects/zapgap-sidekick/screenshot-3-features.png",
+        src: "/projects/zapgap-sidekick/screenshot-3-features.webp",
         alt: "ZapGap — Features with ChatOps Expanded",
         caption: "Interactive feature accordion with ChatOps expanded — showing Slack/Teams integration for conversational infrastructure management. Each feature card reveals detailed descriptions on click."
       },
       {
-        src: "/projects/zapgap-sidekick/screenshot-4-usecases.png",
+        src: "/projects/zapgap-sidekick/screenshot-4-usecases.webp",
         alt: "ZapGap — SRE Use Case",
         caption: "SRE use case breakdown: Problem (2 AM memory leak alerts), ZapGap Solution (auto-remediation workflow), and Impact (MTTR dropped from 30 min to <1 min) — with tabbed navigation between SRE, DevOps, Leadership, and IT personas."
       },
       {
-        src: "/projects/zapgap-sidekick/screenshot-5-usecases-devops.png",
+        src: "/projects/zapgap-sidekick/screenshot-5-usecases-devops.webp",
         alt: "ZapGap — DevOps Use Case",
         caption: "DevOps use case: developers request environments via AI self-service portal instead of Ops tickets, with policy verification and automatic approval routing — 40% reduction in ticket workload."
       }
@@ -2815,27 +2815,27 @@ export const projectsData: ProjectArticle[] = [
 
     screenshots: [
       {
-        src: "/projects/sahayak/screenshot-3-dashboard.png",
+        src: "/projects/sahayak/screenshot-3-dashboard.webp",
         alt: "Sahayak teacher dashboard showing grade badges and four teaching tools",
         caption: "Teacher dashboard with grade badges (3, 4, 5), four core teaching tools, language selector, and teaching profile summary"
       },
       {
-        src: "/projects/sahayak/screenshot-4-curriculum.png",
+        src: "/projects/sahayak/screenshot-4-curriculum.webp",
         alt: "Sahayak curriculum builder with NCERT and custom options",
         caption: "Curriculum builder offering NCERT-aligned generation with monthly plans or custom curriculum creation for flexible teaching sequences"
       },
       {
-        src: "/projects/sahayak/screenshot-5-learn.png",
+        src: "/projects/sahayak/screenshot-5-learn.webp",
         alt: "Sahayak learning concepts modal with guided teaching methodology",
         caption: "Interactive Learning Concepts module where teachers type a topic and receive guided teaching methodology explanations"
       },
       {
-        src: "/projects/sahayak/screenshot-6-prepare.png",
+        src: "/projects/sahayak/screenshot-6-prepare.webp",
         alt: "Sahayak lesson preparation with grade, subject, and topic selection",
         caption: "Lesson preparation engine with cascading grade, subject, and topic dropdowns that generate structured 45-minute lesson plans"
       },
       {
-        src: "/projects/sahayak/screenshot-7-ai-chat.png",
+        src: "/projects/sahayak/screenshot-7-ai-chat.webp",
         alt: "Sahayak AI teaching assistant chat interface",
         caption: "Conversational AI teaching assistant powered by Gemini, helping teachers with curriculum questions, classroom strategies, and lesson planning in natural language"
       }
@@ -2949,7 +2949,7 @@ export const projectsData: ProjectArticle[] = [
     icon: MessageSquare,
     monogram: "CS",
     color: "bg-sky-500",
-    heroImage: "/projects/cost-savvy-chat/hero.jpg",
+    heroImage: "/projects/cost-savvy-chat/hero.webp",
 
     overview: "Cost Savvy Chat is a full-stack AI-powered cloud bill analysis platform. Users upload AWS invoice PDFs via drag-and-drop, GPT-4o-mini extracts service-level cost data into structured JSON, and a context-aware AI chatbot answers natural language questions about the parsed bill — all within a glassmorphic tab-based interface backed by Supabase for auth and storage, with Supabase Edge Functions handling AI inference.",
 

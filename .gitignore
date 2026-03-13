@@ -33,3 +33,6 @@ PROJECT_ARTICLE_GUIDE.md
 FINNHUB_SETUP.md
 nvidia/
 refer/
+
+# Local Netlify folder
+.netlify

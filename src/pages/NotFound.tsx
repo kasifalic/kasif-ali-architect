@@ -33,7 +33,7 @@ const NotFound = () => {
               }}
             >
               <img
-                src="/kasif-hero-new.png"
+                src="/kasif-hero-new.webp"
                 alt="Kasif Ali looking for the lost page"
                 className="w-32 h-40 md:w-44 md:h-56 object-cover object-top rounded-2xl shadow-xl border-4 border-white"
                 style={{

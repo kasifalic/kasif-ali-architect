@@ -249,7 +249,7 @@ const ProjectsSection = () => {
             />
             {/* Portrait image */}
             <img
-              src="/kasif-hero-new.png"
+              src="/kasif-hero-new.webp"
               alt="Kasif Ali - AI Systems Architect"
               width="520"
               height="620"

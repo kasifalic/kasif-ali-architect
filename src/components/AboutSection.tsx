@@ -16,23 +16,23 @@ const buildathonGalleries = [
   {
     label: "ZapGap — 1st Place, Agents",
     edition: "1st Edition",
-    thumbnail: "/buildathon/1/1734468930822.jpeg",
+    thumbnail: "/buildathon/1/1734468930822.webp",
     images: [
-      { src: "/buildathon/1/1734468930822.jpeg", caption: "Team with certificates on stage — 1st Place, Agents Category" },
-      { src: "/buildathon/1/1734468929514.jpeg", caption: "Winners Reveal — 100xEngineers GenAI Buildathon, 1st Edition" },
-      { src: "/buildathon/1/1734468930778.jpeg", caption: "Certificate of Achievement — 1st Position, Agents Category" },
-      { src: "/buildathon/1/1734468948571.jpeg", caption: "Winner's cap — #1 out of 1,502 participants" },
+      { src: "/buildathon/1/1734468930822.webp", caption: "Team with certificates on stage — 1st Place, Agents Category" },
+      { src: "/buildathon/1/1734468929514.webp", caption: "Winners Reveal — 100xEngineers GenAI Buildathon, 1st Edition" },
+      { src: "/buildathon/1/1734468930778.webp", caption: "Certificate of Achievement — 1st Position, Agents Category" },
+      { src: "/buildathon/1/1734468948571.webp", caption: "Winner's cap — #1 out of 1,502 participants" },
     ],
   },
   {
     label: "Investo (Nivesha) — 1st Place, Open",
     edition: "2nd Edition",
-    thumbnail: "/buildathon/1/2/1750749629775.jpeg",
+    thumbnail: "/buildathon/1/2/1750749629775.webp",
     images: [
-      { src: "/buildathon/1/2/1750749629775.jpeg", caption: "On stage with certificates — 1st Place, Open Category" },
-      { src: "/buildathon/1/2/1750749613073.jpeg", caption: "Certificate of Achievement — 1st Position, Open Category" },
-      { src: "/buildathon/1/2/1750749627715.jpeg", caption: "Prize haul — 100xEngineers tee, certificate, cap, gift basket" },
-      { src: "/buildathon/1/2/1750749614731.jpeg", caption: "Winner's cap — #1 out of 3,497 participants" },
+      { src: "/buildathon/1/2/1750749629775.webp", caption: "On stage with certificates — 1st Place, Open Category" },
+      { src: "/buildathon/1/2/1750749613073.webp", caption: "Certificate of Achievement — 1st Position, Open Category" },
+      { src: "/buildathon/1/2/1750749627715.webp", caption: "Prize haul — 100xEngineers tee, certificate, cap, gift basket" },
+      { src: "/buildathon/1/2/1750749614731.webp", caption: "Winner's cap — #1 out of 3,497 participants" },
     ],
   },
 ];
@@ -279,7 +279,7 @@ const AboutSection = () => {
               />
               {/* Portrait image */}
               <img
-                src="/kasif-hero-new.png"
+                src="/kasif-hero-new.webp"
                 alt="Kasif Ali - AI Systems Architect with 10+ years of experience"
                 width="520"
                 height="620"
