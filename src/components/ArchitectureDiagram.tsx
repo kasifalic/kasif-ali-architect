@@ -29,6 +29,9 @@ import {
   AudioLines,
   Eye,
   Workflow,
+  Paperclip,
+  AlertTriangle,
+  Filter,
 } from 'lucide-react';
 
 // ───────────────────────────────────────────────────
@@ -1651,9 +1654,209 @@ const NiveshaArchitecture = () => {
   );
 };
 
+// ───────────────────────────────────────────────────
+// Payable Dashboard Architecture Diagram
+// ───────────────────────────────────────────────────
+
+const PayableDashboardArchitecture = () => {
+  return (
+    <div className="relative">
+      {/* ── Layer 1: Data Sources ── */}
+      <LayerLabel label="Data Sources" delay={0} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-1">
+        <ArchNode
+          icon={Mail}
+          title="Gmail"
+          subtitle="AP mailbox  |  OAuth 2.0"
+          variant="source"
+          delay={0.05}
+        />
+        <ArchNode
+          icon={Database}
+          title="Enterprise ERP"
+          subtitle="AP aging  |  Payment records"
+          variant="source"
+          delay={0.1}
+        />
+        <ArchNode
+          icon={Users}
+          title="Enterprise CRM"
+          subtitle="Vendor accounts  |  Contracts"
+          variant="source"
+          delay={0.15}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+        <div className="flex justify-center">
+          <FlowArrow label="OAuth 2.0 Sync" delay={0.2} />
+        </div>
+        <div className="flex justify-center">
+          <FlowArrow label="REST API" delay={0.25} />
+        </div>
+        <div className="flex justify-center">
+          <FlowArrow label="REST API" delay={0.3} />
+        </div>
+      </div>
+
+      {/* ── Layer 2: Ingestion & Storage ── */}
+      <LayerLabel label="Ingestion & Storage" delay={0.35} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-1">
+        <ArchNode
+          icon={Server}
+          title="FastAPI Backend"
+          subtitle="Email sync  |  API routes  |  Uvicorn"
+          variant="process"
+          delay={0.4}
+        />
+        <ArchNode
+          icon={Database}
+          title="PostgreSQL + pgvector"
+          subtitle="21K+ emails  |  Embeddings  |  Analytics"
+          variant="service"
+          delay={0.45}
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="Emails → AI Pipeline" delay={0.5} />
+      </div>
+
+      {/* ── Layer 3: AI Classification & Analysis Pipeline ── */}
+      <LayerLabel label="AI Classification & Analysis Pipeline" delay={0.55} />
+      <div className="w-full rounded-xl bg-gradient-to-br from-violet-50/50 to-purple-50/50 border border-violet-200/40 p-4 mb-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Classification Engine */}
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-violet-400 font-mono mb-2">
+              Classification Engine
+            </div>
+            <div className="flex flex-col gap-1.5">
+              {[
+                { name: 'Email Classifier', detail: 'Rule-based + vendor patterns + keywords', icon: Filter },
+                { name: 'Sentiment Analysis', detail: 'Positive / neutral / negative / urgent', icon: AlertTriangle },
+                { name: 'Priority Scoring', detail: 'Category + sentiment + attachment signals', icon: Zap },
+                { name: 'Attachment Filter', detail: 'Real docs vs email noise (signatures, footers)', icon: Paperclip },
+              ].map((svc, i) => (
+                <motion.div
+                  key={svc.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.6 + 0.05 * i }}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-violet-200/50 shadow-sm"
+                >
+                  <svc.icon className="w-3.5 h-3.5 text-violet-500" />
+                  <div>
+                    <div className="text-[11px] font-semibold text-gray-800 leading-none">{svc.name}</div>
+                    <div className="text-[9px] text-gray-400 leading-none mt-0.5">{svc.detail}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* AI Services */}
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-amber-400 font-mono mb-2">
+              AI Services (OpenAI)
+            </div>
+            <div className="flex flex-col gap-1.5">
+              {[
+                { name: 'Semantic Search', detail: 'text-embedding-3-small + pgvector', icon: Search },
+                { name: 'AI Chatbot', detail: 'GPT-4 → SQL generation + validation', icon: MessageSquare },
+                { name: 'Vendor Analytics', detail: 'Query patterns + risk scoring', icon: Brain },
+              ].map((task, i) => (
+                <motion.div
+                  key={task.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.6 + 0.05 * i }}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-amber-200/50 shadow-sm"
+                >
+                  <task.icon className="w-3.5 h-3.5 text-amber-500" />
+                  <div>
+                    <div className="text-[11px] font-semibold text-gray-800 leading-none">{task.name}</div>
+                    <div className="text-[9px] text-gray-400 leading-none mt-0.5">{task.detail}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-400 font-mono mb-2 mt-3">
+              Caching Layer
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.8 }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-emerald-200/50 shadow-sm"
+            >
+              <Clock className="w-3.5 h-3.5 text-emerald-500" />
+              <div>
+                <div className="text-[11px] font-semibold text-gray-800 leading-none">Redis Cache</div>
+                <div className="text-[9px] text-gray-400 leading-none mt-0.5">Dashboard KPIs  |  Query results</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow label="REST API" delay={0.85} />
+      </div>
+
+      {/* ── Layer 4: Frontend ── */}
+      <LayerLabel label="Presentation" delay={0.9} />
+      <div className="flex justify-center mb-1">
+        <ArchNode
+          icon={Layout}
+          title="React Dashboard"
+          subtitle="Analytics  |  Search  |  Team Performance  |  Recharts"
+          variant="frontend"
+          delay={0.95}
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <FlowArrow delay={1.0} />
+      </div>
+
+      {/* ── Layer 5: Consumers ── */}
+      <LayerLabel label="Consumers" delay={1.05} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+        <ArchNode
+          icon={Boxes}
+          title="AP Team"
+          subtitle="Email triage & SLA"
+          variant="user"
+          delay={1.1}
+        />
+        <ArchNode
+          icon={Boxes}
+          title="AP Manager"
+          subtitle="Team performance"
+          variant="user"
+          delay={1.15}
+        />
+        <ArchNode
+          icon={Boxes}
+          title="Finance Lead"
+          subtitle="Vendor risk & analytics"
+          variant="user"
+          delay={1.2}
+        />
+      </div>
+    </div>
+  );
+};
+
 const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps) => {
   // Only render visual diagram for projects that have one
-  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync', 'dryvox', 'nivesha'].includes(slug);
+  const hasDiagram = ['vendorlens', 'unified-posture-hub', 'billing-dashboard', 'payable-dashboard', 'spog', 'identity-lifecycle', 'rydoo-sync', 'dryvox', 'nivesha'].includes(slug);
 
   if (!hasDiagram) {
     // Fallback to text description
@@ -1702,6 +1905,7 @@ const ArchitectureDiagram = ({ slug, textDescription }: ArchitectureDiagramProps
           {slug === 'vendorlens' && <VendorLensArchitecture />}
           {slug === 'unified-posture-hub' && <UnifiedPostureHubArchitecture />}
           {slug === 'billing-dashboard' && <BillingDashboardArchitecture />}
+          {slug === 'payable-dashboard' && <PayableDashboardArchitecture />}
           {slug === 'spog' && <SPOGArchitecture />}
           {slug === 'identity-lifecycle' && <IdentityLifecycleArchitecture />}
           {slug === 'rydoo-sync' && <RydooSyncArchitecture />}
