@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import CompanyWidget from "./CompanyWidget";
 
-gsap.registerPlugin(ScrollTrigger);
-
 interface Chapter {
   number: string;
   company: string;

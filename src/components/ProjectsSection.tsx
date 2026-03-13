@@ -5,8 +5,6 @@ import { ArrowUpRight, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectsData } from "@/data/projectsData";
 
-gsap.registerPlugin(ScrollTrigger);
-
 // Numbered text component - minimal editorial style
 const NumberLabel = ({
   number,
@@ -37,6 +35,15 @@ const CompactProjectCard = ({
           <div className="absolute -top-2 -right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-100 border border-amber-300 shadow-sm z-10">
             <Trophy className="w-3 h-3 text-amber-600" />
             <span className="text-[10px] font-bold text-amber-700 whitespace-nowrap">Winner</span>
+          </div>
+        )}
+        {!project.award && project.liveUrl && (
+          <div className="absolute -top-2 -right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-300 shadow-sm z-10">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            <span className="text-[10px] font-bold text-emerald-700 whitespace-nowrap">Live</span>
           </div>
         )}
         <div className="flex items-center gap-4">

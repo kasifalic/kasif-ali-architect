@@ -1,0 +1,7 @@
+[build]
+  command = "node scripts/generate-portfolio-context.mjs && npx vite build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

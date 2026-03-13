@@ -112,6 +112,7 @@ export interface ProjectArticle {
 
   // Recognition
   award?: string; // e.g. "GenAI Buildathon Winner"
+  liveUrl?: string; // URL for live/deployed projects
 
   // Legacy fields for backward compatibility
   userStory: string;
@@ -320,11 +321,11 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Spend Tracked", value: "Millions" },
+      { label: "Spend Tracked", value: "$27M+" },
       { label: "Vendors", value: "300+" },
       { label: "Tools Classified", value: "370+" },
       { label: "Subscriptions", value: "400+" },
-      { label: "Departments", value: "All" },
+      { label: "Departments", value: "13" },
       { label: "Stakeholders", value: "80+" },
     ],
 
@@ -1037,11 +1038,11 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-teal-500",
     heroImage: "gradient-teal",
 
-    overview: "Purchase Dashboard is an email operations platform for purchase@amagi.com, enabling the procurement team to manage vendor communications with AI-powered categorization, sentiment analysis, and intelligent chatbot for data retrieval.",
+    overview: "Purchase Dashboard is an AI-powered email operations platform for the procurement shared mailbox (purchase@amagi.com), transforming unstructured vendor communications into categorized, sentiment-analyzed, and searchable intelligence. It combines GPT-4 email classification across 6+ categories, real-time sentiment tracking for vendor relationship management, SLA compliance monitoring, and a natural-language chatbot that translates procurement queries into secure SQL — all deployed on AWS with PostgreSQL.",
 
-    challenge: "The procurement team dealt with diverse email types—RFQs, payment delays, shipment updates, vendor queries—without systematic categorization. Understanding vendor sentiment and tracking procurement patterns manually was inefficient. They needed AI to categorize emails, detect vendor sentiment, and provide quick data access.",
+    challenge: "The procurement team received hundreds of emails daily across the shared mailbox — RFQs, payment delay notifications, shipment updates, vendor onboarding requests, invoice queries — all mixed together with no systematic categorization. Team members spent 15-20 minutes per query manually searching through email threads to find vendor history. Vendor sentiment was invisible: a vendor sending increasingly frustrated emails about payment delays would go unnoticed until the relationship deteriorated. SLA compliance tracking was manual and inconsistent, and there was no way to identify which team members were handling which categories or falling behind on response times.",
 
-    solution: "Built a Flask backend with React frontend, deployed on AWS. Implemented GPT-4 for email categorization (Payment Delays, RFQs, Shipment Updates, etc.) and sentiment analysis (positive/neutral/negative). Created an AI chatbot with SQL-based data retrieval and security validation to answer procurement queries.",
+    solution: "Built a Flask backend with Gunicorn production serving and a React + TypeScript frontend, deployed on AWS EC2 with RDS PostgreSQL. GPT-4 powers two AI pipelines: an email categorization engine that classifies incoming messages into 6+ categories (Payment Delays, RFQs, Shipment Updates, Invoice Queries, Vendor Onboarding, Payment Processing) and a sentiment analysis layer that scores each communication as positive, neutral, or negative. The AI chatbot accepts natural language procurement queries ('Show me all payment delay emails from Vendor X in the last 30 days'), translates them to SQL with security validation to prevent injection, and returns structured results. AWS Secrets Manager handles credential rotation for the shared mailbox OAuth tokens.",
 
     features: [
       "AI email categorization (Payment Delays, RFQs, Shipment Updates)",
@@ -1056,7 +1057,7 @@ export const projectsData: ProjectArticle[] = [
 
     architecture: "Flask backend with Gunicorn for production serving. PostgreSQL database for email storage and analytics. GPT-4 handles categorization and sentiment analysis. The chatbot translates natural language to SQL with security validation before execution.",
 
-    impact: "Procurement gained instant visibility into email categories and vendor sentiment. The AI chatbot reduced time spent on data lookups by 70%. Vendor sentiment tracking enabled proactive relationship management.",
+    impact: "Procurement gained instant visibility into email categories and vendor sentiment across the shared mailbox. The AI chatbot reduced time spent on data lookups by 70% — queries that took 15-20 minutes of manual email searching now return results in seconds. Sentiment tracking surfaced high-risk vendors with escalating negative communications before relationships deteriorated, enabling proactive outreach. SLA compliance monitoring revealed response time patterns across team members, driving accountability and workload rebalancing. The progressive disclosure dashboard design (collapsed KPI cards → expandable deep-dives) became a template adopted by two other internal tools.",
 
     techStack: [
       { name: "React", category: "frontend", icon: "react" },
@@ -1071,10 +1072,46 @@ export const projectsData: ProjectArticle[] = [
       { name: "OpenAI GPT-4", category: "ai", icon: "openai" },
     ],
 
+    keyDecisions: [
+      {
+        question: "Why Flask instead of FastAPI (used in Billing and Payable Dashboards)?",
+        answer: "The Purchase Dashboard has a simpler request model — synchronous email categorization with no background job queues or webhook processing. Flask with Gunicorn handles the load efficiently without the async complexity. FastAPI's advantages (async I/O, Celery integration) weren't needed here, and Flask's maturity and simpler debugging made it the pragmatic choice for the team maintaining it."
+      },
+      {
+        question: "Why SQL-based chatbot instead of RAG over email content?",
+        answer: "Procurement queries are structured ('show me payment delays from Vendor X last month') not semantic ('find emails about late deliveries'). SQL over the categorized/indexed PostgreSQL data gives exact, auditable results. RAG would add latency and hallucination risk for queries that map cleanly to WHERE clauses. The security validation layer also benefits from SQL — it's easier to validate and sanitize a generated SQL query than to ensure a RAG pipeline doesn't leak cross-vendor data."
+      },
+      {
+        question: "Why real-time sentiment analysis per email vs. batch processing?",
+        answer: "Vendor sentiment can shift within a single email thread — a frustrated follow-up on a payment delay needs to be flagged immediately, not discovered in a nightly batch. Real-time classification on ingest means the high-risk vendor list is always current, and SLA response time tracking starts from the moment the email arrives."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "Procurement manually searches through email threads for 15-20 minutes to find vendor communication history",
+        after: "AI chatbot returns structured results in seconds — 'Show me all payment delay emails from Vendor X' → instant SQL-backed response"
+      },
+      {
+        before: "Vendor sentiment invisible — frustrated vendors sending escalating emails go unnoticed until the relationship is damaged",
+        after: "Real-time sentiment scoring flags high-risk vendors with escalation counts, enabling proactive outreach before relationships deteriorate"
+      },
+      {
+        before: "No visibility into which email categories dominate the shared mailbox or how workload distributes across the team",
+        after: "Category distribution and team performance dashboards show exactly who handles what, with SLA compliance tracking per member"
+      },
+      {
+        before: "SLA compliance tracking is manual and inconsistent — no one knows actual response times by category",
+        after: "Color-coded SLA bars (green < 1h, orange 4-24h, red > 24h) provide instant compliance visibility with trend tracking"
+      }
+    ],
+
     metrics: [
       { label: "Categories", value: "6+" },
-      { label: "Analysis", value: "Sentiment" },
+      { label: "Sentiment", value: "Real-time" },
       { label: "Data Lookup", value: "70% faster" },
+      { label: "Query Time", value: "Seconds" },
+      { label: "SLA Tracking", value: "Per-member" },
       { label: "Status", value: "Production" },
     ],
 
@@ -1229,13 +1266,49 @@ export const projectsData: ProjectArticle[] = [
       }
     ],
 
+    keyDecisions: [
+      {
+        title: "Rebuild from Streamlit to Next.js",
+        reasoning: "The initial prototype was a Streamlit dashboard — fast to ship but limited in UX customization, component reuse, and client-side interactivity. Rebuilding in Next.js with TanStack Table and Recharts gave full control over the leaderboard, sortable user tables, and tabbed analytics — features Streamlit couldn't deliver without heavy workarounds.",
+        alternatives: "Keep Streamlit and add custom CSS / Retool / Grafana with custom panels",
+        outcome: "Production-grade dashboard with sub-second client-side sorting, custom productivity scoring, and a polished dark UI that IT admins actually enjoy using daily."
+      },
+      {
+        title: "Dual Data Sources: Admin API + CSV Exports",
+        reasoning: "Cursor's Admin API provides member data and daily usage counts but exposes no per-request cost or model breakdown. CSV exports from Cursor's billing portal contain per-request detail (model, tokens, cost) but lack user metadata. Neither source alone gives full visibility.",
+        alternatives: "API-only (lose cost data) / CSV-only (lose real-time user status) / Reverse-engineer undocumented endpoints",
+        outcome: "Combining both sources yields the complete picture — user activity from the API, cost and model analytics from CSVs — with PapaParse pre-aggregating CSV data client-side to avoid a backend."
+      },
+      {
+        title: "PapaParse Client-Side Aggregation vs Backend API",
+        reasoning: "CSV exports are static snapshots uploaded periodically. Standing up a backend just to parse CSVs adds infrastructure cost and deployment complexity for what is essentially a read-only analytics tool. PapaParse handles 100K+ row CSVs in-browser in under 2 seconds.",
+        alternatives: "FastAPI backend with database / AWS Lambda pre-processing / Databricks pipeline",
+        outcome: "Zero backend infrastructure — the entire app runs as a static Next.js site on AWS Amplify. CSV processing happens client-side, keeping deployment simple and costs near zero."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "IT had no visibility into Cursor usage — no way to see who was active, which models engineers preferred, or what the AI tooling was costing per user.",
+        after: "Full dashboard tracking 370+ engineers with per-user productivity scores, model preferences (Claude 4.5 dominant for high-thinking tasks), and individual spend breakdowns."
+      },
+      {
+        before: "License optimization was guesswork — inactive seats went unnoticed, and there was no data to justify renewals or expansion.",
+        after: "Inactive user detection enabled license recovery, and usage trend data provided concrete evidence for budget forecasting and subscription decisions."
+      },
+      {
+        before: "No understanding of which AI features engineers actually adopted — Plan Mode, Ask Mode, and Agent usage were invisible.",
+        after: "Feature adoption panel shows exact usage counts per mode (Agent: 76.5K requests, Plan: 2.8K, Ask: 1.7K), informing training priorities and rollout strategy."
+      }
+    ],
+
     metrics: [
       { label: "Engineers Tracked", value: "370+" },
       { label: "Total Requests", value: "429k+" },
       { label: "AI Models", value: "8+" },
       { label: "Lines Generated", value: "23M+" },
       { label: "Data Period", value: "6 months" },
-      { label: "Status", value: "Production" },
+      { label: "Cost Visibility", value: "Per-user" },
     ],
 
     screenshots: [
@@ -1393,6 +1466,46 @@ export const projectsData: ProjectArticle[] = [
         system: "OpenAI GPT-4o-mini",
         type: "API",
         dataFlow: "Natural language meeting queries translated to analytics responses via 'Aria' chatbot"
+      }
+    ],
+
+    keyDecisions: [
+      {
+        title: "GAM CLI over Direct Google Calendar API",
+        reasoning: "The Google Calendar API requires per-user OAuth consent or domain-wide delegation with complex scope management. GAM (Google Apps Manager) CLI leverages existing Google Admin SDK credentials to bulk-export calendar events for all 1,400+ users in a single command — no per-user auth flows, no pagination headaches, and IT already had GAM configured for other admin tasks.",
+        alternatives: "Google Calendar API with domain-wide delegation / Google Workspace Events API / BigQuery export via Workspace logs",
+        outcome: "Calendar data for 1,400+ users extracted in minutes with a single GAM command, using credentials IT already managed. Zero additional OAuth setup or API quota concerns."
+      },
+      {
+        title: "SAP SuccessFactors HR Data Join",
+        reasoning: "Raw calendar data only has email addresses — no department, manager, or job title context. Without HR enrichment, you can't answer 'Which department has the most meetings?' or 'Are managers drowning in meetings?' SAP SuccessFactors was Amagi's HR system of record, and its OData API exposes the exact employee metadata needed to transform anonymous calendar events into organizational intelligence.",
+        alternatives: "Manual department mapping spreadsheet / LDAP/Active Directory lookup / Ask managers to self-report",
+        outcome: "Every calendar event enriched with department, manager, and job title — enabling department-level analytics, cross-departmental collaboration tracking, and manager meeting load analysis across 50 departments."
+      },
+      {
+        title: "GPT-4o-mini for the Aria Chatbot",
+        reasoning: "Leadership wanted to ask questions like 'Which managers have the most meetings?' without navigating dashboards. GPT-4o-mini was chosen over GPT-4 for its 10x lower cost and faster response times — critical for a chatbot that could see frequent queries. The model receives pre-aggregated meeting statistics as context, not raw data, so the smaller model handles it well.",
+        alternatives: "GPT-4 (expensive for chatbot volume) / Claude (API access constraints at the time) / No chatbot, filters only",
+        outcome: "Sub-second natural language responses to meeting queries at minimal API cost. 'Aria' handles questions about department patterns, meeting efficiency, and collaboration trends without users touching a filter."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        before: "Leadership had zero visibility into meeting culture — no data on how much time teams spent in meetings, which departments collaborated, or whether meeting load was sustainable.",
+        after: "Executive dashboard surfacing 428K+ meetings across 50 departments with weekly meeting load (53h), cross-department connectivity (8%), and external collaboration rate (46%)."
+      },
+      {
+        before: "Cross-departmental collaboration was invisible — no way to know which teams worked together frequently or which operated in silos.",
+        after: "Top 10 collaboration rankings with meeting counts, participant volumes, and a 5-level intensity heatmap across 99 department pairings — revealing that cross-dept connectivity was only 8%, highlighting silo risks."
+      },
+      {
+        before: "Querying meeting data required analyst support — leadership couldn't self-serve answers to questions like 'Which department has the most external meetings?'",
+        after: "AI chatbot 'Aria' answers natural language questions instantly, and clickable KPI cards open drill-down modals with distribution, top contributors, and AI-generated executive summaries."
+      },
+      {
+        before: "Customer Success's outsized meeting volume (25% of all meetings) was unknown, and potential burnout in high-meeting teams went undetected.",
+        after: "Department-level analytics immediately surfaced Customer Success as the most meeting-heavy team, and the 53-hour weekly load metric flagged burnout risk for leadership action."
       }
     ],
 
@@ -1930,6 +2043,7 @@ export const projectsData: ProjectArticle[] = [
     type: "Voice AI",
     organization: "Personal",
     category: "AI & Agents",
+    liveUrl: "https://www.dryvox.com",
     readTime: "12 min read",
     publishDate: "March 2024",
     icon: Mic,
@@ -2204,7 +2318,7 @@ export const projectsData: ProjectArticle[] = [
 
     architecture: "Three-tier architecture: React 19 SPA frontend with Zustand state management and React Query for server-state synchronization, communicating via REST API to a FastAPI async backend. The backend runs 18 specialized services (ai_service, dashboard_service, portfolio_service, stock_service, news_service, ipo_service, performance_service, tax_service, alert_service, broker_service, report_service, etc.) with SQLAlchemy async ORM connecting to PostgreSQL (13 tables) for persistent storage. Redis serves dual duty as market data cache and Celery message broker for background tasks like market data refresh, news aggregation, and portfolio recalculation. External integrations include yfinance for global market data, Indian Stock API for NSE/BSE specifics, and Zerodha Kite Connect for direct broker connectivity.",
 
-    impact: "Consolidates 5+ separate tools (portfolio tracker, stock screener, news aggregator, SIP calculator, IPO tracker) into a single platform. Real-time market indices and portfolio valuations eliminate manual data entry. AI-powered research provides institutional-grade stock analysis in seconds. Goal-based planning with SIP recommendations makes financial planning accessible to retail investors.",
+    impact: "Nivesha won 1st Place in the Open Category at Amagi's internal GenAI Buildathon, competing against teams across the organization. It consolidates 5+ separate tools (portfolio tracker, stock screener, news aggregator, SIP calculator, IPO tracker) into a single platform. Real-time market indices and portfolio valuations eliminate manual data entry. AI-powered research provides institutional-grade stock analysis in seconds. Goal-based planning with SIP recommendations makes financial planning accessible to retail investors.",
 
     screenshots: [
       {
@@ -2436,7 +2550,7 @@ export const projectsData: ProjectArticle[] = [
 
     architecture: "The platform is built around a Central Orchestrator — the AI brain that interprets incoming requests, consults the Context Graph (a real-time map of infrastructure topology and policies), and dispatches work to specialized agents. Each agent follows deterministic execution paths: monitoring alerts trigger SRE agents, chat messages trigger DevOps self-service agents, scheduled scans trigger cost and compliance agents. Before any infrastructure mutation, Open Policy Agent validates the action against configured policies. All actions are logged to an immutable audit trail and notifications are sent via integration connectors (Slack, Teams, PagerDuty). The architecture is multi-cloud by design with a modular connector layer supporting AWS, Azure, and GCP.",
 
-    impact: "SRE teams eliminated 2 AM pages for known issues — agents detect and remediate memory leaks within seconds, dropping MTTR from 30 minutes to under 1 minute. DevOps provisioning time dropped from days (Ops ticket queue) to minutes (conversational self-service). Leadership identified 25%+ in cloud cost savings through automated detection of idle resources and obsolete snapshots. Ticket volume decreased 40% as common requests became self-service. Compliance teams achieved near-zero security incidents through continuous policy scanning and auto-correction.",
+    impact: "The architecture is designed to deliver projected MTTR under 1 minute for known incident patterns, based on deterministic code path benchmarks — eliminating 2 AM pages by auto-remediating memory leaks, service restarts, and cache overflows within seconds. DevOps provisioning is estimated to drop from days (Ops ticket queue) to minutes through conversational self-service. Cost optimization agents target an estimated 25%+ in cloud savings by detecting idle VMs, obsolete snapshots, and weekend dev machines. The platform's self-service model is projected to reduce L1 ticket volume by ~40%. Compliance agents aim for near-zero security drift through continuous scanning and auto-correction. (Note: metrics are architectural projections based on design benchmarks; ZapGap is currently in prototype stage.)",
 
     keyDecisions: [
       {
@@ -2719,6 +2833,11 @@ export const projectsData: ProjectArticle[] = [
         src: "/projects/sahayak/screenshot-6-prepare.png",
         alt: "Sahayak lesson preparation with grade, subject, and topic selection",
         caption: "Lesson preparation engine with cascading grade, subject, and topic dropdowns that generate structured 45-minute lesson plans"
+      },
+      {
+        src: "/projects/sahayak/screenshot-7-ai-chat.png",
+        alt: "Sahayak AI teaching assistant chat interface",
+        caption: "Conversational AI teaching assistant powered by Gemini, helping teachers with curriculum questions, classroom strategies, and lesson planning in natural language"
       }
     ],
 
@@ -2830,7 +2949,7 @@ export const projectsData: ProjectArticle[] = [
     icon: MessageSquare,
     monogram: "CS",
     color: "bg-sky-500",
-    heroImage: "gradient-sky",
+    heroImage: "/projects/cost-savvy-chat/hero.jpg",
 
     overview: "Cost Savvy Chat is a full-stack AI-powered cloud bill analysis platform. Users upload AWS invoice PDFs via drag-and-drop, GPT-4o-mini extracts service-level cost data into structured JSON, and a context-aware AI chatbot answers natural language questions about the parsed bill — all within a glassmorphic tab-based interface backed by Supabase for auth and storage, with Supabase Edge Functions handling AI inference.",
 

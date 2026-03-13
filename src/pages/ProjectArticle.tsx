@@ -59,7 +59,7 @@ const useArticleSEO = (project: { name: string; tagline: string; overview: strin
         '@type': 'Person',
         name: 'Kasif Ali',
         jobTitle: 'AI Systems Architect',
-        url: 'https://kasifali.dev',
+        url: 'https://kasifali.tech',
       },
       datePublished: project.publishDate,
       articleSection: project.type,
@@ -78,7 +78,7 @@ const useArticleSEO = (project: { name: string; tagline: string; overview: strin
       'og:title': `${project.name} — ${project.tagline}`,
       'og:description': project.overview.slice(0, 200),
       'og:type': 'article',
-      'og:url': `https://kasifali.dev/projects/${project.slug}`,
+      'og:url': `https://kasifali.tech/projects/${project.slug}`,
       'article:author': 'Kasif Ali',
       'article:section': project.type,
       'twitter:card': 'summary_large_image',
@@ -176,13 +176,13 @@ const ProjectArticle = () => {
   // Find project by slug
   const project = projectsData.find((p) => p.slug === slug);
 
+  // SEO meta tags + JSON-LD (must be called before any early return — Rules of Hooks)
+  useArticleSEO(project ?? { name: '', tagline: '', overview: '', publishDate: '', readTime: '', slug: '', type: '' });
+
   // 404 if project not found
   if (!project) {
     return <Navigate to="/404" replace />;
   }
-
-  // SEO meta tags + JSON-LD
-  useArticleSEO(project);
 
   // Find previous and next projects for navigation
   const currentIndex = projectsData.findIndex((p) => p.slug === slug);

@@ -218,8 +218,7 @@
   /* Enhanced elegant outline button */
   .btn-elegant-enhanced {
     @apply px-7 py-3.5 rounded-full font-semibold transition-all duration-300 text-sm;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
     color: #5a4a3a;
     border: 2px solid rgba(201, 168, 108, 0.6);
     position: relative;
@@ -283,13 +282,12 @@
   .role-card-enhanced {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.6) 0%,
-      rgba(255, 250, 240, 0.5) 50%,
-      rgba(255, 255, 255, 0.6) 100%
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 250, 240, 0.85) 50%,
+      rgba(255, 255, 255, 0.9) 100%
     );
-    backdrop-filter: blur(16px);
     border: 1px solid rgba(201, 168, 108, 0.3);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(201, 168, 108, 0.15),
       0 0 0 1px rgba(255, 255, 255, 0.5) inset,
       0 1px 0 rgba(255, 255, 255, 0.8) inset;
@@ -509,6 +507,25 @@
     padding-top: 0.5rem;
   }
 
+  /* Floating hero image styles */
+  .floating-hero-image {
+    filter: drop-shadow(0 25px 50px rgba(201, 168, 108, 0.3));
+    transition: filter 0.3s ease;
+  }
+
+  .floating-hero-image::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(
+      ellipse 60% 60% at 50% 50%,
+      rgba(255, 220, 180, 0.2) 0%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    z-index: -1;
+  }
+
   /* Status badge - elegant version */
   .status-badge {
     @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium;
@@ -673,5 +690,262 @@
   .nav-link.active {
     color: #2a2218;
     font-weight: 600;
+  }
+
+  /* Article-specific styles for Medium-style layout */
+  .article-title {
+    font-family: 'Sora', sans-serif;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    color: #1a1a1a;
+  }
+
+  .article-body {
+    font-family: 'Outfit', sans-serif;
+    @apply text-lg leading-relaxed;
+    max-width: 680px;
+    color: #374151;
+  }
+
+  .article-section-heading {
+    font-family: 'Sora', sans-serif;
+    @apply text-3xl font-bold mb-4;
+    color: #1a1a1a;
+  }
+
+  /* Technology stack grid */
+  .tech-stack-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4;
+  }
+
+  .tech-item {
+    @apply flex flex-col items-center justify-center p-4 rounded-xl bg-white border border-gray-200 transition-all duration-300;
+  }
+
+  .tech-item:hover {
+    @apply border-amber-300 shadow-lg transform scale-105;
+  }
+
+  /* Gradient hero placeholders for projects */
+  .gradient-amber {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+  }
+
+  .gradient-emerald {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #34d399 100%);
+  }
+
+  .gradient-violet {
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #a78bfa 100%);
+  }
+
+  .gradient-blue {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #60a5fa 100%);
+  }
+
+  .gradient-rose {
+    background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #fb7185 100%);
+  }
+
+  .gradient-indigo {
+    background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #818cf8 100%);
+  }
+
+  .gradient-sky {
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #38bdf8 100%);
+  }
+
+  .gradient-green {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #4ade80 100%);
+  }
+
+  .gradient-orange {
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 50%, #fb923c 100%);
+  }
+
+  .gradient-teal {
+    background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 50%, #2dd4bf 100%);
+  }
+
+  .gradient-pink {
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #f472b6 100%);
+  }
+
+  .gradient-cyan {
+    background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #22d3ee 100%);
+  }
+
+  .gradient-lime {
+    background: linear-gradient(135deg, #a3e635 0%, #84cc16 50%, #a3e635 100%);
+  }
+
+  .gradient-slate {
+    background: linear-gradient(135deg, #64748b 0%, #475569 50%, #64748b 100%);
+  }
+
+  .gradient-red {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #f87171 100%);
+  }
+
+  /* ===== ACCESSIBILITY STYLES ===== */
+
+  /* Skip to main content link - visible only on keyboard focus */
+  .skip-link {
+    @apply absolute left-0 top-0 z-[100] px-6 py-3 font-semibold text-sm rounded-br-xl;
+    background: linear-gradient(135deg, #C9A86C 0%, #E8D5A3 100%);
+    color: #1a1a1a;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    box-shadow: 0 4px 20px rgba(201, 168, 108, 0.6);
+    outline: 3px solid #C9A86C;
+    outline-offset: 2px;
+  }
+
+  /* High-contrast focus indicators for all interactive elements */
+  a:focus,
+  button:focus,
+  input:focus,
+  textarea:focus,
+  select:focus,
+  [tabindex]:focus {
+    outline: 3px solid #C9A86C;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Specific focus styles for custom buttons */
+  .btn-golden:focus,
+  .btn-golden-enhanced:focus,
+  .btn-elegant:focus,
+  .btn-elegant-enhanced:focus,
+  .hero-btn:focus {
+    outline: 3px solid #8B7355;
+    outline-offset: 4px;
+  }
+
+  /* Focus visible for modern browsers (better UX) */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid #C9A86C;
+    outline-offset: 3px;
+  }
+
+  /* Remove focus outline when clicking with mouse */
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible),
+  input:focus:not(:focus-visible),
+  textarea:focus:not(:focus-visible),
+  select:focus:not(:focus-visible),
+  [tabindex]:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Enhanced focus for navigation links */
+  .nav-link:focus,
+  .nav-link:focus-visible {
+    outline: 2px solid #C9A86C;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  /* Card focus states */
+  .project-card:focus-within,
+  .milestone-card:focus-within,
+  .chapter-card:focus-within {
+    outline: 2px solid #C9A86C;
+    outline-offset: 2px;
+  }
+
+  /* Ensure sufficient color contrast for text */
+  @media (prefers-contrast: high) {
+    body {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .text-gray-500,
+    .text-gray-600,
+    .text-amber-600 {
+      color: #000000 !important;
+    }
+
+    .btn-golden-enhanced,
+    .btn-elegant-enhanced {
+      border: 2px solid #000000;
+    }
+  }
+
+  /* Reduced motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .portrait-float,
+    .projects-portrait-float,
+    .trophy-float {
+      animation: none !important;
+    }
+  }
+
+  /* Screen reader only text (visually hidden but accessible) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Screen reader only but focusable */
+  .sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  /* Performance: GPU acceleration for animated elements */
+  .portrait-float,
+  .projects-portrait-float,
+  .trophy-float,
+  .hero-btn,
+  .project-card,
+  .milestone-card,
+  .chapter-card,
+  .contact-card,
+  .social-link,
+  .bento-item {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Remove will-change after page load to save memory */
+  @media (prefers-reduced-motion: reduce) {
+    .portrait-float,
+    .projects-portrait-float,
+    .trophy-float {
+      will-change: auto;
+    }
   }
 }

@@ -8,30 +8,36 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Debounced scroll handler for better performance
+    let scrollTimeout: NodeJS.Timeout;
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = document.querySelectorAll("section[id]");
-      let currentSection = "home";
+      // Debounce section detection to reduce reflows
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const sections = document.querySelectorAll("section[id]");
+        let currentSection = "home";
 
-      sections.forEach((section) => {
-        const htmlSection = section as HTMLElement;
-        const sectionTop = htmlSection.offsetTop - 100;
-        const sectionHeight = htmlSection.offsetHeight;
+        sections.forEach((section) => {
+          const htmlSection = section as HTMLElement;
+          const rect = htmlSection.getBoundingClientRect();
 
-        if (
-          window.scrollY >= sectionTop &&
-          window.scrollY < sectionTop + sectionHeight
-        ) {
-          currentSection = section.getAttribute("id") || "home";
-        }
-      });
+          // Use getBoundingClientRect instead of offsetTop (no forced reflow)
+          if (rect.top <= 100 && rect.bottom > 100) {
+            currentSection = section.getAttribute("id") || "home";
+          }
+        });
 
-      setActiveSection(currentSection);
+        setActiveSection(currentSection);
+      }, 100); // Debounce by 100ms
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const navItems = [
@@ -48,14 +54,21 @@ const Navbar = () => {
         scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
-      <nav className="section-container">
+      <nav className="section-container" aria-label="Main navigation">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a
             href="#home"
-            className="font-sora text-xl font-bold text-gray-900 italic"
+            className="text-xl font-bold"
+            style={{
+              fontFamily: 'Sora, sans-serif',
+              background: 'linear-gradient(135deg, #2a2218 0%, #8B7355 50%, #C4A87C 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+            aria-label="Kasif Ali - Home"
           >
-            Kasif.
+            Kasif Ali
           </a>
 
           {/* Desktop Navigation */}
@@ -76,7 +89,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <a
-              href="mailto:kasifaliwdr@gmail.com"
+              href="#contact"
               className="btn-primary text-sm"
             >
               Contact
@@ -87,11 +100,14 @@ const Navbar = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-900" />
+              <X className="w-6 h-6 text-gray-900" aria-hidden="true" />
             ) : (
-              <Menu className="w-6 h-6 text-gray-900" />
+              <Menu className="w-6 h-6 text-gray-900" aria-hidden="true" />
             )}
           </button>
         </div>
@@ -101,6 +117,7 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -127,14 +144,16 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-gray-500 hover:text-gray-900"
+                  aria-label="LinkedIn profile (opens in new window)"
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Linkedin className="w-5 h-5" aria-hidden="true" />
                 </a>
                 <a
                   href="mailto:kasifaliwdr@gmail.com"
                   className="p-2 text-gray-500 hover:text-gray-900"
+                  aria-label="Send email to kasifaliwdr@gmail.com"
                 >
-                  <Mail className="w-5 h-5" />
+                  <Mail className="w-5 h-5" aria-hidden="true" />
                 </a>
               </div>
             </div>

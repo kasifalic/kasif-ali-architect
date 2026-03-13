@@ -1,7 +1,6 @@
 
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
 import HeroNew from "@/components/HeroNew";
@@ -10,9 +9,7 @@ import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => {
   const location = useLocation();
@@ -50,12 +47,13 @@ const Index = () => {
       <Navbar />
       <main id="main-content" className="overflow-x-hidden">
         <HeroNew />
-        <AboutSection />
         <ProjectsSection />
+        <AboutSection />
         <ExperienceSection />
         <ContactSection />
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

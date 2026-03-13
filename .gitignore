@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Private docs (interview prep, internal notes, self-reviews)
+ANNUAL_SELF_REVIEW_2025.md
+ANNUAL_SELF_REVIEW_2025.txt
+PROJECT_INVENTORY.md
+PROJECT_CONTEXT.md
+IMPLEMENTATION_PLAN.md
+PROJECT_ARTICLE_GUIDE.md
+FINNHUB_SETUP.md
+nvidia/
+refer/

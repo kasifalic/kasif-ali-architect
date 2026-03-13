@@ -12,8 +12,6 @@ import {
   X,
 } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const buildathonGalleries = [
   {
     label: "ZapGap — 1st Place, Agents",
