@@ -37,6 +37,7 @@ interface Chapter {
   newsSearchTerm?: string; // Override company name for news search
   isPrivate?: boolean;
   privateMessage?: string;
+  companyNote?: string; // e.g. "Now Lumen Technologies", "A Reliance Group company"
 }
 
 const ExperienceSection = () => {
@@ -88,8 +89,9 @@ const ExperienceSection = () => {
       techStack: ["AWS", "Proxmox", "Hetzner", "Terraform", "Freddy AI", "Kubiya", "JumpCloud", "Okta", "Twingate", "Intune", "Wazuh"],
       signatureMetric: { value: "40%", label: "Cost Reduction" },
       isPrivate: true,
-      privateMessage: "Private — Genomics & Precision Medicine",
-      newsSearchTerm: "Strand Life Sciences genomics"
+      privateMessage: "Private — A Reliance Group Company",
+      newsSearchTerm: "Strand Life Sciences genomics",
+      companyNote: "A Reliance Group company"
     },
     {
       number: "03",
@@ -135,8 +137,9 @@ const ExperienceSection = () => {
       techStack: ["AWS", "Azure", "VMware", "JumpCloud", "Okta", "Jamf", "Freshservice", "Sophos", "Juniper", "G Suite"],
       signatureMetric: { value: "21→350+", label: "Users Scaled" },
       isPrivate: true,
-      privateMessage: "Private — Acquired by Cvent (Blackstone)",
-      newsSearchTerm: "Cvent meeting automation"
+      privateMessage: "Private — Acquired by Cvent",
+      newsSearchTerm: "Cvent meeting automation",
+      companyNote: "Now part of Cvent"
     },
     {
       number: "01",
@@ -160,7 +163,8 @@ const ExperienceSection = () => {
       signatureMetric: { value: "2000+", label: "Devices Managed" },
       stockSymbol: "LUMN",
       stockExchange: "NYSE",
-      newsSearchTerm: "Lumen Technologies"
+      newsSearchTerm: "Lumen Technologies",
+      companyNote: "Now Lumen Technologies"
     }
   ];
 
@@ -387,6 +391,14 @@ const ExperienceSection = () => {
                           {chapter.company}
                           <ExternalLink className="w-3.5 h-3.5 opacity-50" aria-hidden="true" />
                         </a>
+                        {chapter.companyNote && (
+                          <span
+                            className="text-xs px-2 py-0.5 rounded-full"
+                            style={{ background: `${chapter.accentColor}12`, color: chapter.accentColor, border: `1px solid ${chapter.accentColor}25` }}
+                          >
+                            {chapter.companyNote}
+                          </span>
+                        )}
                         <span className="text-[#5a4a3a]/50 text-sm">•</span>
                         <span className="text-[#5a4a3a]/60 text-sm">{chapter.industry}</span>
                       </div>

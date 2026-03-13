@@ -803,81 +803,223 @@ export const projectsData: ProjectArticle[] = [
     id: 4,
     slug: "payable-dashboard",
     name: "Payable Dashboard",
-    tagline: "AP Email Analytics Platform",
+    tagline: "AP Email Analytics & Intelligence Platform",
     type: "AI/Operations",
     organization: "Amagi Media",
     category: "AI-Powered Operations",
-    readTime: "6 min read",
+    readTime: "9 min read",
     publishDate: "October 2024",
     icon: Inbox,
     monogram: "PD",
     color: "bg-blue-500",
     heroImage: "gradient-blue",
 
-    overview: "Payable Dashboard is an email monitoring and analytics platform for the Accounts Payable team (payable@amagi.com). It provides semantic search across 21,000+ financial documents, team productivity tracking, and AI-powered chatbot for AP queries, integrated with NetSuite and Salesforce.",
+    overview: "Payable Dashboard is a real-time email monitoring and analytics platform built for the Accounts Payable team. It indexes 21,000+ vendor communications with AI-powered semantic search, surfaces emails with real attachments (filtering noise from signatures and footers), and provides vendor sentiment analysis, SLA tracking, and team productivity scoring — all integrated with enterprise ERP and CRM systems.",
 
-    challenge: "The AP team handled thousands of vendor emails monthly without centralized tracking. Finding historical payment communications was difficult, vendor query patterns were unknown, and team workload was unbalanced. They needed semantic search to find emails using natural language, integration with NetSuite for payment context, and analytics to optimize team performance.",
+    challenge: "The AP team processed thousands of vendor emails monthly across payment delays, invoice queries, PO disputes, and tax questions — all without centralized tracking. Finding a specific vendor communication from months ago meant 15-20 minutes of manual inbox searching. Managers had no visibility into team workload distribution, SLA compliance was unmeasured, and high-risk vendor relationships went undetected until escalations. The team also needed a way to quickly access invoice attachments without wading through email noise — reply chains, signatures, and marketing footers made finding real documents painful.",
 
-    solution: "Built a FastAPI platform with OpenAI text-embedding-3-large for semantic search powered by pgvector. Created vendor-centric analytics tracking query patterns and response times. Integrated with NetSuite for AP aging reports and payment schedules, and Salesforce for vendor relationship context. Developed an AI chatbot for conversational AP analytics.",
+    solution: "Built a FastAPI + React platform deployed on AWS Amplify and EC2. Emails are ingested via Gmail OAuth and stored in PostgreSQL with pgvector for 3072-dimensional semantic embeddings (text-embedding-3-large). A smart attachment filter separates real financial documents (invoices, POs, credit notes) from email noise. Vendor analytics track query patterns across categories (Payment Delays, Invoice Queries, PO Queries, Tax Queries, General Inquiry) with sentiment scoring. Enterprise ERP integration provides AP aging context, while CRM integration adds vendor relationship data. An AI chatbot powered by GPT-4 enables conversational data retrieval with SQL-level query translation and security validation.",
 
     features: [
-      "Semantic search across 21,000+ financial documents",
-      "Natural language queries using text-embedding-3-large embeddings",
-      "AI chatbot powered by OpenAI GPT-4 for AP analytics",
-      "NetSuite integration for vendor payment records and AP aging",
-      "Salesforce integration for vendor account data",
-      "Team productivity metrics and workload distribution",
-      "Vendor query pattern analysis",
-      "Historical email tracking (April - November 2025)",
-      "10 team member performance dashboards",
-      "Response time analytics and SLA tracking"
+      "Semantic search across 21,000+ financial documents using pgvector embeddings",
+      "Smart attachment filter — surfaces real invoices and documents, skips email noise",
+      "AI chatbot with GPT-4 for conversational AP analytics and secure SQL generation",
+      "Vendor sentiment analysis with risk scoring (positive/neutral/negative breakdown)",
+      "High-risk vendor identification with escalation tracking",
+      "Response Time SLA dashboard with 48-hour compliance monitoring",
+      "Email volume trends with daily, weekly, and monthly views",
+      "Request categorization: Payment Delays, Invoice Queries, PO Queries, Tax Queries",
+      "Team productivity scoring with efficiency metrics per member",
+      "Process health monitoring: closure rate, repeat queries, unanswered emails",
+      "Enterprise ERP integration for AP aging reports and payment schedules",
+      "Email resolution tracking: single vs. multi-exchange thread analysis"
     ],
 
-    architecture: "Email data is ingested from Gmail and stored in PostgreSQL with pgvector extension. Each email is embedded using text-embedding-3-large (3072 dimensions) for semantic similarity search. NetSuite and Salesforce integrations enrich vendor records with payment status and relationship data. The AI chatbot uses retrieval-augmented generation to answer AP-related queries.",
+    architecture: "Gmail OAuth ingests emails into PostgreSQL with pgvector extension. Each email is embedded using text-embedding-3-large (3072 dimensions) for semantic similarity search across the full corpus. A classification pipeline categorizes emails by type (Payment Delays, Invoice Queries, PO, Tax, General) and runs sentiment analysis. The attachment service filters real financial documents from email noise (signatures, footers, marketing). Enterprise ERP provides AP aging and payment context via REST API. CRM enriches vendor records with relationship data. Redis caches frequent queries for sub-second dashboard response times. The AI chatbot uses retrieval-augmented generation with security-validated SQL translation for conversational data access.",
 
-    impact: "Finding relevant historical vendor communications went from 15-20 minutes of manual searching to instant semantic search results. The team identified top vendors with repeated queries, enabling proactive communication improvements. Workload balancing improved as managers gained visibility into team member email volumes and response times.",
+    impact: "Vendor communication lookup dropped from 15-20 minutes to instant semantic search. SLA compliance became measurable for the first time — revealing a 46.7% compliance rate that triggered process improvements. High-risk vendor detection identified 18 vendors requiring proactive outreach. Team managers gained visibility into individual workload distribution across 10 members, with efficiency scoring enabling data-driven resource allocation. The attachment filter eliminated the noise problem entirely, giving the team direct access to real financial documents.",
+
+    keyDecisions: [
+      {
+        question: "Why semantic search over traditional full-text search?",
+        answer: "AP communications use varied terminology — 'payment delay', 'overdue invoice', 'pending remittance' all mean the same thing. Semantic embeddings (text-embedding-3-large, 3072 dimensions) capture meaning, not just keywords, enabling natural language queries like 'vendors with repeated payment issues' to surface relevant threads regardless of exact wording."
+      },
+      {
+        question: "Why build a smart attachment filter instead of showing all attachments?",
+        answer: "Email threads accumulate noise — every reply carries forward signature images, logo footers, and marketing banners as 'attachments'. The filter classifies attachments by type and content, surfacing only real financial documents (invoices, POs, credit notes) in the Recent Emails with Attachments section. This eliminated 80%+ of false positives."
+      },
+      {
+        question: "Why vendor-centric analytics instead of email-centric?",
+        answer: "Individual emails lack context. By aggregating communications per vendor and tracking patterns (query frequency, sentiment trend, escalation history), the dashboard reveals relationship health. A vendor sending 16 emails in a month with negative sentiment tells a very different story than raw email counts."
+      },
+      {
+        question: "Why Redis caching alongside PostgreSQL?",
+        answer: "Dashboard KPI cards and summary analytics are queried on every page load by all 10 team members. Redis caches these aggregated results, keeping dashboard response times sub-second while PostgreSQL handles the heavy semantic search and complex analytical queries."
+      }
+    ],
+
+    beforeAfter: [
+      {
+        label: "Finding Vendor Emails",
+        before: "15-20 minutes manually searching inbox, often giving up",
+        after: "Instant semantic search — natural language queries across 21,000+ documents"
+      },
+      {
+        label: "SLA Compliance",
+        before: "Completely unmeasured — no visibility into response times",
+        after: "Real-time SLA dashboard with 48-hour target tracking per team member"
+      },
+      {
+        label: "Vendor Risk Detection",
+        before: "High-risk vendors discovered only after escalation or complaint",
+        after: "Proactive identification — 18 high-risk vendors flagged with sentiment scoring"
+      },
+      {
+        label: "Attachment Access",
+        before: "Wading through reply chains, signatures, and marketing footers to find real invoices",
+        after: "Smart filter surfaces only genuine financial documents — invoices, POs, credit notes"
+      },
+      {
+        label: "Team Workload",
+        before: "No visibility — managers guessed who was overloaded",
+        after: "Per-member productivity scoring with efficiency metrics and workload distribution"
+      }
+    ],
+
+    screenshots: [
+      {
+        src: "/projects/payable-dashboard/screenshot-1-dashboard.png",
+        alt: "Payable Dashboard Overview",
+        caption: "Main dashboard — KPI cards showing daily email volume, average response time, SLA compliance, and pending escalations. AI-powered semantic search bar and Recent Emails with Attachments section for quick document access."
+      },
+      {
+        src: "/projects/payable-dashboard/screenshot-2-analytics.png",
+        alt: "Analytics Summary Sections",
+        caption: "Email volume trend chart with daily/weekly/monthly toggle, Response Time SLA breakdown with color-coded compliance bands, and summary cards for Vendor Analytics, Sentiment Analysis, and Process Health."
+      },
+      {
+        src: "/projects/payable-dashboard/screenshot-3-vendor-details.png",
+        alt: "Vendor Analytics Expanded",
+        caption: "Vendor & Request Analytics detail view — top vendors by email volume, request category distribution showing Payment Delays, Invoice Queries, PO Queries, Tax Queries, and General Inquiry breakdown."
+      },
+      {
+        src: "/projects/payable-dashboard/screenshot-4-sentiment.png",
+        alt: "Sentiment Analysis & Escalations",
+        caption: "Communication sentiment breakdown (neutral/negative/positive) with vendor-level scores. High-Risk Vendors panel showing sentiment percentage, escalation count, and risk level for proactive vendor management."
+      },
+      {
+        src: "/projects/payable-dashboard/screenshot-5-team.png",
+        alt: "Team Productivity & Performance",
+        caption: "Team performance table with efficiency scores, response counts, SLA compliance rates, average response times, and category coverage per team member. Process health metrics showing email resolution efficiency and closure rates."
+      }
+    ],
+
+    design: {
+      philosophy: "Payable Dashboard was designed as a clean, data-dense operations interface optimized for AP teams who need quick access to vendor communications, SLA metrics, and team performance data. The light theme with strong color-coded status indicators ensures critical information — SLA breaches, high-risk vendors, unanswered emails — demands immediate attention.",
+      principles: [
+        {
+          title: "Color-Coded Severity",
+          description: "SLA compliance uses a traffic-light system: green for under 12 hours, blue for 12-24 hours, amber for the 24-48 hour SLA window, and red for breaches beyond 48 hours. This lets managers instantly assess compliance health without reading numbers.",
+          screenshotIndex: 0,
+          highlight: "Response Time SLA section with green, blue, amber, and red progress bars"
+        },
+        {
+          title: "Progressive Disclosure",
+          description: "Each analytics section shows summary KPI cards by default, with a 'Show Details' toggle that reveals granular breakdowns — vendor lists, category distributions, team performance tables. This keeps the dashboard scannable while allowing deep dives on demand.",
+          screenshotIndex: 2,
+          highlight: "Hide Details toggle on Vendor & Request Analytics with expanded detail panels below"
+        },
+        {
+          title: "Risk-First Information Hierarchy",
+          description: "High-risk indicators (red badges on unanswered emails, escalation counts, negative sentiment scores) are always visually prominent. The dashboard surfaces problems first — breached SLAs, high-risk vendors, unanswered emails — before showing healthy metrics.",
+          screenshotIndex: 3,
+          highlight: "High-Risk Vendors panel with sentiment percentages and risk level badges"
+        },
+        {
+          title: "Consistent Metric Cards",
+          description: "Every analytics section uses the same 4-card KPI layout: icon + label + large number. This creates visual rhythm across Vendor Analytics, Sentiment Analysis, Process Health, and Team Productivity — reducing cognitive load when scanning sections.",
+          screenshotIndex: 1,
+          highlight: "Uniform KPI card rows across all four analytics sections"
+        }
+      ],
+      colorPalette: [
+        { name: "Background", hex: "#FFFFFF", usage: "Primary surface, card backgrounds" },
+        { name: "Text Primary", hex: "#1A1A1A", usage: "Headings, KPI values, primary content" },
+        { name: "SLA Green", hex: "#16A34A", usage: "Under 12-hour responses, healthy compliance, positive sentiment" },
+        { name: "SLA Amber", hex: "#CA8A04", usage: "24-48 hour SLA window, warning states" },
+        { name: "SLA Red", hex: "#DC2626", usage: "SLA breaches, high-risk vendors, unanswered emails, negative sentiment" },
+        { name: "Accent Blue", hex: "#3B82F6", usage: "Search bar, active states, primary action buttons, incoming email trend" },
+        { name: "Border Gray", hex: "#E5E7EB", usage: "Card borders, section dividers, table lines" }
+      ],
+      componentPatterns: [
+        "KPI Summary Cards — 4-column icon + label + value layout used across every analytics section for consistent data scanning",
+        "Progressive Detail Panels — collapsible sections with 'Show Details' toggle revealing vendor lists, charts, and tables on demand",
+        "Color-Coded SLA Bars — horizontal progress bars with green/blue/amber/red severity, showing count and percentage alongside",
+        "Vendor Communication Cards — email preview cards with sender, subject snippet, date, and attachment indicators",
+        "Trend Chart with Time Toggle — Recharts line chart with Daily/Weekly/Monthly tab selector for email volume analysis",
+        "Risk Badge System — red triangle icons for high-risk vendors, amber warning triangles for payment issues, green checks for healthy metrics"
+      ]
+    },
 
     techStack: [
-      { name: "React", category: "frontend", icon: "react" },
+      { name: "React 18", category: "frontend", icon: "react" },
       { name: "TypeScript", category: "frontend", icon: "typescript" },
       { name: "Vite", category: "frontend", icon: "vite" },
+      { name: "Tailwind CSS", category: "frontend", icon: "tailwindcss" },
+      { name: "Recharts", category: "frontend", icon: "recharts" },
+      { name: "Radix UI", category: "frontend", icon: "radixui" },
+      { name: "Framer Motion", category: "frontend", icon: "framer" },
       { name: "FastAPI", category: "backend", icon: "fastapi" },
       { name: "Python", category: "backend", icon: "python" },
+      { name: "Uvicorn", category: "backend" },
+      { name: "Redis", category: "backend", icon: "redis" },
+      { name: "Celery", category: "backend", icon: "celery" },
       { name: "PostgreSQL", category: "database", icon: "postgresql" },
       { name: "pgvector", category: "database" },
+      { name: "AWS EC2", category: "infrastructure", icon: "amazonec2" },
+      { name: "AWS Amplify", category: "infrastructure", icon: "awsamplify" },
+      { name: "Nginx", category: "infrastructure", icon: "nginx" },
+      { name: "GitHub", category: "infrastructure", icon: "github" },
       { name: "OpenAI GPT-4", category: "ai", icon: "openai" },
-      { name: "OpenAI Embeddings", category: "ai", icon: "openai" },
+      { name: "text-embedding-3-large", category: "ai", icon: "openai" },
     ],
 
     integrations: [
       {
-        system: "NetSuite",
+        system: "Enterprise ERP",
         type: "REST API",
-        dataFlow: "Vendor payment records, AP aging, invoice matching, payment schedules"
+        dataFlow: "Vendor payment records, AP aging reports, invoice matching, payment schedules"
       },
       {
-        system: "Salesforce",
+        system: "Enterprise CRM",
         type: "REST API",
         dataFlow: "Vendor account data, contract information, relationship context"
       },
       {
         system: "Gmail",
         type: "OAuth 2.0",
-        dataFlow: "Email ingestion for payable@amagi.com"
+        dataFlow: "Email ingestion, attachment extraction, and thread tracking for AP mailbox"
+      },
+      {
+        system: "Redis Cache",
+        type: "In-Memory",
+        dataFlow: "Dashboard KPI caching, frequent query results, session data"
       }
     ],
 
     metrics: [
       { label: "Emails Indexed", value: "21,000+" },
-      { label: "Team Size", value: "10" },
-      { label: "Data Coverage", value: "8 months" },
-      { label: "Search Type", value: "Semantic" },
-      { label: "Systems Integrated", value: "3" },
+      { label: "Active Vendors", value: "170+" },
+      { label: "Team Members", value: "10" },
       { label: "SLA Target", value: "48hrs" },
+      { label: "Request Categories", value: "5" },
+      { label: "Search Latency", value: "<1s" },
+      { label: "Data Coverage", value: "8 months" },
+      { label: "Systems Integrated", value: "4" },
     ],
 
-    userStory: "As an AP Manager, I want to track team response times and identify vendors with repeated queries to improve our SLA compliance.",
-    description: "Email monitoring and analytics for Accounts Payable with AI-powered semantic search and team productivity tracking.",
+    userStory: "As an AP Manager, I want to track team response times, identify vendors with repeated payment issues, and instantly surface email attachments so my team can resolve vendor queries within SLA without wading through inbox noise.",
+    description: "Real-time email monitoring and analytics for Accounts Payable with AI-powered semantic search, smart attachment filtering, vendor sentiment analysis, and team productivity tracking.",
   },
 
   {
