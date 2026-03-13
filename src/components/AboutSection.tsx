@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,8 +48,27 @@ const AboutSection = () => {
     if (!lightbox) return;
     const gallery = buildathonGalleries[lightbox.galleryIndex];
     const next = (lightbox.imageIndex + delta + gallery.images.length) % gallery.images.length;
+    setSlideDirection(delta > 0 ? 1 : -1);
     setLightbox({ ...lightbox, imageIndex: next });
   };
+
+  // Swipe support for lightbox
+  const [slideDirection, setSlideDirection] = useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+  const onTouchEnd = useCallback(() => {
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) >= 50) {
+      goToImage(distance > 0 ? 1 : -1);
+    }
+  }, [lightbox]);
 
   useEffect(() => {
     if (!lightbox) return;
@@ -522,6 +541,9 @@ const AboutSection = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={closeLightbox}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             <button
               onClick={closeLightbox}
@@ -530,6 +552,9 @@ const AboutSection = () => {
             >
               <X className="w-5 h-5" />
             </button>
+            <div className="absolute top-16 right-4 text-white/40 text-xs font-mono md:hidden">
+              Swipe to navigate
+            </div>
 
             {/* Title */}
             <div className="absolute top-4 left-4 md:left-1/2 md:-translate-x-1/2 text-white">
@@ -555,17 +580,24 @@ const AboutSection = () => {
             </button>
 
             {/* Image */}
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" custom={slideDirection}>
               <motion.img
                 key={`${lightbox.galleryIndex}-${lightbox.imageIndex}`}
                 src={buildathonGalleries[lightbox.galleryIndex].images[lightbox.imageIndex].src}
                 alt={buildathonGalleries[lightbox.galleryIndex].images[lightbox.imageIndex].caption}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                custom={slideDirection}
+                variants={{
+                  enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
+                  center: { x: 0, opacity: 1 },
+                  exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
                 className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl cursor-default"
                 onClick={(e) => e.stopPropagation()}
+                draggable={false}
               />
             </AnimatePresence>
 
@@ -578,7 +610,7 @@ const AboutSection = () => {
                 {buildathonGalleries[lightbox.galleryIndex].images.map((_, i) => (
                   <button
                     key={i}
-                    onClick={(e) => { e.stopPropagation(); setLightbox({ ...lightbox, imageIndex: i }); }}
+                    onClick={(e) => { e.stopPropagation(); setSlideDirection(i > lightbox.imageIndex ? 1 : -1); setLightbox({ ...lightbox, imageIndex: i }); }}
                     className={`w-2 h-2 rounded-full transition-all ${
                       i === lightbox.imageIndex ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/60'
                     }`}

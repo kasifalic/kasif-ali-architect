@@ -1,21 +1,68 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Monitor, Maximize2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { Screenshot } from '@/data/projectsData';
 
 interface ScreenshotGalleryProps {
   screenshots: Screenshot[];
 }
 
+function useSwipe(onSwipeLeft: () => void, onSwipeRight: () => void) {
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback(() => {
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) >= minSwipeDistance) {
+      if (distance > 0) onSwipeLeft();
+      else onSwipeRight();
+    }
+  }, [onSwipeLeft, onSwipeRight]);
+
+  return { onTouchStart, onTouchMove, onTouchEnd };
+}
+
 const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  const goTo = (index: number) => {
-    setActiveIndex((index + screenshots.length) % screenshots.length);
-  };
+  const goTo = useCallback((index: number) => {
+    const newIndex = (index + screenshots.length) % screenshots.length;
+    setDirection(newIndex > activeIndex ? 1 : -1);
+    setActiveIndex(newIndex);
+  }, [activeIndex, screenshots.length]);
+
+  const goNext = useCallback(() => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % screenshots.length);
+  }, [screenshots.length]);
+
+  const goPrev = useCallback(() => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
+  }, [screenshots.length]);
+
+  const gallerySwipe = useSwipe(goNext, goPrev);
+  const lightboxSwipe = useSwipe(goNext, goPrev);
 
   const current = screenshots[activeIndex];
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+  };
 
   return (
     <>
@@ -48,35 +95,41 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
             </button>
           </div>
 
-          {/* Screenshot */}
-          <div className="relative aspect-[16/10] overflow-hidden">
-            <AnimatePresence mode="wait">
+          {/* Screenshot with swipe */}
+          <div
+            className="relative aspect-[16/10] overflow-hidden touch-pan-y"
+            {...gallerySwipe}
+          >
+            <AnimatePresence mode="wait" custom={direction}>
               <motion.img
                 key={activeIndex}
                 src={current.src}
                 alt={current.alt}
-                initial={{ opacity: 0, scale: 1.02 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.3 }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
                 className="w-full h-full object-cover object-top cursor-pointer"
                 onClick={() => setIsLightboxOpen(true)}
+                draggable={false}
               />
             </AnimatePresence>
 
-            {/* Nav arrows - visible on hover */}
+            {/* Nav arrows - always visible on mobile, hover on desktop */}
             {screenshots.length > 1 && (
               <>
                 <button
-                  onClick={() => goTo(activeIndex - 1)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                  onClick={goPrev}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
                   aria-label="Previous screenshot"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => goTo(activeIndex + 1)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
+                  onClick={goNext}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70"
                   aria-label="Next screenshot"
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -105,13 +158,13 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
           </motion.p>
         </AnimatePresence>
 
-        {/* Thumbnail strip */}
+        {/* Thumbnail strip - horizontally scrollable on mobile */}
         {screenshots.length > 1 && (
-          <div className="flex gap-2 mt-4 justify-center flex-wrap">
+          <div className="flex gap-2 mt-4 justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-hide">
             {screenshots.map((shot, index) => (
               <button
                 key={index}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => goTo(index)}
                 className={`relative rounded-lg overflow-hidden border-2 transition-all duration-300 w-16 h-10 sm:w-20 sm:h-[50px] flex-shrink-0 ${
                   index === activeIndex
                     ? 'border-amber-500 shadow-md shadow-amber-200/30 scale-105'
@@ -123,6 +176,7 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
                   src={shot.src}
                   alt={shot.alt}
                   className="w-full h-full object-cover object-top"
+                  draggable={false}
                 />
               </button>
             ))}
@@ -130,7 +184,7 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
         )}
       </motion.div>
 
-      {/* Lightbox */}
+      {/* Lightbox with swipe */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
@@ -140,24 +194,26 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
             onClick={() => setIsLightboxOpen(false)}
+            {...lightboxSwipe}
           >
             {/* Close hint */}
             <div className="absolute top-4 right-4 text-white/60 text-sm font-mono">
-              Click anywhere to close
+              <span className="hidden md:inline">Click anywhere to close</span>
+              <span className="md:hidden">Tap to close &middot; Swipe to navigate</span>
             </div>
 
             {/* Nav arrows */}
             {screenshots.length > 1 && (
               <>
                 <button
-                  onClick={(e) => { e.stopPropagation(); goTo(activeIndex - 1); }}
+                  onClick={(e) => { e.stopPropagation(); goPrev(); }}
                   className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
                   aria-label="Previous screenshot"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
-                  onClick={(e) => { e.stopPropagation(); goTo(activeIndex + 1); }}
+                  onClick={(e) => { e.stopPropagation(); goNext(); }}
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
                   aria-label="Next screenshot"
                 >
@@ -167,17 +223,22 @@ const ScreenshotGallery = ({ screenshots }: ScreenshotGalleryProps) => {
             )}
 
             {/* Full image */}
-            <motion.img
-              key={activeIndex}
-              src={current.src}
-              alt={current.alt}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="max-w-[95vw] max-h-[90vh] object-contain rounded-lg shadow-2xl cursor-default"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.img
+                key={activeIndex}
+                src={current.src}
+                alt={current.alt}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+                className="max-w-[95vw] max-h-[90vh] object-contain rounded-lg shadow-2xl cursor-default"
+                onClick={(e) => e.stopPropagation()}
+                draggable={false}
+              />
+            </AnimatePresence>
 
             {/* Caption */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 max-w-lg text-center">
