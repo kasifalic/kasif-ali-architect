@@ -25,27 +25,11 @@ interface CompanyWidgetProps {
   newsSearchTerm?: string;
 }
 
-const isDev = import.meta.env.DEV;
-
 async function fetchStockQuote(symbol: string): Promise<StockData | null> {
   try {
-    let url: string;
-    if (isDev) {
-      url = `/api/yahoo/v8/finance/chart/${symbol}?interval=1d&range=1d`;
-    } else {
-      url = `https://api.allorigins.win/get?url=${encodeURIComponent(
-        `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d`
-      )}`;
-    }
-    const res = await fetch(url);
+    const res = await fetch(`/api/stock?symbol=${encodeURIComponent(symbol)}`);
     if (!res.ok) return null;
-    let data;
-    if (isDev) {
-      data = await res.json();
-    } else {
-      const wrapper = await res.json();
-      data = JSON.parse(wrapper.contents);
-    }
+    const data = await res.json();
     const meta = data?.chart?.result?.[0]?.meta;
     if (!meta) return null;
     const price = meta.regularMarketPrice;
@@ -60,23 +44,9 @@ async function fetchStockQuote(symbol: string): Promise<StockData | null> {
 
 async function fetchCompanyNews(companyName: string, maxItems = 4): Promise<NewsItem[]> {
   try {
-    const query = encodeURIComponent(companyName);
-    let url: string;
-    if (isDev) {
-      url = `/api/news/rss/search?q=${query}&hl=en&gl=IN&ceid=IN:en`;
-    } else {
-      const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=en&gl=IN&ceid=IN:en`;
-      url = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-    }
-    const res = await fetch(url);
+    const res = await fetch(`/api/news?q=${encodeURIComponent(companyName)}`);
     if (!res.ok) return [];
-    let text: string;
-    if (isDev) {
-      text = await res.text();
-    } else {
-      const wrapper = await res.json();
-      text = wrapper.contents;
-    }
+    const text = await res.text();
     const parser = new DOMParser();
     const xml = parser.parseFromString(text, 'text/xml');
     const items = xml.querySelectorAll('item');
