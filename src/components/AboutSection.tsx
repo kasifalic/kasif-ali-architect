@@ -10,6 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  PenLine,
+  ExternalLink,
 } from "lucide-react";
 
 const buildathonGalleries = [
@@ -495,32 +497,83 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Education - Simple, elegant */}
-        <div className="bento-item max-w-xl mx-auto">
-          <div
-            className="p-6 rounded-2xl text-center"
-            style={{
-              background: 'linear-gradient(135deg, rgba(201, 168, 108, 0.08) 0%, rgba(232, 213, 163, 0.12) 100%)',
-              border: '1px solid rgba(201, 168, 108, 0.2)'
-            }}
-          >
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <GraduationCap className="w-5 h-5 text-amber-700" />
-              <span className="text-amber-700 text-sm font-semibold tracking-wide uppercase">Education</span>
+        {/* Education & Writing row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Education */}
+          <div className="bento-item">
+            <div
+              className="p-6 rounded-2xl text-center h-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(201, 168, 108, 0.08) 0%, rgba(232, 213, 163, 0.12) 100%)',
+                border: '1px solid rgba(201, 168, 108, 0.2)'
+              }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <GraduationCap className="w-5 h-5 text-amber-700" />
+                <span className="text-amber-700 text-sm font-semibold tracking-wide uppercase">Education</span>
+              </div>
+              <div className="space-y-2">
+                <div>
+                  <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
+                    M.Sc. Computer Science
+                  </h4>
+                  <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2016</p>
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
+                    B.Sc. Computer Science
+                  </h4>
+                  <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2012</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <div>
-                <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  M.Sc. Computer Science
-                </h4>
-                <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2016</p>
+          </div>
+
+          {/* Featured Writing */}
+          <div className="bento-item">
+            <div
+              className="p-6 rounded-2xl h-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(201, 168, 108, 0.08) 0%, rgba(232, 213, 163, 0.12) 100%)',
+                border: '1px solid rgba(201, 168, 108, 0.2)'
+              }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <PenLine className="w-5 h-5 text-amber-700" />
+                <span className="text-amber-700 text-sm font-semibold tracking-wide uppercase">Featured Writing</span>
               </div>
-              <div>
-                <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
-                  B.Sc. Computer Science
-                </h4>
-                <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2012</p>
+              <div className="space-y-3">
+                {[
+                  { title: "India's Lifeline — The Largest Railway Network", url: "https://medium.com/@kasifaliwdr/indias-lifeline-the-largest-railway-network-in-the-world-10b066f56acb" },
+                  { title: "The Science Behind the Golden State Killer's Capture", url: "https://medium.com/@kasifaliwdr/the-science-behind-the-golden-state-killers-capture-ffac9e61bb6d" },
+                  { title: "LGBTQA+ — All the Colors of the Rainbow", url: "https://medium.com/@kasifaliwdr/lgbtqa-all-the-colors-of-the-rainbow-64d2631f5ded" },
+                ].map((article, i) => (
+                  <a
+                    key={i}
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2 group"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 text-amber-700/60 mt-0.5 shrink-0 group-hover:text-amber-700 transition-colors" />
+                    <span
+                      className="text-sm text-[#2a2218]/80 group-hover:text-amber-700 transition-colors leading-snug"
+                      style={{ fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      {article.title}
+                    </span>
+                  </a>
+                ))}
               </div>
+              <a
+                href="https://medium.com/@kasifaliwdr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4 text-xs text-amber-700/50 hover:text-amber-700 transition-colors"
+                style={{ fontFamily: 'Outfit, sans-serif' }}
+              >
+                View all on Medium →
+              </a>
             </div>
           </div>
         </div>
