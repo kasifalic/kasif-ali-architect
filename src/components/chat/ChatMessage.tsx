@@ -31,11 +31,11 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
           <div className="text-sm chat-markdown">
             <ReactMarkdown
               components={{
-                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
-                li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                p: ({ children }) => <p className="mb-2.5 last:mb-0 leading-relaxed">{children}</p>,
+                strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
+                ul: ({ children }) => <ul className="list-disc pl-5 mb-2.5 space-y-1.5">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal pl-5 mb-2.5 space-y-1.5">{children}</ol>,
+                li: ({ children }) => <li className="leading-relaxed pl-0.5">{children}</li>,
                 code: ({ children }) => (
                   <code className="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded text-xs font-mono">
                     {children}
@@ -46,9 +46,9 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
                     {children}
                   </a>
                 ),
-                h1: ({ children }) => <p className="font-bold text-base mb-1">{children}</p>,
-                h2: ({ children }) => <p className="font-bold text-base mb-1">{children}</p>,
-                h3: ({ children }) => <p className="font-semibold mb-1">{children}</p>,
+                h1: ({ children }) => <p className="font-bold text-base mb-1.5 mt-1">{children}</p>,
+                h2: ({ children }) => <p className="font-bold text-base mb-1.5 mt-1">{children}</p>,
+                h3: ({ children }) => <p className="font-semibold mb-1 mt-1">{children}</p>,
               }}
             >
               {message.content}
