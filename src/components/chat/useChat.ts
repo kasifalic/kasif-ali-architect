@@ -14,7 +14,7 @@ export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      content: "Hi there! I'm Kasif's assistant. I can answer questions about his projects, experience, or technical skills. How can I help you?",
+      content: "Hey! I'm Kasif's portfolio sidekick. Ask me anything about his **projects**, **experience**, or **tech skills** — I've got all the details!",
       isUser: false,
       timestamp: new Date(),
     },
