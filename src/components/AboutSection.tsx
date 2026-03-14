@@ -508,24 +508,20 @@ const AboutSection = () => {
               <GraduationCap className="w-5 h-5 text-amber-700" />
               <span className="text-amber-700 text-sm font-semibold tracking-wide uppercase">Education</span>
             </div>
-            <h4
-              className="text-xl font-bold text-[#2a2218] mb-1"
-              style={{ fontFamily: 'Sora, sans-serif' }}
-            >
-              M.Sc. Computer Science
-            </h4>
-            <p className="text-[#5a4a3a]/70" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              <a
-                href="https://www.alagappauniversity.ac.in/homepage"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-amber-700 transition-colors underline decoration-dotted underline-offset-4"
-                aria-label="Alagappa University (opens in new window)"
-              >
-                Alagappa University
-              </a>
-              , 2016
-            </p>
+            <div className="space-y-2">
+              <div>
+                <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
+                  M.Sc. Computer Science
+                </h4>
+                <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2016</p>
+              </div>
+              <div>
+                <h4 className="text-xl font-bold text-[#2a2218]" style={{ fontFamily: 'Sora, sans-serif' }}>
+                  B.Sc. Computer Science
+                </h4>
+                <p className="text-[#5a4a3a]/70 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>2012</p>
+              </div>
+            </div>
           </div>
         </div>
 

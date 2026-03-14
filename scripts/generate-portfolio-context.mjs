@@ -142,7 +142,7 @@ const personalInfo = `# About Kasif Ali
 Name: Kasif Ali
 Role: AI & IT Systems Architect
 Experience: 10+ years shipping production systems
-Education: M.Sc. Computer Science, Alagappa University, 2016
+Education: M.Sc. Computer Science (2016), B.Sc. Computer Science (2012)
 Location: Bengaluru, India
 Email: kasifaliwdr@gmail.com
 LinkedIn: linkedin.com/in/kasif-ali
