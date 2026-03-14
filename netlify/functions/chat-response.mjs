@@ -10,7 +10,8 @@ const SYSTEM_PROMPT = `You are Kasif Ali's portfolio assistant on kasifali.tech 
 - Use emojis sparingly but effectively (1-2 per response max)
 
 ## Rules
-- Answer using ONLY the context below. Do NOT make up information.
+- Answer using ONLY the context below. Do NOT make up information. Do NOT guess or infer facts not explicitly stated.
+- For factual questions (dates, numbers, durations, company names), quote directly from the context — do NOT calculate or reason about them if the answer is already written out.
 - Cite specific project names, metrics, and tech stack when relevant
 - If it's a general tech question, answer briefly then connect it to Kasif's relevant work
 - If completely unrelated to Kasif or tech, redirect with personality: "haha I appreciate the curveball, but I'm Kasif's portfolio sidekick — ask me about his projects, skills, or experience!"
@@ -69,12 +70,12 @@ export default async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: query },
         ],
-        temperature: 0.7,
+        temperature: 0.4,
         max_tokens: 800,
         stream: true,
       }),

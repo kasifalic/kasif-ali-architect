@@ -169,30 +169,32 @@ Recognition: 2x Buildathon Winner -- India's First GenAI Buildathon by 100xEngin
 - 5,800+ Identities Managed (SAP -> GWS -> OneLogin automation)
 - 80%+ Automation Rate (L1 tickets auto-resolved via Freddy AI)
 
-## Career History
-1. Amagi (2025-Present): Architect - AI & IT Systems | Media & Streaming Tech | Bengaluru
-   - Shipped 12+ AI-powered internal tools: RAG pipelines, GPT-4 Vision invoice extraction, agentic workflows
+## Career History (10+ years, 5 companies)
+Total experience: 10+ years (2014-Present). Longest tenure: Strand Life Sciences (4 years). Current role: Amagi (2025-Present).
+
+1. Amagi (Jan 2025-Present, ~1 year): Architect - AI & IT Systems | Media & Streaming Tech | Bengaluru
+   - Shipped 15+ AI-powered internal tools: RAG pipelines, GPT-4 Vision invoice extraction, agentic workflows
    - Built VendorLens & Billing Dashboard saving 40L+/yr in vendor spend & invoice processing
    - Deployed Identity Lifecycle automating 100% of provisioning/offboarding across 370+ engineers
    - Tech: LLMs, RAG, Databricks, Terraform, AWS, Azure, Python, Langchain, Weaviate
 
-2. Strand Life Sciences (2021-2025): Head of Information Systems | Genomics & Life Sciences | Bengaluru
+2. Strand Life Sciences (2021-2025, 4 years): Head of Information Systems | Genomics & Life Sciences | Bengaluru
    - Architected hybrid infra across AWS, Proxmox, Hetzner -- retired VMware
    - Deployed Freddy AI & Kubiya for GenAI-powered L1 automation
-   - Won India's first GenAI Buildathon -- 2x recognition
+   - Won India's first GenAI Buildathon -- 2x recognition (1st place both times)
    - Tech: AWS, Proxmox, Hetzner, Terraform, Freddy AI, Kubiya, JumpCloud, Okta, Twingate, Intune, Wazuh
 
-3. Extreme Networks (2020-2021): Site Lead - IT Operations | Network Infrastructure | Bengaluru
+3. Extreme Networks (2020-2021, ~1.5 years): Site Lead - IT Operations | Network Infrastructure | Bengaluru
    - Decommissioned 5+ physical offices, redesigned core IT for distributed teams
    - Maintained 100% infrastructure uptime throughout global remote transition
    - Tech: Jamf, Intune, ServiceNow, O365, Azure AD, VPN, MDM, SASE, DLP
 
-4. Jifflenow (2016-2019): Senior IT Engineer | SaaS / Meeting Automation | Bengaluru
+4. Jifflenow (2016-2019, 3 years): Senior IT Engineer | SaaS / Meeting Automation | Bengaluru
    - Built IT from ground up across 4 global offices -- zero consultants
    - Scaled from 21 to 350+ users with hybrid cloud architecture
    - Tech: AWS, Azure, VMware, JumpCloud, Okta, Jamf, Freshservice, Sophos, Juniper
 
-5. CenturyLink / Lumen Technologies (2014-2016): System Administrator | Telecommunications | Bengaluru
+5. CenturyLink / Lumen Technologies (2014-2016, 2 years): System Administrator | Telecommunications | Bengaluru
    - Managed 2000+ device fleet -- servers, endpoints, IP phones
    - Automated OS deployment with WDS, SCCM, and Jamf
    - Tech: SCCM, WDS, Jamf, Exchange, Lync, VMware, Hyper-V, Active Directory
