@@ -321,7 +321,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Spend Tracked", value: "$27M+" },
+      { label: "Spend Tracked", value: "$30M+" },
       { label: "Vendors", value: "300+" },
       { label: "Tools Classified", value: "370+" },
       { label: "Subscriptions", value: "400+" },
@@ -547,7 +547,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Assets Tracked", value: "1,178" },
+      { label: "Assets Tracked", value: "1,800+" },
       { label: "Compliance Rate", value: "70.2%" },
       { label: "Compliant Devices", value: "827" },
       { label: "Non-Compliant", value: "351" },
@@ -576,7 +576,7 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-violet-500",
     heroImage: "gradient-violet",
 
-    overview: "Billing Dashboard is an AI-powered email analytics and intelligence platform built for the billing team at Amagi Media. It processes 21,000+ emails using GPT-4 for automated classification, multi-stage invoice extraction via GPT-4 Vision, and hybrid semantic search combining pgvector embeddings with PostgreSQL full-text search through Reciprocal Rank Fusion.",
+    overview: "Billing Dashboard is an AI-powered email analytics and intelligence platform built for the billing team at Amagi Media. It processes 121,000+ emails using GPT-4 for automated classification, multi-stage invoice extraction via GPT-4 Vision, and hybrid semantic search combining pgvector embeddings with PostgreSQL full-text search through Reciprocal Rank Fusion.",
 
     challenge: "The billing team was drowning in email volume — manually sorting invoices from queries, escalations from approvals across 5 mailboxes. Critical invoices were missed in the noise, and SLA compliance sat at just 65%. There was no way to search historical conversations semantically, no automated way to extract invoice amounts from scanned PDFs, and no integration with the enterprise ERP or CRM for customer context. Response times regularly exceeded 48 hours for routine queries.",
 
@@ -601,7 +601,7 @@ export const projectsData: ProjectArticle[] = [
 
     architecture: "Gmail OAuth 2.0 ingests emails from 5 mailboxes into PostgreSQL with pgvector extension. Celery workers handle four async task types: email_sync (hourly pulls), classification (batch GPT-4 processing), thread_resolution (async status detection), and cache_warming (every 2-4 minutes via Redis). The classification service chains GPT-4 for type/priority/sentiment analysis, GPT-4 Vision for invoice extraction from scanned PDFs, and GPT-4o-mini for thread resolution. Hybrid search combines TSVECTOR keyword matching with pgvector cosine similarity, merged using Reciprocal Rank Fusion with configurable weights. Enterprise ERP and CRM integrations run on-demand via REST APIs for customer enrichment and invoice correlation. The React frontend queries FastAPI endpoints for real-time dashboards across 6 views: Summary, Team, Customers, Entities, AI Insights, and Search.",
 
-    impact: "The billing team achieved 80% reduction in manual email sorting and SLA compliance improved from 65% to 92%. Response times dropped from 48+ hours to under 24 hours for routine queries. The AI classification system maintains 95% accuracy across 21,000+ processed emails. Critical invoices are now surfaced automatically with extracted amounts. The hybrid search system finds relevant historical emails in seconds, even with fuzzy natural language queries. Customer analytics now track 500+ accounts with multi-currency open value visibility.",
+    impact: "The billing team achieved 80% reduction in manual email sorting and SLA compliance improved from 65% to 92%. Response times dropped from 48+ hours to under 24 hours for routine queries. The AI classification system maintains 95% accuracy across 121,000+ processed emails. Critical invoices are now surfaced automatically with extracted amounts. The hybrid search system finds relevant historical emails in seconds, even with fuzzy natural language queries. Customer analytics now track 500+ accounts with multi-currency open value visibility.",
 
     keyDecisions: [
       {
@@ -786,7 +786,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Emails Processed", value: "21,000+" },
+      { label: "Emails Processed", value: "1121,000+" },
       { label: "Classification Accuracy", value: "95%" },
       { label: "Mailboxes Synced", value: "5" },
       { label: "Services Built", value: "18+" },
@@ -815,14 +815,14 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-blue-500",
     heroImage: "gradient-blue",
 
-    overview: "Payable Dashboard is a real-time email monitoring and analytics platform built for the Accounts Payable team. It indexes 21,000+ vendor communications with AI-powered semantic search, surfaces emails with real attachments (filtering noise from signatures and footers), and provides vendor sentiment analysis, SLA tracking, and team productivity scoring — all integrated with enterprise ERP and CRM systems.",
+    overview: "Payable Dashboard is a real-time email monitoring and analytics platform built for the Accounts Payable team. It indexes 121,000+ vendor communications with AI-powered semantic search, surfaces emails with real attachments (filtering noise from signatures and footers), and provides vendor sentiment analysis, SLA tracking, and team productivity scoring — all integrated with enterprise ERP and CRM systems.",
 
     challenge: "The AP team processed thousands of vendor emails monthly across payment delays, invoice queries, PO disputes, and tax questions — all without centralized tracking. Finding a specific vendor communication from months ago meant 15-20 minutes of manual inbox searching. Managers had no visibility into team workload distribution, SLA compliance was unmeasured, and high-risk vendor relationships went undetected until escalations. The team also needed a way to quickly access invoice attachments without wading through email noise — reply chains, signatures, and marketing footers made finding real documents painful.",
 
     solution: "Built a FastAPI + React platform deployed on AWS Amplify and EC2. Emails are ingested via Gmail OAuth and stored in PostgreSQL with pgvector for 3072-dimensional semantic embeddings (text-embedding-3-large). A smart attachment filter separates real financial documents (invoices, POs, credit notes) from email noise. Vendor analytics track query patterns across categories (Payment Delays, Invoice Queries, PO Queries, Tax Queries, General Inquiry) with sentiment scoring. Enterprise ERP integration provides AP aging context, while CRM integration adds vendor relationship data. An AI chatbot powered by GPT-4 enables conversational data retrieval with SQL-level query translation and security validation.",
 
     features: [
-      "Semantic search across 21,000+ financial documents using pgvector embeddings",
+      "Semantic search across 121,000+ financial documents using pgvector embeddings",
       "Smart attachment filter — surfaces real invoices and documents, skips email noise",
       "AI chatbot with GPT-4 for conversational AP analytics and secure SQL generation",
       "Vendor sentiment analysis with risk scoring (positive/neutral/negative breakdown)",
@@ -863,7 +863,7 @@ export const projectsData: ProjectArticle[] = [
       {
         label: "Finding Vendor Emails",
         before: "15-20 minutes manually searching inbox, often giving up",
-        after: "Instant semantic search — natural language queries across 21,000+ documents"
+        after: "Instant semantic search — natural language queries across 121,000+ documents"
       },
       {
         label: "SLA Compliance",
@@ -1009,7 +1009,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Emails Indexed", value: "21,000+" },
+      { label: "Emails Indexed", value: "1121,000+" },
       { label: "Active Vendors", value: "170+" },
       { label: "Team Members", value: "10" },
       { label: "SLA Target", value: "48hrs" },

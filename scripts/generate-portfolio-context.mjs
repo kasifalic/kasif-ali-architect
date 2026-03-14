@@ -165,9 +165,9 @@ Recognition: 2x Buildathon Winner -- India's First GenAI Buildathon by 100xEngin
 
 ## Production Impact
 - $300M+ Revenue Processed (SPOG - Databricks financial platform)
-- 21K+ Emails AI-Classified (GPT-4 powered billing intelligence)
+- 121K+ Emails AI-Classified (GPT-4 powered billing intelligence)
 - 5,800+ Identities Managed (SAP -> GWS -> OneLogin automation)
-- 80% Automation Rate (L1 tickets auto-resolved via Freddy AI)
+- 80%+ Automation Rate (L1 tickets auto-resolved via Freddy AI)
 
 ## Career History
 1. Amagi (2025-Present): Architect - AI & IT Systems | Media & Streaming Tech | Bengaluru

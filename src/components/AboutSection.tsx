@@ -84,9 +84,9 @@ const AboutSection = () => {
   // Key milestones from PROJECT_INVENTORY - real numbers
   const milestones = [
     { number: "$300M+", label: "Revenue Processed", sublabel: "SPOG - Databricks financial platform" },
-    { number: "21K+", label: "Emails AI-Classified", sublabel: "GPT-4 powered billing intelligence" },
+    { number: "121K+", label: "Emails AI-Classified", sublabel: "GPT-4 powered billing intelligence" },
     { number: "5,800+", label: "Identities Managed", sublabel: "SAP → GWS → OneLogin automation" },
-    { number: "80%", label: "Automation Rate", sublabel: "L1 tickets auto-resolved via Freddy AI" },
+    { number: "80%+", label: "Automation Rate", sublabel: "L1 tickets auto-resolved via Freddy AI" },
   ];
 
   // Core expertise derived from PROJECT_INVENTORY - AI-first focus

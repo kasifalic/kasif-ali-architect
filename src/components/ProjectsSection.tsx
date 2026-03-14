@@ -319,17 +319,25 @@ const ProjectsSection = () => {
 
           {/* Enhanced Stats row */}
           <div ref={statsRef} className="mt-8 pt-6 border-t border-gray-200" role="region" aria-label="Project impact statistics">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+              <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="15 plus projects shipped">15+</span>
+                <p className="text-xs text-gray-500">Projects Shipped</p>
+              </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
                 <span className="font-sora text-xl font-bold text-amber-600" aria-label="$300 million plus">$300M+</span>
                 <p className="text-xs text-gray-500">Revenue Processed</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
-                <span className="font-sora text-xl font-bold text-amber-600" aria-label="$27 million plus">$27M+</span>
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="$30 million plus">$30M+</span>
                 <p className="text-xs text-gray-500">Spend Managed</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
-                <span className="font-sora text-xl font-bold text-amber-600" aria-label="21 thousand plus">21K+</span>
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="40 lakhs plus per year saved">₹40L+/yr</span>
+                <p className="text-xs text-gray-500">Cost Saved</p>
+              </div>
+              <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="121 thousand plus">121K+</span>
                 <p className="text-xs text-gray-500">Emails AI-Processed</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
@@ -337,11 +345,11 @@ const ProjectsSection = () => {
                 <p className="text-xs text-gray-500">Accounts Managed</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
-                <span className="font-sora text-xl font-bold text-amber-600" aria-label="1,178">1,178</span>
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="1,800 plus">1,800+</span>
                 <p className="text-xs text-gray-500">Endpoints Tracked</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
-                <span className="font-sora text-xl font-bold text-amber-600" aria-label="80 percent">80%</span>
+                <span className="font-sora text-xl font-bold text-amber-600" aria-label="above 80 percent">80%+</span>
                 <p className="text-xs text-gray-500">Automation Rate</p>
               </div>
             </div>

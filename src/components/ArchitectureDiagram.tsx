@@ -1712,7 +1712,7 @@ const PayableDashboardArchitecture = () => {
         <ArchNode
           icon={Database}
           title="PostgreSQL + pgvector"
-          subtitle="21K+ emails  |  Embeddings  |  Analytics"
+          subtitle="121K+ emails  |  Embeddings  |  Analytics"
           variant="service"
           delay={0.45}
         />
