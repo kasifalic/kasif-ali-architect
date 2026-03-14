@@ -319,7 +319,7 @@ const ProjectsSection = () => {
 
           {/* Enhanced Stats row */}
           <div ref={statsRef} className="mt-8 pt-6 border-t border-gray-200" role="region" aria-label="Project impact statistics">
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
                 <span className="font-sora text-xl font-bold text-amber-600" aria-label="15 plus projects shipped">15+</span>
                 <p className="text-xs text-gray-500">Projects Shipped</p>
@@ -331,10 +331,6 @@ const ProjectsSection = () => {
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
                 <span className="font-sora text-xl font-bold text-amber-600" aria-label="$30 million plus">$30M+</span>
                 <p className="text-xs text-gray-500">Spend Managed</p>
-              </div>
-              <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
-                <span className="font-sora text-xl font-bold text-amber-600" aria-label="40 lakhs plus per year saved">₹40L+/yr</span>
-                <p className="text-xs text-gray-500">Cost Saved</p>
               </div>
               <div className="stat-item text-center p-3 rounded-xl bg-white border border-gray-100">
                 <span className="font-sora text-xl font-bold text-amber-600" aria-label="121 thousand plus">121K+</span>
