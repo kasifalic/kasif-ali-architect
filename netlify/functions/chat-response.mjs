@@ -76,24 +76,66 @@ export default async (req) => {
         ],
         temperature: 0.7,
         max_tokens: 800,
+        stream: true,
       }),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      console.error('OpenAI API error:', data);
-      throw new Error(data.error?.message || 'OpenAI API error');
+      const errData = await response.json();
+      console.error('OpenAI API error:', errData);
+      throw new Error(errData.error?.message || 'OpenAI API error');
     }
 
-    const answer = data.choices?.[0]?.message?.content;
-    if (!answer) {
-      throw new Error('Empty response from OpenAI');
-    }
+    // Stream the response through as SSE
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+    const encoder = new TextEncoder();
 
-    return new Response(JSON.stringify({ answer }), {
+    (async () => {
+      try {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith('data: ')) continue;
+            const data = trimmed.slice(6);
+            if (data === '[DONE]') {
+              await writer.write(encoder.encode('data: [DONE]\n\n'));
+              continue;
+            }
+            try {
+              const parsed = JSON.parse(data);
+              const content = parsed.choices?.[0]?.delta?.content;
+              if (content) {
+                await writer.write(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+              }
+            } catch {
+              // skip malformed chunks
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Stream error:', err);
+      } finally {
+        await writer.close();
+      }
+    })();
+
+    return new Response(readable, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
         'Access-Control-Allow-Origin': '*',
       },
     });

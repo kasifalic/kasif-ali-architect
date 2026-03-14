@@ -45,7 +45,9 @@ export const useChat = () => {
       timestamp: new Date(),
     };
 
-    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+    const botMessageId = messages.length + 2;
+
+    setMessages((prev) => [...prev, newUserMessage]);
     setInputMessage("");
     setIsLoading(true);
 
@@ -56,20 +58,65 @@ export const useChat = () => {
         body: JSON.stringify({ query: inputMessage }),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get('content-type') || '';
 
-      if (!data || !data.answer) {
-        throw new Error("Invalid response");
+      // Handle streaming SSE response
+      if (contentType.includes('text/event-stream') && response.body) {
+        // Add empty bot message that we'll stream into
+        const botMessage: Message = {
+          id: botMessageId,
+          content: '',
+          isUser: false,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, botMessage]);
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith('data: ')) continue;
+            const data = trimmed.slice(6);
+            if (data === '[DONE]') continue;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.content) {
+                setMessages((prev) =>
+                  prev.map((msg) =>
+                    msg.id === botMessageId
+                      ? { ...msg, content: msg.content + parsed.content }
+                      : msg
+                  )
+                );
+              }
+            } catch {
+              // skip malformed chunks
+            }
+          }
+        }
+      } else {
+        // Fallback: non-streaming JSON response (e.g. error messages)
+        const data = await response.json();
+        if (!data || !data.answer) throw new Error("Invalid response");
+
+        const botResponse: Message = {
+          id: botMessageId,
+          content: data.answer,
+          isUser: false,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, botResponse]);
       }
-
-      const botResponse: Message = {
-        id: messages.length + 2,
-        content: data.answer,
-        isUser: false,
-        timestamp: new Date(),
-      };
-
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
     } catch (error) {
       console.error("Error getting response:", error);
 
@@ -80,13 +127,13 @@ export const useChat = () => {
       });
 
       const errorMessage: Message = {
-        id: messages.length + 2,
+        id: botMessageId,
         content: "Sorry, I couldn't process that. Please try again, or reach out to Kasif directly at kasifaliwdr@gmail.com.",
         isUser: false,
         timestamp: new Date(),
       };
 
-      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
