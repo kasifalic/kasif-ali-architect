@@ -786,7 +786,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Emails Processed", value: "1121,000+" },
+      { label: "Emails Processed", value: "121,000+" },
       { label: "Classification Accuracy", value: "95%" },
       { label: "Mailboxes Synced", value: "5" },
       { label: "Services Built", value: "18+" },

@@ -297,7 +297,7 @@ const ArticleContent = ({ project }: ArticleContentProps) => {
               transition={{ duration: 0.3, delay: 0.8 + index * 0.05 }}
               className="p-5 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 text-center"
             >
-              <div className="font-sora text-2xl md:text-3xl font-bold text-amber-600 mb-1">
+              <div className="font-sora text-2xl md:text-3xl font-bold text-amber-600 mb-1 whitespace-nowrap">
                 {metric.value}
               </div>
               <div className="text-xs text-gray-600 font-medium">
