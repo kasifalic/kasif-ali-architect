@@ -815,14 +815,14 @@ export const projectsData: ProjectArticle[] = [
     color: "bg-blue-500",
     heroImage: "gradient-blue",
 
-    overview: "Payable Dashboard is a real-time email monitoring and analytics platform built for the Accounts Payable team. It indexes 121,000+ vendor communications with AI-powered semantic search, surfaces emails with real attachments (filtering noise from signatures and footers), and provides vendor sentiment analysis, SLA tracking, and team productivity scoring — all integrated with enterprise ERP and CRM systems.",
+    overview: "Payable Dashboard is a real-time email monitoring and analytics platform built for the Accounts Payable team. It indexes 21,000+ vendor communications with AI-powered semantic search, surfaces emails with real attachments (filtering noise from signatures and footers), and provides vendor sentiment analysis, SLA tracking, and team productivity scoring — all integrated with enterprise ERP and CRM systems.",
 
     challenge: "The AP team processed thousands of vendor emails monthly across payment delays, invoice queries, PO disputes, and tax questions — all without centralized tracking. Finding a specific vendor communication from months ago meant 15-20 minutes of manual inbox searching. Managers had no visibility into team workload distribution, SLA compliance was unmeasured, and high-risk vendor relationships went undetected until escalations. The team also needed a way to quickly access invoice attachments without wading through email noise — reply chains, signatures, and marketing footers made finding real documents painful.",
 
     solution: "Built a FastAPI + React platform deployed on AWS Amplify and EC2. Emails are ingested via Gmail OAuth and stored in PostgreSQL with pgvector for 3072-dimensional semantic embeddings (text-embedding-3-large). A smart attachment filter separates real financial documents (invoices, POs, credit notes) from email noise. Vendor analytics track query patterns across categories (Payment Delays, Invoice Queries, PO Queries, Tax Queries, General Inquiry) with sentiment scoring. Enterprise ERP integration provides AP aging context, while CRM integration adds vendor relationship data. An AI chatbot powered by GPT-4 enables conversational data retrieval with SQL-level query translation and security validation.",
 
     features: [
-      "Semantic search across 121,000+ financial documents using pgvector embeddings",
+      "Semantic search across 21,000+ financial documents using pgvector embeddings",
       "Smart attachment filter — surfaces real invoices and documents, skips email noise",
       "AI chatbot with GPT-4 for conversational AP analytics and secure SQL generation",
       "Vendor sentiment analysis with risk scoring (positive/neutral/negative breakdown)",
@@ -863,7 +863,7 @@ export const projectsData: ProjectArticle[] = [
       {
         label: "Finding Vendor Emails",
         before: "15-20 minutes manually searching inbox, often giving up",
-        after: "Instant semantic search — natural language queries across 121,000+ documents"
+        after: "Instant semantic search — natural language queries across 21,000+ documents"
       },
       {
         label: "SLA Compliance",
@@ -1009,7 +1009,7 @@ export const projectsData: ProjectArticle[] = [
     ],
 
     metrics: [
-      { label: "Emails Indexed", value: "1121,000+" },
+      { label: "Emails Indexed", value: "21,000+" },
       { label: "Active Vendors", value: "170+" },
       { label: "Team Members", value: "10" },
       { label: "SLA Target", value: "48hrs" },
