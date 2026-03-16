@@ -2287,7 +2287,7 @@ export const projectsData: ProjectArticle[] = [
     type: "AI/Finance",
     organization: "Personal",
     category: "Finance & Investment",
-    award: "1st Place — GenAI Buildathon (Open)",
+    award: "1st Place — GenAI Buildathon (Agents)",
     readTime: "8 min read",
     publishDate: "February 2024",
     icon: TrendingUp,
@@ -2318,7 +2318,7 @@ export const projectsData: ProjectArticle[] = [
 
     architecture: "Three-tier architecture: React 19 SPA frontend with Zustand state management and React Query for server-state synchronization, communicating via REST API to a FastAPI async backend. The backend runs 18 specialized services (ai_service, dashboard_service, portfolio_service, stock_service, news_service, ipo_service, performance_service, tax_service, alert_service, broker_service, report_service, etc.) with SQLAlchemy async ORM connecting to PostgreSQL (13 tables) for persistent storage. Redis serves dual duty as market data cache and Celery message broker for background tasks like market data refresh, news aggregation, and portfolio recalculation. External integrations include yfinance for global market data, Indian Stock API for NSE/BSE specifics, and Zerodha Kite Connect for direct broker connectivity.",
 
-    impact: "Nivesha won 1st Place in the Open Category at Amagi's internal GenAI Buildathon, competing against teams across the organization. It consolidates 5+ separate tools (portfolio tracker, stock screener, news aggregator, SIP calculator, IPO tracker) into a single platform. Real-time market indices and portfolio valuations eliminate manual data entry. AI-powered research provides institutional-grade stock analysis in seconds. Goal-based planning with SIP recommendations makes financial planning accessible to retail investors.",
+    impact: "Nivesha won 1st Place in the Agents Category at India's First GenAI Buildathon (1,502 participants), competing against teams across the organization. It consolidates 5+ separate tools (portfolio tracker, stock screener, news aggregator, SIP calculator, IPO tracker) into a single platform. Real-time market indices and portfolio valuations eliminate manual data entry. AI-powered research provides institutional-grade stock analysis in seconds. Goal-based planning with SIP recommendations makes financial planning accessible to retail investors.",
 
     screenshots: [
       {
@@ -2519,7 +2519,7 @@ export const projectsData: ProjectArticle[] = [
     type: "AI Agents",
     organization: "Personal",
     category: "AI & Agents",
-    award: "1st Place — GenAI Buildathon (Agents)",
+    award: "1st Place — GenAI Buildathon (Open)",
     readTime: "10 min read",
     publishDate: "September 2024",
     icon: Zap,

@@ -154,8 +154,8 @@ Website: kasifali.tech
 Philosophy: "I build systems that outlast me." / "The best AI systems don't replace workflows -- they make impossible workflows possible."
 
 Recognition: 2x Buildathon Winner -- India's First GenAI Buildathon by 100xEngineers
-- ZapGap: 1st Place, Agents Category (1st Edition, out of 1,502 participants)
-- Investo (Nivesha): 1st Place, Open Category (2nd Edition, out of 3,497 participants)
+- Nivesha: 1st Place, Agents Category (1st Edition, out of 1,502 participants)
+- ZapGap: 1st Place, Open Category (2nd Edition, out of 3,497 participants)
 
 ## Core Expertise
 1. LLM Systems & RAG: LangChain, LlamaIndex, Weaviate, ChromaDB, PGVector, GPT-4 MultiModals, Gemini MultiModals, Hybrid Semantic Search, Vector Embeddings
